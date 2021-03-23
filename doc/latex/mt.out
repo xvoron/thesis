@@ -1,0 +1,42 @@
+\BOOKMARK [1][-]{section.1}{PM and FDI comparison}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Fault detection and isolation}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Fault Tolerance}{section.1}% 3
+\BOOKMARK [3][-]{subsubsection.1.2.1}{Predictive maintenance}{subsection.1.2}% 4
+\BOOKMARK [2][-]{subsection.1.3}{Methods}{section.1}% 5
+\BOOKMARK [1][-]{section.2}{Models}{}% 6
+\BOOKMARK [2][-]{subsection.2.1}{General 1DOF model dynamic}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.2}{Model overview}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.3}{Hard stop}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.4}{General physical principles}{section.2}% 10
+\BOOKMARK [3][-]{subsubsection.2.4.1}{Thermodynamics}{subsection.2.4}% 11
+\BOOKMARK [3][-]{subsubsection.2.4.2}{Equation of state}{subsection.2.4}% 12
+\BOOKMARK [3][-]{subsubsection.2.4.3}{Isothermal process}{subsection.2.4}% 13
+\BOOKMARK [3][-]{subsubsection.2.4.4}{Adiabatic process}{subsection.2.4}% 14
+\BOOKMARK [3][-]{subsubsection.2.4.5}{Bernoulli's principle}{subsection.2.4}% 15
+\BOOKMARK [3][-]{subsubsection.2.4.6}{Fluid mechanics}{subsection.2.4}% 16
+\BOOKMARK [3][-]{subsubsection.2.4.7}{Air expansion from tank}{subsection.2.4}% 17
+\BOOKMARK [3][-]{subsubsection.2.4.8}{Critical flow velocity}{subsection.2.4}% 18
+\BOOKMARK [2][-]{subsection.2.5}{Pneumatic actuator model}{section.2}% 19
+\BOOKMARK [3][-]{subsubsection.2.5.1}{Pressure models}{subsection.2.5}% 20
+\BOOKMARK [3][-]{subsubsection.2.5.2}{Input/Output mass flows}{subsection.2.5}% 21
+\BOOKMARK [3][-]{subsubsection.2.5.3}{Differential equation for Temperature change}{subsection.2.5}% 22
+\BOOKMARK [3][-]{subsubsection.2.5.4}{Valve model}{subsection.2.5}% 23
+\BOOKMARK [2][-]{subsection.2.6}{Mechanical assembly}{section.2}% 24
+\BOOKMARK [1][-]{section.3}{Models based on approximation}{}% 25
+\BOOKMARK [2][-]{subsection.3.1}{State-space model}{section.3}% 26
+\BOOKMARK [2][-]{subsection.3.2}{ARX model}{section.3}% 27
+\BOOKMARK [1][-]{section.4}{Models comparison}{}% 28
+\BOOKMARK [2][-]{subsection.4.1}{Model based on equations}{section.4}% 29
+\BOOKMARK [2][-]{subsection.4.2}{Model Simscape}{section.4}% 30
+\BOOKMARK [2][-]{subsection.4.3}{Comparison}{section.4}% 31
+\BOOKMARK [1][-]{section.5}{Parameter identification}{}% 32
+\BOOKMARK [2][-]{subsection.5.1}{Mechanical assembly}{section.5}% 33
+\BOOKMARK [2][-]{subsection.5.2}{Cylinder}{section.5}% 34
+\BOOKMARK [2][-]{subsection.5.3}{Valve}{section.5}% 35
+\BOOKMARK [1][-]{section.6}{Preprocessing measured data}{}% 36
+\BOOKMARK [2][-]{subsection.6.1}{Data overview}{section.6}% 37
+\BOOKMARK [2][-]{subsection.6.2}{Preprocessing}{section.6}% 38
+\BOOKMARK [2][-]{subsection.6.3}{Feature extraction}{section.6}% 39
+\BOOKMARK [2][-]{subsection.6.4}{Classification task}{section.6}% 40
+\BOOKMARK [3][-]{subsubsection.6.4.1}{Libraries and Toolboxes:}{subsection.6.4}% 41
+\BOOKMARK [1][-]{section.7}{Model based}{}% 42

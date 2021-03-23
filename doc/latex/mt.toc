@@ -1,0 +1,50 @@
+\babel@toc {english}{}
+\contentsline {section}{\numberline {1}PM and FDI comparison}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Fault detection and isolation}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Fault Tolerance}{3}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}Predictive maintenance}{3}{subsubsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.3}Methods}{4}{subsection.1.3}%
+\contentsline {section}{\numberline {2}Models}{5}{section.2}%
+\contentsline {subsection}{\numberline {2.1}General 1DOF model dynamic}{5}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Model overview}{5}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Hard stop}{6}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}General physical principles}{6}{subsection.2.4}%
+\contentsline {subsubsection}{\numberline {2.4.1}Thermodynamics}{6}{subsubsection.2.4.1}%
+\contentsline {subsubsection}{\numberline {2.4.2}Equation of state}{6}{subsubsection.2.4.2}%
+\contentsline {subsubsection}{\numberline {2.4.3}Isothermal process}{6}{subsubsection.2.4.3}%
+\contentsline {subsubsection}{\numberline {2.4.4}Adiabatic process}{7}{subsubsection.2.4.4}%
+\contentsline {subsubsection}{\numberline {2.4.5}Bernoulli's principle}{7}{subsubsection.2.4.5}%
+\contentsline {subsubsection}{\numberline {2.4.6}Fluid mechanics}{7}{subsubsection.2.4.6}%
+\contentsline {subsubsection}{\numberline {2.4.7}Air expansion from tank}{7}{subsubsection.2.4.7}%
+\contentsline {subsubsection}{\numberline {2.4.8}Critical flow velocity}{8}{subsubsection.2.4.8}%
+\contentsline {subsection}{\numberline {2.5}Pneumatic actuator model}{9}{subsection.2.5}%
+\contentsline {subsubsection}{\numberline {2.5.1}Pressure models}{9}{subsubsection.2.5.1}%
+\contentsline {paragraph}{Isothermal model}{9}{section*.5}%
+\contentsline {paragraph}{Adiabatic model}{10}{section*.6}%
+\contentsline {subsubsection}{\numberline {2.5.2}Input/Output mass flows}{10}{subsubsection.2.5.2}%
+\contentsline {subsubsection}{\numberline {2.5.3}Differential equation for Temperature change}{10}{subsubsection.2.5.3}%
+\contentsline {subsubsection}{\numberline {2.5.4}Valve model}{10}{subsubsection.2.5.4}%
+\contentsline {paragraph}{Valve flow model with simply input control signal}{10}{section*.7}%
+\contentsline {paragraph}{Valve flow with spool mechanic included}{11}{section*.8}%
+\contentsline {paragraph}{Valve flow with spool}{11}{section*.9}%
+\contentsline {paragraph}{Valve model by Endler}{12}{section*.10}%
+\contentsline {paragraph}{Valve dead-zone}{12}{section*.11}%
+\contentsline {subsection}{\numberline {2.6}Mechanical assembly}{12}{subsection.2.6}%
+\contentsline {section}{\numberline {3}Models based on approximation}{12}{section.3}%
+\contentsline {subsection}{\numberline {3.1}State-space model}{13}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}ARX model}{13}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Models comparison}{14}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Model based on equations}{14}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Model Simscape}{14}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Comparison}{15}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Parameter identification}{16}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Mechanical assembly}{16}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Cylinder}{16}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Valve}{16}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Preprocessing measured data}{17}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Data overview}{17}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Preprocessing}{17}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Feature extraction}{18}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Classification task}{19}{subsection.6.4}%
+\contentsline {subsubsection}{\numberline {6.4.1}Libraries and Toolboxes:}{19}{subsubsection.6.4.1}%
+\contentsline {section}{\numberline {7}Model based}{20}{section.7}%

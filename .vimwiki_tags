@@ -1,0 +1,19 @@
+!_TAG_FILE_FORMAT	2
+!_TAG_FILE_SORTED	1
+!_TAG_OUTPUT_MODE	vimwiki-tags
+!_TAG_PROGRAM_AUTHOR	Vimwiki
+!_TAG_PROGRAM_NAME	Vimwiki Tags
+!_TAG_PROGRAM_URL	https://github.com/vimwiki/vimwiki
+!_TAG_PROGRAM_VERSION	2.5
+actuator	trash/math_model_python/math_model_python.md	2;"	vimwiki:trash/math_model_python/math_model_python\ttrash/math_model_python/math_model_python
+data4pm	fdi_pm/Data4PM.md	2;"	vimwiki:fdi_pm/Data4PM\tfdi_pm/Data4PM
+dataset	fdi_pm/Data4PM.md	2;"	vimwiki:fdi_pm/Data4PM\tfdi_pm/Data4PM
+fdi	fdi_pm/fdi_pm.md	3;"	vimwiki:fdi_pm/fdi_pm\tfdi_pm/fdi_pm#fdi
+master	index.md	3;"	vimwiki:index\tindex#master
+matlab	sb_pm/sbpm.md	2;"	vimwiki:sb_pm/sbpm\tsb_pm/sbpm
+model	trash/math_model_python/math_model_python.md	2;"	vimwiki:trash/math_model_python/math_model_python\ttrash/math_model_python/math_model_python
+models	models/models.md	3;"	vimwiki:models/models\tmodels/models#models
+pm	fdi_pm/fdi_pm.md	3;"	vimwiki:fdi_pm/fdi_pm\tfdi_pm/fdi_pm#pm
+pm	sb_pm/sbpm.md	2;"	vimwiki:sb_pm/sbpm\tsb_pm/sbpm
+python	trash/math_model_python/math_model_python.md	2;"	vimwiki:trash/math_model_python/math_model_python\ttrash/math_model_python/math_model_python
+sbpm	sb_pm/sbpm.md	2;"	vimwiki:sb_pm/sbpm\tsb_pm/sbpm

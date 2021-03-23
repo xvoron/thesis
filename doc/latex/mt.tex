@@ -1,0 +1,67 @@
+\documentclass[11pt]{article}
+\usepackage[subpreambles=true]{standalone}
+\usepackage{import}
+
+\usepackage{subcaption}
+\usepackage{sectsty}
+\usepackage{graphicx}
+%\graphicspath{{img/}{../img/}}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{natbib}
+\setcitestyle{square, comma, numbers,sort&compress, super}
+%\bibliographystyle{unsrtnat}
+%\usepackage[nottoc]{tocbibind}
+
+%\usepackage{biblatex}
+%\addbibresource{citations.bib} %usage \cite{test}
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+
+\title{MT}
+\author{Artyom Voronin} 
+\date{\today}
+
+\begin{document}
+\maketitle	
+\tableofcontents
+% --------------------------------------------------------------------------
+% SECTION 1 
+% --------------------------------------------------------------------------
+
+\import{fdipm/}{fdipm}
+\pagebreak
+
+% --------------------------------------------------------------------------
+% SECTION 2 
+% --------------------------------------------------------------------------
+\import{models/}{models}
+\pagebreak
+
+% --------------------------------------------------------------------------
+% SECTION 3 
+% --------------------------------------------------------------------------
+\import{sb/}{sb}
+\pagebreak
+
+% --------------------------------------------------------------------------
+% SECTION 3 
+% --------------------------------------------------------------------------
+\section{Model based}
+\pagebreak
+% --------------------------------------------------------------------------
+% BIBLIOGRAPHY 
+% --------------------------------------------------------------------------
+%\bibliography{citations}
+
+\end{document}

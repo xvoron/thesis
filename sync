@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+# Rewrite more complex
+remt export mt/notes doc/scans/
+remt export mt/models models/doc/scans/
+remt export mt/equations models/doc/scans/
+echo "Sync done!"

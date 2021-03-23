@@ -1,5 +1,6 @@
 data/
 data_backup/
+.vimwiki_tags
 
 
 # Windows default autosave extension

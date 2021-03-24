@@ -1,12 +1,21 @@
-%title Inedtify condition indicators
+%title Identify Condition Indicators
+
+= Contents =
+    - [[#Basics|Basics]]
+    - [[#Signal-Based|Signal-Based]]
+    - [[#Model-Based|Model-Based]]
+        - [[#Model-Based#Static models|Static models]]
+        - [[#Model-Based#Dynamic models|Dynamic models]]
+            - [[#Model-Based#Dynamic models#CI based on model params|CI based on model params]]
+            - [[#Model-Based#Dynamic models#CI based on Residuals|CI based on Residuals]]
+            - [[#Model-Based#Dynamic models#State estimators|State estimators]]
+    - [[#source|source]]
 
 = Basics = 
 *Condition indicators* are features whose behavior changes in predictable
 way as the system degrades or operates in different operation modes.
-
 Any feature that predict health operation or Fault state and might be
 useful for RUL.
-
 
 = Signal-Based =
 A signal-based condition indicators generates from processing signal data.
@@ -29,7 +38,6 @@ dynamic model). CI from model are:
 - Statical properties of model parameters (variance)
 - Dynamical properties (state values by state estimator)
 
-
 == Static models ==
 ???
 Pump example
@@ -43,6 +51,8 @@ Functions for dynamic model fitting:
 - *nlarx*: Nonlinear model using nonlinearity estimators (wavelet net,
   tree, sigmoid net)
 - *recursiveARX*: Real time fit model
+- modalfit
+
 
 === CI based on model params ===
 Any parameter of a model might be a useful condition indicator.
@@ -54,11 +64,11 @@ We can use functions as:
 - pole
 - zero
 
-Another approach is *modalfit*. Modal analysis?
+Another approach is *modalfit*. Modal analysis? XXX
 
 * Differential equations
-* gray-box:
-    - *pem*
+* gray-box: XXX
+    - *pem*: Prediction error minimization
     - *nlarx*
 * Simulink model (simulink design optimization)
 
@@ -80,3 +90,6 @@ Unexpected changes in state values can therefore indicate fault conditions.
 - *unscentedKalmanFilter*
 - *extendedKalmanFilter*
 - *particleFilter*
+
+= source = 
+https://www.mathworks.com/help/predmaint/ug/model-based-condition-indicators.html

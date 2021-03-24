@@ -1,6 +1,6 @@
 clc;clear all;close all;
 addpath('../utils/');
-run params.m;
+%run params.m;
 data1 = load('data/data11_1_1.mat');
 data2 = load('data/data11_1_2.mat');
 data3 = load('data/data11_1_3.mat');

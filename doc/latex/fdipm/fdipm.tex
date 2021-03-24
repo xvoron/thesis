@@ -6,6 +6,7 @@
 %%|_|  \__,_|_| | .__/|_| |_| |_|
 %%              |_|              
 %% Brno, 2021
+
 \documentclass[class=article, crop=false]{standalone}
 \usepackage[subpreambles=true]{standalone}
 \usepackage{subcaption}
@@ -173,6 +174,37 @@ both PM and FDI. For example:
             \item ANN
         \end{itemize}
 \end{itemize}
+
+\subsection{Modeling in PM}
+
+Mathematical model of the real world system can be created using different
+approaches. Modeling based on Physical modeling (Simscape) data-driven
+modeling where system is represented as a "Black box" or some combination
+of this approaches.
+Model with estimated parameters uses for simulation system behavior in
+different working conditions and with different faults during working
+process.
+
+Measured data, Generated data from mathematical model, or Synthetic data
+(Combination of measured and generated) can be used for assessment of
+Condition Indicators. 
+
+Condition Indicators are features extracted from the signals, representing some
+system behavior and hides some information about system processing.
+
+Condition indicators represented by three main domain. There are Time
+domain, Frequency domain, Time-Frequency domain Condition Indicators.
+
+\subsection{Detect and Diagnose Faults}
+Using condition indicators on Test data we can analyze actual system state.
+Designing algorithm is iterative process when you try different
+combinations of condition indicators and different models to evaluate best
+results.
+
+
+
+
+
 
 %\medskip
 %\printbibliography

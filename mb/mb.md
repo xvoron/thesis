@@ -10,14 +10,13 @@
     - [[#Sources|Sources]]
 
 = Manuals =
-- [[../fdi_pm/model_based|Model Based PM]]: MB techniques
-- [[../fdi_pm/condition_indicators|Condition Indicators]]: MB condition indicators
+- [[../doc/notes/model_based|Model Based PM]]: MB techniques
+- [[../doc/notes/condition_indicators|Condition Indicators]]: MB condition indicators
 
-= Notes =
-- [[notes]]
+
 
 = Latex =
-[[file:latex/mb_pm.tex]]
+[[file:../doc/latex/mb/mb.tex]]
 
 = PDF version =
 [[file:latex/mb_pm.pdf]]

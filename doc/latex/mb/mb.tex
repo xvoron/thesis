@@ -1,0 +1,70 @@
+% Artyom Voronin
+%           _                     
+% _ __ ___ | |__  _ __  _ __ ___  
+%| '_ ` _ \| '_ \| '_ \| '_ ` _ \ 
+%| | | | | | |_) | |_) | | | | | |
+%|_| |_| |_|_.__/| .__/|_| |_| |_|
+%                |_|              
+%
+% Brno, 2021
+
+\documentclass[class=article, crop=false]{standalone}
+\usepackage[subpreambles=true]{standalone}
+\usepackage{subcaption}
+
+\usepackage{sectsty}
+\usepackage{graphicx}
+\graphicspath{{img/}{../img/}{../../img/}}
+\usepackage{listings}
+\lstset{language=Matlab}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{import}
+\usepackage{subfiles}
+\usepackage{caption}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+%\usepackage[square, numbers]{natbib}
+%\bibliographystyle{unsrtnat}
+%\usepackage[nottoc]{tocbibind}
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+%\title{Preprocessing data from pneumatic actuator}
+%\author{Artyom Voronin} 
+%\date{}
+
+\begin{document}
+\section{Model-Based PM}
+
+\subsection{Model-Based Condition Indicators}
+Model-Based approach is suitable when it's difficult to identify condition
+indicators using only signals. In some cases it's useful to fit some model
+from data and extract condition indicators as some system parameter.
+
+\subsubsection{Static and Dynamic Models}
+If the system behavior can be fit from the data as a static model, than we
+can extract condition variables from this model. For example, if model
+was fitting to a polynomial model, than polynomial coefficients can be use
+as condition indicators.
+
+Signals showing dynamic behavior can be fitted to dynamic models such as
+State-Space or AR, ARX, NLARX (Nonlinear auto recursive model) and so on.
+Then condition indicators can be extracted as poles, zeros damping
+coefficients from estimated model.
+
+
+\subsubsection{Using Simulink Model}
+Another option is using the Simulink model with \textbf{prediction
+error minimization function} to compute difference between Simulink model
+and measured data. From this difference we can separate fault condition and
+healthy operation. 
+
+
+\end{document}

@@ -41,6 +41,7 @@
 - How much time do i need to do this?
 
 TODO:
-* [ ] Smooth signals ?
+* [X] Add Velocity from LeverPosition 
+* [ ] 
 
 

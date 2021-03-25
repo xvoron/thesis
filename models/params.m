@@ -42,10 +42,6 @@
 % Author: Artyom Voronin
 % Date: 2021, Brno
 
-clc
-clear all
-close all
-
 %% 1. Equation models parameters
 % 1.0 Gas parameters
 rho     = 1.2;          % [kg/m^3] [c] Density of air
@@ -113,10 +109,10 @@ P_cr  = (2/(gamma+1))^(gamma/(gamma-1));
 % C_x_x = C_f*A_v 
 % where C_f is Discharge coefficient and A_v orifice area
 
-C_A_in  = 1.70922245552914e-07;   % [m^2] [e] Valve A side input coefficient
-C_A_out = 1.21798341886547e-07;   % [m^2] [e] Valve A side output coefficient
-C_B_in  = 9.35427447200057e-08;   % [m^2] [e] Valve B side input coefficient
-C_B_out = 4.04291845074131e-07;   % [m^2] [e] Valve B side output coefficient
+C_A_in  = 1.16991103240854e-06;  % [m^2] [e] Valve A side input coefficient
+C_A_out = 8.56405949772472e-07;  % [m^2] [e] Valve A side output coefficient
+C_B_in  = 2.29610139973006e-07;  % [m^2] [e] Valve B side input coefficient
+C_B_out = 9.48518952870443e-07;  % [m^2] [e] Valve B side output coefficient
 
 spool_dynamic = 0.0129687892258071;
 spool_valve_time_delay = 0.030215112821256;
@@ -124,8 +120,10 @@ spool_valve_time_delay = 0.030215112821256;
 % 1.1.3 Control valves
 valve1 = 4;
 valve2 = 2;
+
 valve1_gain = 5e-3;
 valve2_gain = 5e-3;
+
 Kv_max_cntr = 0.89095;  % [-]   [ ] Flow coefficient at maximum
 Kv_min_cntr = 1e-6;     % [-]   [ ] Flow coefficient at leakage
 
@@ -190,8 +188,8 @@ B_hs    = 1e8;    % [kg/s^2]  [ ] Hard stop damping
 K_ks    = 1e6;    % [kg/s^2]  [ ] Hard stop spring
 B_ks    = 1e6;    % [kg/s^2]  [ ] Hard stop damping
 
-gp      = 0.195;  % [m] [ ] Hard stop length from ref point to side
-gn      = 0.005;  % [m] [ ] Hard stop length from ref point to side
+gp      = 0.19382; % [m] [ ] Hard stop length from ref point to side
+gn      = 0;       % [m] [ ] Hard stop length from ref point to side
 
 % Pneumatic parameters
 Smax    = 7.917e-6;     % [m^2]    Maximum cross section 
@@ -207,7 +205,7 @@ Rv      = 1;       % []    [ ] Compressibility
 V       = 0.01;    % [m^3] [ ] Volume
 Ek      = 10;      % []    [ ] Compressibility factor
 f_tr    = 0.07;    %  ?    [ ] Friction between piston and cylinder
-
+tr_hs =  0.1;
 
 % 2. Mechanical system parameters
 b_max   = 0.18;    % [m]
@@ -312,9 +310,9 @@ prox_bot_band    = 4e-4;         % [-] [m] Bottom position
 
 
 %% Estimated parameters:
-% b_small = 5184.3;
+b_small = 5184.3;
 % beta = 0.407;
-% k_small = 219.12;
+k_small = 219.12;
 % valve1_gain = 0.0051;
 % valve2_gain = 0.021385;
 

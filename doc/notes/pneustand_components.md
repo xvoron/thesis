@@ -17,7 +17,7 @@
 | 5128 HBN-20/25x2                    | Foot mounting | X         |
 | 175095 SMBR-8-20                    | Mounting kit  | X         |
 | 527690 MS4-LR-1/8-D7-AD3-AS-WBM     | Ventil        | V         |
-| 531029 MSB4-1/4:C4:J1-WP            | Service unit  | V         |
+| 531029 MSB4-1/4:C4:J1-WP            | Pressure      | V         |
 | 542023 GRP-160-1/8-AL               | Skrtjak       | V         |
 | 559278 DSNU-20-200-PPS-A            | Cylinder      | V         |
 | 564212 VUVG-LK14-B52-T-Q6-1R8L-N3-S | Valve         | V         |

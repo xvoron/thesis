@@ -7,11 +7,18 @@
 %
 clc;clear all;close all;
 
+run sb/import_dataensemble.m
 run models/params.m
 
-member = load('data/data11/data11_1_1.mat').data;
+reset(datastore);
+while hasdata(datastore)
+   member = read(datastore);
+   if member.ThrottleValve1{1,1}.Variables == 0
+      break;
+   end
+end
 
-fault_code = member.FaultCode{1,1}.Variables;
+fault_code = member.FaultCode{1,1};
 
 valve1 = member.ThrottleValve1{1,1}.Variables;
 valve2 = member.ThrottleValve2{1,1}.Variables;
@@ -24,8 +31,8 @@ damp_large_up = member.LargeDamper_upper{1,1}.Variables;
 
 load = member.("Settings.Load"){1,1}{1,1};
 
-temp_cylinder = member.Temp_Cylinder{1,1};
-temp_ambient  = member.Temp_Ambient{1,1};
+%temp_cylinder = member.Temp_Cylinder{1,1};
+%temp_ambient  = member.Temp_Ambient{1,1};
 
 % Signals
 
@@ -66,7 +73,7 @@ pressure = member.AirPressure{1,1};
 
 strain_gauge = member.StrainGauge{1,1};
 
-% Simulation
+%% Simulation
 simOut = sim("models/model_equation.slx")
 
 position_sim = get(simOut.logsout, "LeverPosition").Values

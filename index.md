@@ -31,9 +31,6 @@
 - [[doc/meetings/10_9_2020]]
 - [[doc/meetings/25_02_2021]]
 
-= Trash =
-- [[trash/math_model/Hydraulic_actuators_math_model|math model]]
-- [[trash/math_model_python/math_model_python|math_model_python]]
 ----
 
 = Notes =

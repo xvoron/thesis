@@ -1,4 +1,4 @@
-function [f_code, i_in_u, i_out_x, i_out_dx, i_out_f] = extract_signals4identification(data)
+function [f_code, t, i_in_u1, i_in_u2, i_out_x, i_out_dx, i_out_f] = extract_signals4identification(data)
 
 
 f_code = data.data.FaultCode{1,1};
@@ -14,7 +14,9 @@ if preprocess
     [i_in_u, i_in_t] = preprocess_input(i_in.Data, seconds(i_in.Time));
     i_in_u = [i_in_t, i_in_u];
 else
-    i_in_u = [seconds(i_in.Time), i_in.Data];
+    i_in_u1 = [seconds(i_in1.Time), i_in1.Data];
+    i_in_u2 = [seconds(i_in2.Time), i_in2.Data];
+    t = seconds(i_in1.Time);
 end
 
 i_out = data.data.LeverPosition{1,1};

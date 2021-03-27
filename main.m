@@ -11,12 +11,13 @@ run sb/import_dataensemble.m
 run models/params.m
 
 reset(datastore);
-while hasdata(datastore)
-   member = read(datastore);
-   if member.ThrottleValve1{1,1}.Variables == 0
-      break;
-   end
-end
+member = read(datastore);
+%while hasdata(datastore)
+%   member = read(datastore);
+%   if member.ThrottleValve1{1,1}.Variables == 0
+%      break;
+%   end
+%end
 
 fault_code = member.FaultCode{1,1};
 
@@ -74,9 +75,16 @@ pressure = member.AirPressure{1,1};
 strain_gauge = member.StrainGauge{1,1};
 
 %% Simulation
-simOut = sim("models/model_equation.slx")
+simOut = sim("models/model_equation.slx");
 
-position_sim = get(simOut.logsout, "LeverPosition").Values
+position_sim = get(simOut.logsout, "LeverPosition").Values;
+velocity_sim = get(simOut.logsout, "LeverVelocity").Values;
+prox_up_sim = get(simOut.logsout, "ProximitySensor_upper").Values;
+prox_bot_sim = get(simOut.logsout, "ProximitySensor_bottom").Values;
+prox_up_sim = get(simOut.logsout, "ProximitySensor_upper").Values;
+
+flow_ex_sim = get(simOut.logsout, "FlowExtrusion").Values;
+flow_con_sim = get(simOut.logsout, "FlowContraction").Values;
 
 figure
 hold on
@@ -84,4 +92,33 @@ plot(position.Time, position.Data)
 plot(position_sim.Time, position_sim.Data)
 hold off
 
+figure
+hold on
+plot(prox_up.Time, prox_up.Data)
+plot(prox_up_sim.Time, prox_up_sim.Data)
+hold off
 
+
+figure
+hold on
+plot(prox_bot.Time,     prox_bot.Data)
+plot(prox_bot_sim.Time, prox_bot_sim.Data)
+hold off
+
+figure
+hold on
+plot(velocity.Time,     velocity.Data)
+plot(velocity_sim.Time, velocity_sim.Data)
+hold off
+
+figure
+hold on
+plot(flow_ex.Time,     flow_ex.Data)
+plot(flow_ex_sim.Time, flow_ex_sim.Data)
+hold off
+
+figure
+hold on
+plot(flow_con.Time,     flow_con.Data)
+plot(flow_con_sim.Time, flow_con_sim.Data)
+hold off

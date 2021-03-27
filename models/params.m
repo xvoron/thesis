@@ -131,6 +131,11 @@ Kv_min_cntr = 1e-6;     % [-]   [ ] Flow coefficient at leakage
 valve_k = -0.1;
 valve_q = 1;
 
+conv_SI     = 1.666667e-5;       % [-]      [c] Convert [l/min]->[m^3/s]
+lookup_q_l  = [130 80 50 35 20 15 10 7 5 3];
+lookup_n    = [1 2 3 4 5 6 7 8 9 10]; 
+lookup_q    = lookup_q_l*conv_SI*rho;
+
 % 1.1.4 Tubes, Pipes
 laminar_flow = 1;       % [bool] [ ] Laminar flow (1)/ Turbulent flow (0)
 L_t          = 1;       % [m]    [ ] Tube length
@@ -143,6 +148,7 @@ if laminar_flow
 else
     R_t = 0;
 end
+
 
 % 1.2 Friction, Viscous force
 % Friction force can be modeled by different ways:
@@ -183,10 +189,10 @@ beta = 0;       % [kg/s^2] [e] Viscous friction coefficient
 % 1.3 Hard stop
 L_max   = L;      % [m]       [ ] Hard stop upper bound
 L_min   = 0;      % [m]       [ ] Hard stop upper bound
-K_hs    = 1e6;    % [kg/s^2]  [ ] Hard stop spring
-B_hs    = 1e8;    % [kg/s^2]  [ ] Hard stop damping
-K_ks    = 1e6;    % [kg/s^2]  [ ] Hard stop spring
-B_ks    = 1e6;    % [kg/s^2]  [ ] Hard stop damping
+K_hs    = 1e5;    % [kg/s^2]  [ ] Hard stop spring
+B_hs    = 1e5;    % [kg/s^2]  [ ] Hard stop damping
+K_ks    = 1e5;    % [kg/s^2]  [ ] Hard stop spring
+B_ks    = 1e5;    % [kg/s^2]  [ ] Hard stop damping
 
 gp      = 0.19382; % [m] [ ] Hard stop length from ref point to side
 gn      = 0;       % [m] [ ] Hard stop length from ref point to side
@@ -233,6 +239,9 @@ k_small_up = 1.7244;        % [kg/m] [e] Spring coefficient
 damp_small_gain_up = 4;
 damp_small_gain_bot = 4;
 
+SmallDamper_bottom = 6;
+SmallDamper_upper  = 4;
+
 bot_damp_start = 0.01054;   % [m] [e] Lower damper starting point
 up_damp_start  =  0.18123;  % [m] [e] Upper damper starting point
 
@@ -241,6 +250,13 @@ b_small_bot = 18164;
 b_small_up = 7110.2;
 k_small_bot = 1.5693;
 k_small_up = 630.06;
+
+% without K
+k_small_bot = 0;
+k_small_up = 0;
+
+b_small_bot = 3.03e3;
+b_small_up  = 1.78e3;
 
 % Initial Conditions 
 
@@ -254,7 +270,7 @@ T_B0    = T;                    % [K]   [ ] Initial temperature in chamber A
 p_A0    = m_A0*R*T_A0/V_A0;     % [Pa]  [ ] Initial pressure in chamber A
 p_B0    = m_B0*R*T_B0/V_B0;     % [Pa]  [ ] Initial pressure in chamber A
 p_A0    = P_0;
-p_B0    = P_0;
+p_B0    = P_s;
 
 
 
@@ -303,7 +319,7 @@ flow_C = flow_enable/flow_C_ratio/conv_SI;
 
 
 % 4.2 Proximity sensors:
-prox_up_band     = 0.1920;       % [-] [m] Upper position
+prox_up_band     = 0.1925;       % [-] [m] Upper position
 prox_bot_band    = 4e-4;         % [-] [m] Bottom position
 
 
@@ -332,3 +348,13 @@ k_small = 219.12;
 
 
 %test
+%
+%% Input signals for simulation:
+member = load('../data/data11/data11_1_1.mat');
+inp_u1 = member.data.outValveHP{1,1};
+inp_u2 = member.data.outValveWP{1,1};
+t = seconds(inp_u1.Time);
+u1 = inp_u1.Data;
+u2 = inp_u2.Data;
+
+

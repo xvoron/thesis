@@ -12,6 +12,15 @@ Preprocess signals but without fanatismus :)
 [[../doc/notes/signal_process.md]]
 
 
+= FaultCodes Notes =
+
+XXX FaultCode: 1100818
+SmallDamper_bottom = 8
+Anomalie ve vrchnim damperu. Urcite to bude nejaky problem
+
+* What to do with data?
+- Nothing for that but it must be solved in near feature !
+
 
 
 = Features =

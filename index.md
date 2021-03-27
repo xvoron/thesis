@@ -7,7 +7,6 @@
     - [[#Sections|Sections]]
     - [[#doc|doc]]
     - [[#Meetings|Meetings]]
-    - [[#Trash|Trash]]
     - [[#Notes|Notes]]
 
 = Info =
@@ -39,6 +38,6 @@
 
 TODO:
 * [X] Add Velocity from LeverPosition 
-* [ ] 
+* [ ] FaultCode of Failure data
 
 

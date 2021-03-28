@@ -38,6 +38,7 @@
 
 TODO:
 * [X] Add Velocity from LeverPosition 
-* [ ] FaultCode of Failure data
+* [ ] FaultCode of Failure data remote or note? ask brablc
+* [ ] 
 
 

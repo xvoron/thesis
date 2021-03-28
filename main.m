@@ -10,27 +10,28 @@ clc;clear all;close all;
 run sb/import_dataensemble.m
 run models/params.m
 
+
+fault_code = "1103230";
 reset(datastore);
-member = read(datastore);
-%while hasdata(datastore)
-%   member = read(datastore);
-%   if member.ThrottleValve1{1,1}.Variables == 0
-%      break;
-%   end
-%end
+while hasdata(datastore)
+   member = read(datastore);
+   if member.FaultCode{1,1} == fault_code
+      break;
+   end
+end
 
 fault_code = member.FaultCode{1,1};
 
-valve1 = member.ThrottleValve1{1,1}.Variables;
-valve2 = member.ThrottleValve2{1,1}.Variables;
+valve2 = member.ThrottleValve1{1,1}.Variables;
+valve1 = member.ThrottleValve2{1,1}.Variables;
 
-damp_small_bot = member.SmallDamper_bottom{1,1}.Variables;
-damp_small_up = member.SmallDamper_upper{1,1}.Variables;
+SmallDamper_bottom = member.SmallDamper_bottom{1,1}.Variables;
+SmallDamper_upper = member.SmallDamper_upper{1,1}.Variables;
 
 damp_large_bot = member.LargeDamper_bottom{1,1}.Variables;
 damp_large_up = member.LargeDamper_upper{1,1}.Variables;
 
-load = member.("Settings.Load"){1,1}{1,1};
+M_L = member.("Settings.Load"){1,1}{1,1};
 
 %temp_cylinder = member.Temp_Cylinder{1,1};
 %temp_ambient  = member.Temp_Ambient{1,1};
@@ -90,12 +91,14 @@ figure
 hold on
 plot(position.Time, position.Data)
 plot(position_sim.Time, position_sim.Data)
+legend
 hold off
 
 figure
 hold on
 plot(prox_up.Time, prox_up.Data)
 plot(prox_up_sim.Time, prox_up_sim.Data)
+legend
 hold off
 
 
@@ -103,22 +106,26 @@ figure
 hold on
 plot(prox_bot.Time,     prox_bot.Data)
 plot(prox_bot_sim.Time, prox_bot_sim.Data)
+legend
 hold off
 
 figure
 hold on
 plot(velocity.Time,     velocity.Data)
 plot(velocity_sim.Time, velocity_sim.Data)
+legend
 hold off
 
 figure
 hold on
 plot(flow_ex.Time,     flow_ex.Data)
 plot(flow_ex_sim.Time, flow_ex_sim.Data)
+legend
 hold off
 
 figure
 hold on
 plot(flow_con.Time,     flow_con.Data)
 plot(flow_con_sim.Time, flow_con_sim.Data)
+legend
 hold off

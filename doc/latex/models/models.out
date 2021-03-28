@@ -1,6 +1,6 @@
-\BOOKMARK [1][-]{section.1}{Models}{}% 1
-\BOOKMARK [2][-]{subsection.1.1}{General 1DOF model dynamic}{section.1}% 2
-\BOOKMARK [2][-]{subsection.1.2}{Model overview}{section.1}% 3
+\BOOKMARK [1][-]{section.1}{Pneumatic system modeling}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Pneumatic system overview}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{General 1DOF model dynamic}{section.1}% 3
 \BOOKMARK [2][-]{subsection.1.3}{Hard stop}{section.1}% 4
 \BOOKMARK [2][-]{subsection.1.4}{General physical principles}{section.1}% 5
 \BOOKMARK [3][-]{subsubsection.1.4.1}{Thermodynamics}{subsection.1.4}% 6

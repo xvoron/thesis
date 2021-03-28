@@ -49,46 +49,9 @@
 % -------------------------------------------------------
 % Section
 % -------------------------------------------------------
-\section{Models}
-\subsection{General 1DOF model dynamic}
-\begin{align}\label{eq:1dof}
-m\ddot{x} +b\dot{x} + kx = u
-\end{align}
+\section{Pneumatic system modeling}
 
-\begin{align}
-    \ddot{x} +\frac{b}{m}\dot{x} + \frac{k}{m}x = \frac{1}{m}u
-\end{align}
-
-\begin{align}
-    \ddot{x} +2\delta\dot{x} + \Omega^2x = \frac{1}{m}u
-\end{align}
-where $\delta = \frac{b}{2m}$ is damping and $\Omega = \sqrt{\frac{k}{m}}$
-is natural frequency of system.
-\begin{align}
-    \ddot{x} +2\zeta\Omega\dot{x} + \Omega^2x = \frac{1}{m}u
-\end{align}
-where $\zeta = \frac{b}{2\sqrt{km}}$ is damping ratio.
-
-\subsection{Model overview}
-
-%\begin{figure}
-%    \centering
-%    \begin{subfigure}[b]{0.3\textwidth}
-%        \centering
-%        \includegraphics[width=0.5\textwidth]{model_draw_vec.png}
-%        \caption{Schamatic model assemble}
-%        \label{fig:model_draw}
-%    \end{subfigure}
-%    \hfill
-%    \begin{subfigure}[b]{0.3\textwidth}
-%        \centering
-%        \includegraphics[width=0.5\textwidth]{}
-%        \caption{}
-%        \label{fig:}
-%    \end{subfigure}
-%    \caption{Assemble}
-%    \label{fig:}
-%\end{figure}
+\subsection{Pneumatic system overview}
 
 \begin{figure}[h!]
     \centering
@@ -96,6 +59,52 @@ where $\zeta = \frac{b}{2\sqrt{km}}$ is damping ratio.
     \caption{Schematic model}
     \label{fig:model_draw}
 \end{figure}
+
+
+\subsection{General 1DOF model dynamic}
+The motion of the pneumatic piston mechanism describes in terms of the
+general 1dof dynamical equation \ref{eq:1dof}. 
+
+\begin{equation}
+    m\ddot{x} + b\dot{x} + kx = u
+    \label{eq:1dof}
+\end{equation}
+
+\begin{equation*}
+    \ddot{x} +\frac{b}{m}\dot{x} + \frac{k}{m}x = \frac{1}{m}u
+\end{equation*}
+
+\begin{equation*}
+    \ddot{x} +2\delta\dot{x} + \Omega^2x = \frac{1}{m}u
+\end{equation*}
+
+where $\delta = \frac{b}{2m}$ is damping and $\Omega = \sqrt{\frac{k}{m}}$
+is natural frequency of system.
+\begin{equation*}
+    \ddot{x} +2\zeta\Omega\dot{x} + \Omega^2x = \frac{1}{m}u
+\end{equation*}
+where $\zeta = \frac{b}{2\sqrt{km}}$ is damping ratio.
+
+In the case of the pneumatic piston, the equation \ref{eq:1dof}
+transforms into an equation \ref{eq:mechanical}.
+
+\begin{equation}
+    (M + M_L) \ddot{x} + F_{damp} + F_g + F_{hs}  = F_p
+    \label{eq:mechanical}
+\end{equation}
+
+Where $M$ represents a mass of the all moveable part of the piston,
+$M_L$ is load mass, $F_g$ gravity force acting to mechanical moving assembly,
+$F_{hs}$ - models endpoints (hard stop),
+$F_{damp}$ represents shock absorbers acted at endpoints,
+$F_{p}$ is a force produced by the pneumatic piston \ref{eq:pneum}.
+
+\begin{equation}
+    F_p = P_A S_A - P_B S_B - P_0 S_0
+    \label{eq:pneum}
+\end{equation}
+
+
 
 \subsection{Hard stop}
 Hard stop can be represented as spring and dumps:

@@ -130,6 +130,11 @@ Kv_min_cntr = 1e-6;     % [-]   [ ] Flow coefficient at leakage
 % y = kx + q;
 valve_k = -0.1;
 valve_q = 1;
+% polynomial model is more precision
+p2 = 0.0083;
+p1 = -0.1833;
+p0 = 1;
+
 
 conv_SI     = 1.666667e-5;       % [-]      [c] Convert [l/min]->[m^3/s]
 lookup_q_l  = [130 80 50 35 20 15 10 7 5 3];
@@ -358,3 +363,11 @@ u1 = inp_u1.Data;
 u2 = inp_u2.Data;
 
 
+C_B_in = 5.422e-07;
+C_B_out = 1.6346e-06;
+C_A_in = 6.6254e-07;
+C_A_out = 5.1408e-07;
+b_small_bot = 2056.2;
+b_small_up = 1350.3;
+spool_dynamic = 0.012096;
+spool_valve_time_delay = 0.020455;

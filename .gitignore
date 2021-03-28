@@ -2,6 +2,8 @@ data/
 data_backup/
 .vimwiki_tags
 html/
+.*.swp
+*.swp
 
 
 # Windows default autosave extension

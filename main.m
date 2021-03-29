@@ -11,7 +11,7 @@ run sb/import_dataensemble.m
 run models/params.m
 
 
-fault_code = "1103230";
+fault_code = "1101609";
 reset(datastore);
 while hasdata(datastore)
    member = read(datastore);

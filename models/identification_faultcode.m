@@ -1,7 +1,7 @@
 % Identification 
 clc;clear all;close all;
 
-fault_code = "1103203"; % USER INPUT
+fault_code = "1101610"; % USER INPUT
 
 run ../utils/import_only_signals_datastore.m
 run params.m

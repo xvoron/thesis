@@ -120,8 +120,8 @@ spool_dynamic = 0.0129687892258071;
 spool_valve_time_delay = 0.030215112821256;
 
 % 1.1.3 Control valves
-valve1 = 4;
-valve2 = 2;
+valve1 = 8;
+valve2 = 4;
 
 valve1_gain = 5e-3;
 valve2_gain = 5e-3;
@@ -129,20 +129,20 @@ valve2_gain = 5e-3;
 Kv_max_cntr = 0.89095;  % [-]   [ ] Flow coefficient at maximum
 Kv_min_cntr = 1e-6;     % [-]   [ ] Flow coefficient at leakage
 
-% y = kx + q;
-valve_k = -0.1;
-valve_q = 1;
-
-% polynomial model is more precision
-p2 = 0.0083;
-p1 = -0.1833;
-p0 = 1;
-
-
 conv_SI     = 1.666667e-5;       % [-]      [c] Convert [l/min]->[m^3/s]
-lookup_q_l  = [130 80 50 35 20 15 10 7 5 3];
-lookup_n    = [1 2 3 4 5 6 7 8 9 10]; 
+lookup_q_l  = [130 80 50 35 20 15 10 5 3 2 0.5];
+lookup_q_n  = lookup_q_l/130;
+
+lookup_n    = [1 2 3 4 5 6 7 8 9 10 11]; 
 lookup_q    = lookup_q_l*conv_SI*rho;
+
+% polynomial model 3
+p = polyfit(lookup_n, lookup_q_n, 4);
+p4 = p(1);
+p3 = p(2);
+p2 = p(3);
+p1 = p(4);
+p0 = p(5);
 
 % 1.1.4 Tubes, Pipes
 laminar_flow = 1;       % [bool] [ ] Laminar flow (1)/ Turbulent flow (0)
@@ -374,3 +374,23 @@ b_small_bot = 2056.2;
 b_small_up = 1350.3;
 spool_dynamic = 0.012096;
 spool_valve_time_delay = 0.020455;
+
+d_v = 6e-3;             % [m]   [c] Nominal diameter orifice diameter
+A_v = pi*d_v^2/4;       % [m^2] [ ] Nominal Bore
+% A_v = 7.917e-6;       % [m^2] [ ] Maximum cross section 
+
+Kv_max_main = 0.269388; 
+C_adj_in = 0.1969696;
+C_adj_out = 0.371212;
+C_B_in  = Kv_max_main*A_v;
+C_B_out = Kv_max_main*A_v;
+C_A_in  = Kv_max_main*A_v;
+C_A_out = Kv_max_main*A_v;
+
+
+C_adj_in = 0.164370373676547;
+C_adj_out = 0.0892545896672297;
+spool_dynamic = 0.0211675780438368;
+spool_valve_time_delay = 0.0169649581718457;
+b_small_bot = 2056.46743029704;
+b_small_up = 1417.14082244839;

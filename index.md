@@ -39,6 +39,7 @@
 TODO:
 * [X] Add Velocity from LeverPosition 
 * [ ] FaultCode of Failure data remote or note? ask brablc
-* [ ] 
+* [ ] Add latex to git ignore
+* [ ] Friction R ~ 10% [N]
 
 

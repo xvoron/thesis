@@ -29,9 +29,11 @@ source: [[file:../sources/predmaint_ug.pdf]]
 - [[Models4FD]]: decision models for fault detection and diagnosis
 - [[model_based]]: model based techniques
 
+= FDI =
+- [[fault_diagnosis]]
 = PM materials =
-[[PM_detect_faults_cnn]]
-[[fault_codes]]
+- [[PM_detect_faults_cnn]]
+- [[fault_codes]]
 
 = Models =
 [[https://en.wikipedia.org/wiki/Mixture_model|Models2PM]]

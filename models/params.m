@@ -85,7 +85,9 @@ Kv_max_main = 0.89095;  % [-]   [ ] Flow coefficient at maximum
 Kv_min_main = 1e-6;     % [-]   [ ] Flow coefficient at leakage
 
 C_f = 0.5;              % [-]   [ ] Discharge coefficient
-A_v = 7.917e-6;         % [m^2] [ ] Maximum cross section 
+d_v = 6e-3;             % [m]   [c] Nominal diameter orifice diameter
+A_v = pi*d_v^2/4;       % [m^2] [ ] Nominal Bore
+% A_v = 7.917e-6;       % [m^2] [ ] Maximum cross section 
 port_cs = 0.01;         % [m^2] [ ] Ports cross section
 d_G18 = 6e-3;
 cs_G18 = pi*(d_G18)^2/4;% [m^2] [ ] G-1/8 Port cross section
@@ -130,6 +132,7 @@ Kv_min_cntr = 1e-6;     % [-]   [ ] Flow coefficient at leakage
 % y = kx + q;
 valve_k = -0.1;
 valve_q = 1;
+
 % polynomial model is more precision
 p2 = 0.0083;
 p1 = -0.1833;
@@ -265,7 +268,7 @@ b_small_up  = 1.78e3;
 
 % Initial Conditions 
 
-x0      = 0;                 % [m]   [ ] Initial displacement
+x0      = 0;                    % [m]   [ ] Initial displacement
 V_A0    = V_0A + S_A*x0;        % [m^3] [ ] Initial volume chamber A
 V_B0    = V_0B + S_B*(L-x0);    % [m^3] [ ] Initial volume chamber B
 m_A0    = V_A0 * rho;           % [kg]  [ ] Initial mass in chamber A

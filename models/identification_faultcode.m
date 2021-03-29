@@ -1,7 +1,7 @@
 % Identification 
 clc;clear all;close all;
 
-fault_code = "1101607"; % USER INPUT
+fault_code = "1103203"; % USER INPUT
 
 run ../utils/import_only_signals_datastore.m
 run params.m
@@ -15,7 +15,7 @@ while hasdata(datastore)
 end
 
 fault_code = member.FaultCode{1,1};
-fprintf("Fault code is %s", fault_code) 
+fprintf("Fault code is %s\n", fault_code) 
 
 
 % !!! Valves 2 = 1
@@ -29,9 +29,9 @@ damp_large_up = member.LargeDamper_upper{1,1}.Variables;
 
 M_L = member.("Settings.Load"){1,1}{1,1};
 
-fprintf("Parameters: \n valve1: %s, valve2: %s \n", valve1, valve2)
-fprintf("damp_small_up: %s, damp_small_bot: %s \n", SmallDamper_upper, SmallDamper_bottom)
-fprintf("damp_large_up: %s, damp_large_bot: %s \n", damp_large_up, damp_large_bot)
+fprintf("Parameters: \n valve1: %d, valve2: %d \n", valve1, valve2)
+fprintf("damp_small_up: %d, damp_small_bot: %d \n", SmallDamper_upper, SmallDamper_bottom)
+fprintf("damp_large_up: %d, damp_large_bot: %d \n", damp_large_up, damp_large_bot)
 
 
 [f_code, t, i_in_u1, i_in_u2, i_out_x, i_out_dx, i_out_f] = extract_signals4identification(member);
@@ -40,8 +40,7 @@ fprintf("damp_large_up: %s, damp_large_bot: %s \n", damp_large_up, damp_large_bo
 function [f_code, t, i_in_u1, i_in_u2, i_out_x, i_out_dx, i_out_f] = extract_signals4identification(data)
 f_code = data.FaultCode{1,1};
 preprocess = 0;
-valve1 = data.ThrottleValve1{1,1}.Var1;
-valve2 = data.ThrottleValve2{1,1}.Var1;
+
 i_in1 = data.outValveHP{1,1};
 i_in2 = data.outValveWP{1,1};
 i_in = i_in1;

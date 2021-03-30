@@ -43,14 +43,12 @@
 %\date{}
 
 \begin{document}
+\tableofcontents
 
-\section{PM and FDI comparison}
-
-
-
-
-
-
+% -----------------------------------------------------------------------------
+% 
+% -----------------------------------------------------------------------------
+\section{Theoretical Survey}
 The relative arrangement PM and FDI methods representing in following
 figure \ref{fig:fdi_pm}
 \begin{figure}[h!]
@@ -60,8 +58,27 @@ figure \ref{fig:fdi_pm}
     \label{fig:fdi_pm}
 \end{figure}
 
-\subsection{Fault detection and isolation}
+% -----------------------------------------------------------------------------
+% 
+% -----------------------------------------------------------------------------
 
+\subsection{Problem Definition}
+\subsubsection{Types of Maintenance}
+
+\begin{itemize}
+    \item{Reactive (fails than fix)}
+    \item{Preventative (schedules)}
+    \item{Condition-based (based on assess of system)}
+    \item{Predictive (based on model that predict failure)}
+\end{itemize}
+
+
+
+% -----------------------------------------------------------------------------
+% 
+% -----------------------------------------------------------------------------
+
+\subsection{Fault Detection and Analysis}
 
 %\textbf{Fault \footnotemark detection and isolation} is subfield of control
 %engineering, identifying when fault  has occurred, and pinpointing the type
@@ -111,15 +128,19 @@ The result of FDI is the detection and identification of faults that occur
 during the operation of the device. Subsequently data is processed using
 Fault Tolerance and Predictive maintenance methods.
 
-
-\subsection{Fault Tolerance}
 \textbf{Fault Tolerance}: Provide the system with the hardware architecture and
   software mechanisms which will allow, if possible to achieve a given
   objective not only in normal operation, but also in given fault
   situations.
 
 
-\subsubsection{Predictive maintenance}
+
+% -----------------------------------------------------------------------------
+% 
+% -----------------------------------------------------------------------------
+
+
+\subsection{Predictive maintenance}
 \textbf{Predictive maintenance} is cost-effective maintenance strategy that
 predicts time to failure and warns of an anticipated location where this
 could occur.
@@ -127,24 +148,15 @@ Predict where, when and what is the reason of failure (identify primary
 factors).
 
 The are two main goals of Predictive maintenance, RUL (remaining useful
-life) and identification where the future failure can appear, or what is
+life) estimation and identification where the future failure can appear, or what is
 the reason of decreasing RUL.
 
-
-
-\textbf{Types of Maintenance}:
-\begin{itemize}
-    \item{Reactive (fails than fix)}
-    \item{Preventative (schedules)}
-    \item{Condition-based (based on assess of system)}
-    \item{Predictive (based on model that predict failure)}
-\end{itemize}
 
 \textbf{Predictive maintenance development sequence}:
 \begin{enumerate}
     \item{Collect data (using sensors, math model)}
     \item{Process data (clean up data)}
-    \item{Identify condition indicators CI}
+    \item{Identify Condition Indicators CI}
         \begin{itemize}
             \item{Signal-based CI}
             \item{Model-based CI}
@@ -157,8 +169,8 @@ the reason of decreasing RUL.
 As a result of PM is RUL representing of number cycles, days, or some time
 period before fault occurred. And probability where this fault can appear.
 
-\subsection{Methods}
-There are couples of signal processing and analysing methods that used in
+\subsubsection{Methods}
+There are couples of signal processing and analyzing methods that used in
 both PM and FDI. For example:
 \begin{itemize}
     \item Spectral Analysis
@@ -180,7 +192,7 @@ both PM and FDI. For example:
         \end{itemize}
 \end{itemize}
 
-\subsection{Modeling in PM}
+\subsubsection{Modeling in PM}
 
 Mathematical model of the real world system can be created using different
 approaches. Modeling based on Physical modeling (Simscape) data-driven
@@ -200,19 +212,15 @@ system behavior and hides some information about system processing.
 Condition indicators represented by three main domain. There are Time
 domain, Frequency domain, Time-Frequency domain Condition Indicators.
 
-\subsection{Detect and Diagnose Faults}
+\subsubsection{Detect and Diagnose Faults}
 Using condition indicators on Test data we can analyze actual system state.
 Designing algorithm is iterative process when you try different
 combinations of condition indicators and different models to evaluate best
 results.
 
+\subsection{Comparison PM and FDA approaches}
 
-
-
-
-
-%\medskip
-%\printbibliography
+\subsection{Applications}
 
 \end{document}
 

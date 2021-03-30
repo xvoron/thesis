@@ -42,4 +42,7 @@ TODO:
 * [ ] Add latex to git ignore
 * [ ] Friction R ~ 10% [N]
 
-
+* [ ] Isermann Fault Detection str. 70
+* [ ] Isermann Mechatronic:
+    * [ ] str. 457 Pneumatic Actuators
+    * [ ] str. 79 Energy Balance for Gases

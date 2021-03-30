@@ -44,24 +44,41 @@
 %\date{}
 
 \begin{document}
-%\tableofcontents
+\tableofcontents
+\pagebreak
 
 % -------------------------------------------------------
 % Section
 % -------------------------------------------------------
-\section{Pneumatic system modeling}
+\section{System modeling}
 
-\subsection{Pneumatic system overview}
+\paragraph{First Principles} (White-Box) \\
+% TODO Isermann Fault Detection str 72
+Simplification, Liniarization, Reduction, Parameter Estimation. \\
+SimScape (Physical modeling), Simulink (Differential equations).
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.5\textwidth]{model_draw_vec.png}
-    \caption{Schematic model}
-    \label{fig:model_draw}
-\end{figure}
+\paragraph{Data-Driven modeling}(Black-Box) \\ % In many cases better for prediction
+% TODO Isermann Fault Detection str 72
+Measurements, Identification.
+
+% Nonlinear dynamic modeling  Isermann FDS str. 84
+
+\subsection{Pneumatic piston system overview}
+%\begin{figure}[h!]
+%    \centering
+%    \includegraphics[width=0.5\textwidth]{model_draw_vec.png}
+%    \caption{Schematic model}
+%    \label{fig:model_draw}
+%\end{figure}
 
 
-\subsection{General 1DOF model dynamic}
+% -------------------------------------------------------
+% 
+% -------------------------------------------------------
+
+\subsection{Mechanical assembly}
+\subsubsection{Equation of motion}
+
 The motion of the pneumatic piston mechanism describes in terms of the
 general 1dof dynamical equation \ref{eq:1dof}. 
 
@@ -70,20 +87,21 @@ general 1dof dynamical equation \ref{eq:1dof}.
     \label{eq:1dof}
 \end{equation}
 
-\begin{equation*}
-    \ddot{x} +\frac{b}{m}\dot{x} + \frac{k}{m}x = \frac{1}{m}u
-\end{equation*}
+%\begin{equation*}
+%    \ddot{x} +\frac{b}{m}\dot{x} + \frac{k}{m}x = \frac{1}{m}u
+%\end{equation*}
+%
+%\begin{equation*}
+%    \ddot{x} +2\delta\dot{x} + \Omega^2x = \frac{1}{m}u
+%\end{equation*}
+%
+%where $\delta = \frac{b}{2m}$ is damping and $\Omega = \sqrt{\frac{k}{m}}$
+%is natural frequency of system.
+%\begin{equation*}
+%    \ddot{x} +2\zeta\Omega\dot{x} + \Omega^2x = \frac{1}{m}u
+%\end{equation*}
+%where $\zeta = \frac{b}{2\sqrt{km}}$ is damping ratio.
 
-\begin{equation*}
-    \ddot{x} +2\delta\dot{x} + \Omega^2x = \frac{1}{m}u
-\end{equation*}
-
-where $\delta = \frac{b}{2m}$ is damping and $\Omega = \sqrt{\frac{k}{m}}$
-is natural frequency of system.
-\begin{equation*}
-    \ddot{x} +2\zeta\Omega\dot{x} + \Omega^2x = \frac{1}{m}u
-\end{equation*}
-where $\zeta = \frac{b}{2\sqrt{km}}$ is damping ratio.
 
 In the case of the pneumatic piston, the equation \ref{eq:1dof}
 transforms into an equation \ref{eq:mechanical}.
@@ -104,9 +122,7 @@ $F_{p}$ is a force produced by the pneumatic piston \ref{eq:pneum}.
     \label{eq:pneum}
 \end{equation}
 
-
-
-\subsection{Hard stop}
+\subsubsection{Hard stop}
 Hard stop can be represented as spring and dumps:
 
 \begin{align}
@@ -131,6 +147,76 @@ Possible parameters: \\
     \hline
 \end{tabular}
 
+\subsubsection{Shock Absorbers}
+
+\subsection{Pressure model}
+
+\begin{tabular}{ |c|c|c| }
+    \hline
+    $p_A, p_B$              & $Pa$              & pressure in chamber A, B \\
+    $\dot{m_A}, \dot{m_B}$  & $kg \cdot s^{-1}$ & mass flow on way to chamber A, B \\
+    $S_A, S_B$              & $m^2$             & piston area  \\
+    $V_A, V_B$              & $m^3$             & volume of chamber A,B \\
+    $V_{0A}, V_{0B}$        & $m^3$             & "dead" volume of chamber A,B \\
+    $m$                     & $kg$              & piston mass\\
+    $F_{load}$              & $N$               & load \\
+    $x$                     & $m$               & piston position \\
+    $l$                     & $m$               & maximum piston position \\
+    \hline
+\end{tabular}
+
+
+
+\paragraph{Isothermal model}
+\begin{align}
+    m = \rho V \\
+    \dot{m} = \dot{\rho} V + \rho \dot{V}
+\end{align}
+
+Applying \ref{eq:equation_of_state}:
+\begin{align}
+    \rho = \frac{p}{RT} \\
+    \dot{\rho} = \frac{\dot{p}}{RT} 
+\end{align}
+
+Finally get \ref{eq:pressure1}:
+\begin{align}
+    \dot{p} = - \frac{p}{V}\dot{V} + \frac{RT}{V}\dot{m}
+    \label{eq:pressure1}
+\end{align}
+
+\paragraph{Adiabatic model} 
+For simple adiabatic model following equation can be used
+\ref{eq:pressure_adiabatic_simple_model}:
+
+\begin{align}
+    \dot{p} = - \frac{\gamma p}{V}\dot{V} + \frac{\gamma RT}{V}\dot{m}
+    \label{eq:pressure_adiabatic_simple_model}
+\end{align}
+
+\begin{align}
+    \dot{p_A} = \frac{\gamma}{S_A x + V_{0A}} \left(- p_A S_A\dot{x} + RT_A\dot{m_A}
+    \right)
+\end{align}
+
+\begin{align}
+    \dot{p_B} = \frac{\gamma}{S_B (l-x) + V_{0B}} \left(p_B S_B\dot{x} + RT_B\dot{m_B}
+    \right)
+\end{align}
+
+Volumes of chambers:
+\begin{align}
+    V_A = S_A x + V_{0A} \\
+    V_B = S_B (l-x) + V_{0B} \\
+    \dot{V}_A = S_A \dot{x} \\
+    \dot{V}_B = - S_B \dot{x}
+\end{align}
+
+$T_A, T_B$ calculated from \ref{eq:equation_of_state}, or in adiabatic
+model this parameters can remain constant same as atmospheric temperature.
+
+
+
 
 \subsection{General physical principles}
 
@@ -145,7 +231,7 @@ Possible parameters: \\
     $r$                     & $Jkg^{-1}K^{-1}$  & mass-specific gas constant \\
     $T$                     & $K$               & temperature \\
     $S$                     & $m$               & area \\
-    $z$                     & $m$               & hight \\
+    $z$                     & $m$               & height \\
     $w$                     & $ms^{-1}$         & flow speed \\
     $H$                     & $J$               & enthalpy \\
     $\nu$                   & $m^3kg^{-1}$      & specific volume \\
@@ -336,74 +422,6 @@ Final equation for $\psi$:
 
 
 \subsection{Pneumatic actuator model}
-\begin{tabular}{ |c|c|c| }
-    \hline
-    $p_A, p_B$              & $Pa$              & pressure in chamber A, B \\
-    $\dot{m_A}, \dot{m_B}$  & $kg \cdot s^{-1}$ & mass flow on way to chamber A, B \\
-    $S_A, S_B$              & $m^2$             & piston area  \\
-    $V_A, V_B$              & $m^3$             & volume of chamber A,B \\
-    $V_{0A}, V_{0B}$        & $m^3$             & "dead" volume of chamber A,B \\
-    $m$                     & $kg$              & piston mass\\
-    $F_{load}$              & $N$               & load \\
-    $x$                     & $m$               & piston position \\
-    $l$                     & $m$               & maximum piston position \\
-    \hline
-\end{tabular}
-
-Mechanical equation, where $F_f$ represent all friction and viscous forces.
-\begin{align}
-    m\ddot{x} = (p_A S_A - p_B S_B) - F_f
-\end{align}
-
-Volumes of chambers:
-\begin{align}
-    V_A = S_A x + V_{0A} \\
-    V_B = S_B (l-x) + V_{0B} \\
-    \dot{V}_A = S_A \dot{x} \\
-    \dot{V}_B = - S_B \dot{x}
-\end{align}
-
-\subsubsection{Pressure models}
-
-\paragraph{Isothermal model}
-\begin{align}
-    m = \rho V \\
-    \dot{m} = \dot{\rho} V + \rho \dot{V}
-\end{align}
-
-Applying \ref{eq:equation_of_state}:
-\begin{align}
-    \rho = \frac{p}{RT} \\
-    \dot{\rho} = \frac{\dot{p}}{RT} 
-\end{align}
-
-Finally get \ref{eq:pressure1}:
-\begin{align}
-    \dot{p} = - \frac{p}{V}\dot{V} + \frac{RT}{V}\dot{m}
-    \label{eq:pressure1}
-\end{align}
-
-\paragraph{Adiabatic model} 
-For simple adiabatic model following equation can be used
-\ref{eq:pressure_adiabatic_simple_model}:
-
-\begin{align}
-    \dot{p} = - \frac{\gamma p}{V}\dot{V} + \frac{\gamma RT}{V}\dot{m}
-    \label{eq:pressure_adiabatic_simple_model}
-\end{align}
-
-\begin{align}
-    \dot{p_A} = \frac{\gamma}{S_A x + V_{0A}} \left(- p_A S_A\dot{x} + RT_A\dot{m_A}
-    \right)
-\end{align}
-
-\begin{align}
-    \dot{p_B} = \frac{\gamma}{S_B (l-x) + V_{0B}} \left(p_B S_B\dot{x} + RT_B\dot{m_B}
-    \right)
-\end{align}
-
-$T_A, T_B$ calculated from \ref{eq:equation_of_state}, or in adiabatic
-model this parameters can remain constant same as atmospheric temperature.
 
 \subsubsection{Input/Output mass flows}
 

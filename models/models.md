@@ -24,6 +24,7 @@
 = Models = 
 [[../doc/notes/sensors]]
 [[../doc/notes/pneustand_components]]
+[[../doc/notes/pneumatic_actuators]]
 
 
 === Encoder ===

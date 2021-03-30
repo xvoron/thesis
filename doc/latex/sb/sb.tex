@@ -41,9 +41,15 @@
 %\date{}
 
 \begin{document}
-\section{Preprocessing measured data}
+\tableofcontents
 
-\subsection{Data overview}
+% ----------------------------------------------------------------------------- 
+
+% ----------------------------------------------------------------------------- 
+
+\section{Signal Based PM}
+
+\subsection{Test Dataset Overview}
 
 Data has been collect from 8 types of sensors:
 
@@ -117,7 +123,7 @@ demanding parts of the code.
 \end{figure}
 
 
-\subsection{Feature extraction}
+\subsection{Condition Indicators extraction}
 
 For classification task purpose from the signals have been extracted
 statistical features such as mean, median, peak to peak value, etc.
@@ -146,7 +152,8 @@ Kruskal-Wallis ANOVA algorithm. Following table \ref{tab:feat} contain
 \end{table}
 
 
-\subsection{Classification task}
+
+\subsection{Classification Task}
 
 The main goal of the classification task is to train a model that can
 predict the "FaultCode" of pneumatic actuator configuration by

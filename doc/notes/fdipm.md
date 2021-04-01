@@ -38,11 +38,5 @@ source: [[file:../sources/predmaint_ug.pdf]]
 = Models =
 [[https://en.wikipedia.org/wiki/Mixture_model|Models2PM]]
 
-= Latex =
-[[file:latex/fdi_pm.tex]]
-
-= PDF version =
-[[file:latex/fdi_pm.pdf]]
-
 = Sources =
 [[sources]]

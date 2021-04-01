@@ -22,7 +22,6 @@ Anomalie ve vrchnim damperu. Urcite to bude nejaky problem
 - Nothing for that but it must be solved in near feature !
 
 
-
 = Features =
 Shape-factor = rms/mean
 
@@ -83,5 +82,39 @@ EnvPower = sum(M_env.^2);
 [~,~,~,fc] = kurtogram(y.Data,1/dt,8);
 PeakSpecKurtosis = fc;
 }}}
+
+
+
+= Sensors =
+- [[../doc/sensors/sensors]]: All sensors comparison table
+
+== Microphones ==
+Cheapest sensor
+* [ ] Time domain:
+* [ ] Frequency domain:
+* [ ] Time-Frequency domain ???
+=== Features ===
+
+KW:
+MIC_bBumper_stats/Mean
+MIC_bBumper_stats/RMS
+MIC_Ambient_stats/SINAD
+
+ANOVA:
+MIC_uBumper_stats/Mean
+MIC_bBumper_stats/Mean
+MIC_bBumper_stat/THD
+
+
+== Position/Velocity ==
+KW:
+LeverVelocity_ps_spec/PeakAmp6
+LeverVelocity_ps_spec/PeakAmp7
+LeverVelocity_ps_spec/PeakAmp8
+LeverVelocity_ps_spec/PeakAmp9
+LeverVelocity_ps_spec/PeakFreq3
+
+
+
 
 

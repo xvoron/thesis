@@ -48,79 +48,80 @@
 % ----------------------------------------------------------------------------- 
 
 \section{Signal Based PM}
+Signal-Based Predictive Maintenance.
+\paragraph{General}
+\paragraph{Workflow}
 
-\subsection{Test Dataset Overview}
 
-Data has been collect from 8 types of sensors:
+\subsection{Sensors}
+Sensors comparison, cost.
+
+\subsection{Data exploring}
+Data has been collect from 8 types of sensors corresponding table
+\ref{tab:measured_signals}:
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        Signal name                   &   Description       \\     
+               \hline
+           FlowExtrusin               &   Flow sensor       \\
+           FlowContraction            &   Flow sensor       \\
+           AirPressure                &   Pressure sensor   \\
+           AccelerometerMoving\_axisY &   Accelerometer     \\
+           AccelerometerMoving\_axisY &   Position encoder  \\
+                                      &   Accelerometer     \\
+                                      &   Temperature sensor\\
+                                      &   Proximity sensor  \\
+                                      &   Strain gauge      \\ 
+                                      &   Microphones       \\ 
+        \hline
+    \end{tabular}
+    \caption{Measured signals}
+    \label{tab:measured_signals}
+\end{table}
+
+There are 660 measurements with different parameters system parameters
+\ref{tab:params}.
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        Adjusting valve 1 &  \\
+        Adjusting valve 2 &  \\
+        \hline
+    \end{tabular}
+    \caption{Device parameters}
+    \label{tab:params}
+\end{table}
+
+Dataset was divided to 5 main categories.
+
 
 \begin{itemize}
-\item Flow sensor
-\item Microphones
-\item Pressure sensor
-\item Strain gauge
-\item Position encoder
-\item Accelerometer
-\item Temperature sensor
-\item Proximity sensor
 \end{itemize}
 
 Data has been accumulated to ".mat" files.
 Each file contains signals from sensors during 10 seconds measurements with
 different pneumatic actuator configuration. Example results from one
 experiment are represented in figures \ref{fig:data_exmp1},
-\ref{fig:data_exmp2}. Data files have been reshaped
-to Data Ensembles format used for Condition monitoring purposes. This
-format allows processing data without copying the whole dataset to
-memory at once but processes them one by one. In large datasets it gives an
-option to manipulate with data without problems with memory.
+\ref{fig:data_exmp2}. 
 
-\begin{figure}[h!]
-    \centering
-    \begin{subfigure}{.5\textwidth}
-        \centering
-        \includegraphics[width=1.1\textwidth]{data_example1.png}
-    \end{subfigure}%
-    \begin{subfigure}{.5\textwidth}
-        \centering
-        \includegraphics[width=1.1\textwidth]{data_example2.png}
-    \end{subfigure}
-    \caption{Example of measured data \#1}
-    \label{fig:data_exmp1}
-\end{figure}
 
-\begin{figure}
-    \centering    
-    \begin{subfigure}{.5\textwidth}
-        \centering
-        \includegraphics[width=1.1\textwidth]{data_example3.png}
-        \caption{Example of measured data}
-    \end{subfigure}%
-    \begin{subfigure}{.5\textwidth}
-        \centering
-        \includegraphics[width=1.1\textwidth]{lever_positions.png}
-        \caption{Example of all measured lever positions}
-    \end{subfigure}
-    \caption{Example of measured data \#2}
-    \label{fig:data_exmp2}
-\end{figure}
+\subsection{Data management}
+\paragraph{Data Ensembles}
+Data files have been reshaped to Data Ensembles format used for Condition
+monitoring purposes. This format allows processing data without copying the
+whole dataset to memory at once but processes them one by one. In large datasets
+it gives an option to manipulate with data without problems with allocated memory.
 
 \subsection{Preprocessing}
-Measured signals require preprocessing for feature extraction. Signals were
-filtered and preprocessed concerning the preservation of the information
-base. Filters were design concerning Amplitude-frequency response for
-particular signals, using Fast-Fourier transformation. For smoothing
-data Moving Average function were used.
+Measured signals require preprocessing concerning the preservation of the information
+base. For smoothing data Moving Average function were used.
 As an example, the figure \ref{fig:preprocess} is shown the "raw" and filtered signals.
 The whole dataset of preprocessed data is relatively big. For
 time-saving, parallel computing was used for all computationally
 demanding parts of the code.
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.8\textwidth]{preprocessed_data.png}
-    \caption{Example of measured data after filtration}
-    \label{fig:preprocess}
-\end{figure}
 
 
 \subsection{Condition Indicators extraction}
@@ -151,6 +152,9 @@ Kruskal-Wallis ANOVA algorithm. Following table \ref{tab:feat} contain
     \label{tab:feat}
 \end{table}
 
+\subsubsection{Microphones}
+Cheap
+
 
 
 \subsection{Classification Task}
@@ -167,65 +171,5 @@ The trained model has been exported to
 The confusion matrix of the trained classification model shown in figure
 \ref{fig:conf}. Model accuracy on validation data is $\approx 93 \%$
 \ref{fig:pred}.
-
-\begin{figure}[h!]
-    \centering    
-    \begin{subfigure}{.5\textwidth}
-        \centering
-        \includegraphics[width=1.1\textwidth]{conf_matrix_kw_ranked.png}
-        \caption{Confusion matrix of the model}
-        \label{fig:conf}
-    \end{subfigure}%
-    \begin{subfigure}{.5\textwidth}
-        \centering
-        \includegraphics[width=1.1\textwidth]{model_kw_ranked_pca.png}
-        \caption{Model predictions}
-        \label{fig:pred}
-    \end{subfigure}
-    \caption{Trained model performance}
-    \label{model}
-\end{figure}
-
-
-
-%\subsection{Conclusion}
-%Measured data from the pneumatic actuator were preprocessed and used for
-%feature extraction. For faster processing, the code has been modified to
-%parallel computing. A classification model was trained to predict the
-%"FaultCode" variable, which indicates the current configuration of the
-%pneumatic actuator. The best results achieve with two first features from
-%table \ref{tab:feat}.
-%Measured data from the pneumatic actuator were preprocessed and used for
-%feature extraction. For faster processing, the code has been modified to
-%parallel computing. A classification model was trained to predict the
-%"FaultCode" variable, which indicates the current configuration of the
-%pneumatic actuator.
-
-%\pagebreak
-%\subsection{Appendix}
-%
-%\subsubsection{Project structure:}
-%\begin{lstlisting}
-%* app_sessions     % Saved Feature Designer app sessions
-%* data_converted/  % Converted, preprocessed data
-%* data_original/   % Raw data from sensors
-%* data_test/       % For test purpose only
-%* dataset/         % Dataset feature table for Classification
-%* doc/             % Documentation for the project
-%* legacy/          % Legacy scripts
-%* models/          % Saved model, training script
-%* scripts/         % All functions used in the project
-%* main.m           % Main script
-%
-%\end{lstlisting}
-%
-\subsubsection{Libraries and Toolboxes:}
-
-\begin{itemize}
-\item Signal Processing Toolbox 
-\item Predictive Maintenance Toolbox 
-\item Diagnostic Feature Designer 
-\item Classification Toolbox 
-\end{itemize}
 
 \end{document}

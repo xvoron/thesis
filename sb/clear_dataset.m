@@ -18,9 +18,7 @@ files = dir(path);
 
 for k = 1:(numel(files))
     data = load(files(k).folder + "/" + string(files(k).name)).data;
-    data = removevars(data, {'MIC_uBumper_ps_1', 'MIC_uBumper_stats_1', ...
-    'MIC_bBumper_ps_1', 'MIC_Ambient_ps_1', 'MIC_uBumper_ps_1_spec', ... 
-    'MIC_bBumper_ps_1_spec', 'MIC_Ambient_ps_1_spec'});
+    data = removevars(data, {'FlowExtrusion_ps_spec'});
     save(files(k).folder + "/" + files(k).name, 'data')
     clear data
     k

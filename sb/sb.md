@@ -6,6 +6,13 @@
     - [[#Features|Features]]
         - [[#Features#matlab|matlab]]
 
+
+
+= Divide dataset =
+train - 70 % 
+validation - 15 %
+test - 15 %
+
 = Preprocessing =
 Preprocessing signals?
 Preprocess signals but without fanatismus :)

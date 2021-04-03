@@ -23,6 +23,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 
+%\usepackage{todonotes}
+
 %\usepackage[square, numbers]{natbib}
 %\bibliographystyle{unsrtnat}
 %\usepackage[nottoc]{tocbibind}
@@ -63,14 +65,29 @@ figure \ref{fig:fdi_pm}
 % -----------------------------------------------------------------------------
 
 \subsection{Problem Definition}
-\subsubsection{Types of Maintenance}
+% XXX FaultDetectionMethods-ALiteratureSurvay.pdf
+\begin{itemize}
+    \item Fault
+    \item Failure   
+    \item Malfunction
+\end{itemize}
 
+\subsubsection{Types of Faults}
+\begin{itemize}
+    \item Plant
+    \item Sensor
+    \item Combination
+\end{itemize}
+
+\subsubsection{Types of Maintenance}
 \begin{itemize}
     \item{Reactive (fails than fix)}
     \item{Preventative (schedules)}
     \item{Condition-based (based on assess of system)}
     \item{Predictive (based on model that predict failure)}
 \end{itemize}
+
+
 
 
 
@@ -81,25 +98,30 @@ figure \ref{fig:fdi_pm}
 \subsection{Fault Detection and Analysis}
 Fault Detection and Analysis, FDA. (Fault detection and isolation, FDI) 
 
+\paragraph{FD not new}
+FD exists from 60th.
+
+\subsubsection{Tasks}
+
+\begin{itemize}
+    \item{Fault detection: Detect malfunctions in real time, as soon and as
+        surely as possible}
+    \item{Fault isolation: Find the root cause, by isolating the system
+        components whose operation mode is not nominal}
+    \item{Fault identification: Estimation the magnitude (size) and type or
+            nature of the fault}
+\end{itemize}
+
 %\textbf{Fault \footnotemark detection and isolation} is subfield of control
 %engineering, identifying when fault  has occurred, and pinpointing the type
 %of fault and its location.
 
 \footnotetext{\textbf{Fault} - not acceptable deviation of at least one characteristic or
 parameter of the system from the standard condition.}
- 
-\textbf{Fault diagnosis}:
-\begin{itemize}
-    \item{Fault detection: Detect malfunctions in real time, as soon and as
-        surely as possible.}
-    \item{Fault isolation: Find the root cause, by isolating the system
-        components whose operation mode is not nominal.}
-    \item{Fault identification: Estimation the size and type or nature of the
-        fault.}
-\end{itemize}
 
-\textbf{There are two common approaches for fault detection
-\ref{fig:fault_detection}}:
+\subsubsection{Methods}
+Figure \ref{fig:fault_detection} introduce 2 main approaches:
+
 \begin{itemize}
 \item{Model-based FDI (compare data with healthy-model)}
 \item{Signal processing based FDI (using math methods to extract information
@@ -108,7 +130,6 @@ parameter of the system from the standard condition.}
 
 \begin{figure}[h]
     \centering
-
 \begin{subfigure}{0.5\textwidth}
     \includegraphics[width=0.9\linewidth]{model_based.png}
     \caption{Model-based fault detection}
@@ -119,11 +140,25 @@ parameter of the system from the standard condition.}
     \caption{Signal-based fault detection}
     \label{fig:signal_based}
 \end{subfigure}
-
 \caption{Fault detection common approaches}
 \label{fig:fault_detection}
-
 \end{figure}
+
+\subsubsection{Signal-Based methods}
+\begin{itemize}
+    \item Limit Checking and Trend Checking
+    \item Data Analysis (PCA)
+    \item Spectral Analysis
+    \item Parametric Signal Models
+    \item Pattern Recognition (kNN, ANN, SOM)
+\end{itemize}
+\subsubsection{Model-Based methods}
+We know system structure. Faults modeled as some system variables changes.
+Parameter estimation
+
+
+\subsubsection{Knowledge-Based methods}
+
 
 The result of FDI is the detection and identification of faults that occur
 during the operation of the device. Subsequently data is processed using
@@ -135,6 +170,14 @@ Fault Tolerance and Predictive maintenance methods.
   situations.
 
 
+\subsubsection{Condition Monitoring}
+There is a optimization between technical and financial possibilities in a
+specific situation.
+
+FMECA (Failure Mode, Effect and Criticality Analysis) \\
+FTA (Fault Tree Analysis) \\
+RCA (Root Cause Analysis) \\
+
 
 % -----------------------------------------------------------------------------
 % 
@@ -142,15 +185,19 @@ Fault Tolerance and Predictive maintenance methods.
 
 
 \subsection{Predictive maintenance}
-\textbf{Predictive maintenance} is cost-effective maintenance strategy that
+\textbf{Predictive maintenance (PdM)} is cost-effective maintenance strategy that
 predicts time to failure and warns of an anticipated location where this
 could occur.
-Predict where, when and what is the reason of failure (identify primary
-factors).
 
+\subsubsection{Goals}
 The are two main goals of Predictive maintenance, RUL (remaining useful
 life) estimation and identification where the future failure can appear, or what is
-the reason of decreasing RUL.
+the reason of decreasing RUL. 
+As a result of PM is RUL representing of number cycles, days, or some time
+period before fault occurred. And probability where this fault can appear.
+
+Predict where, when and what is the reason of failure (identify primary
+factors).
 
 
 \textbf{Predictive maintenance development sequence}:
@@ -167,12 +214,22 @@ the reason of decreasing RUL.
     \item{Dashboard (UI)}
 \end{enumerate}
 
-As a result of PM is RUL representing of number cycles, days, or some time
-period before fault occurred. And probability where this fault can appear.
 
 \subsubsection{Methods}
 There are couples of signal processing and analyzing methods that used in
 both PM and FDI. For example:
+
+\paragraph{Signal-Based} approach is suitable in situation when we have
+measurements from system in different operating conditions. 
+But there is a problem that Signal-Based approach enable to classify and
+learn patterns observed in training dataset. 
+
+
+\paragraph{Model-Based} approach is to use physical failure models. This
+models do not require a large dataset of failure data. And they can work in
+situations never observed before. 
+
+
 \begin{itemize}
     \item Spectral Analysis
     \item Wavelet Analysis
@@ -193,7 +250,7 @@ both PM and FDI. For example:
         \end{itemize}
 \end{itemize}
 
-\subsubsection{Modeling in PM}
+\subsubsection{Using model of the system in PM}
 
 Mathematical model of the real world system can be created using different
 approaches. Modeling based on Physical modeling (Simscape) data-driven
@@ -215,11 +272,11 @@ domain, Frequency domain, Time-Frequency domain Condition Indicators.
 
 \subsubsection{Digital twin}
 
-\subsubsection{Detect and Diagnose Faults}
-Using condition indicators on Test data we can analyze actual system state.
-Designing algorithm is iterative process when you try different
-combinations of condition indicators and different models to evaluate best
-results.
+%\subsubsection{Detect and Diagnose Faults}
+%Using condition indicators on Test data we can analyze actual system state.
+%Designing algorithm is iterative process when you try different
+%combinations of condition indicators and different models to evaluate best
+%results.
 
 \subsection{Comparison PM and FDA approaches}
 

@@ -98,9 +98,6 @@ There are 660 measurements with different parameters system parameters
 Dataset was divided to 5 main categories.
 
 
-\begin{itemize}
-\end{itemize}
-
 Data has been accumulated to ".mat" files.
 Each file contains signals from sensors during 10 seconds measurements with
 different pneumatic actuator configuration. Example results from one
@@ -114,6 +111,13 @@ Data files have been reshaped to Data Ensembles format used for Condition
 monitoring purposes. This format allows processing data without copying the
 whole dataset to memory at once but processes them one by one. In large datasets
 it gives an option to manipulate with data without problems with allocated memory.
+
+Divided to 3 datasets:
+\begin{itemize}
+    \item Train data
+    \item Validation data
+    \item Test data
+\end{itemize}
 
 \subsection{Preprocessing}
 Measured signals require preprocessing concerning the preservation of the information
@@ -136,34 +140,31 @@ All calculated features were added to the dataset and were ranked by
 Kruskal-Wallis ANOVA algorithm. Following table \ref{tab:feat} contain
 5 first best features ranked for classification purpose.
 
-\begin{table}[h]
-    \centering
-    \begin{tabular}{|c|c|c|}
-        \hline
-        1. & LeverPosition\_Stat\_Var & Lever position variance \\
-        2. & StrainGauge\_Stat\_Mean  & Strain gauge mean value \\
-        3. & StrainGauge\_Stat\_Skewness  & Strain gauge Skewness value \\
-        4. & LeverPosition\_Stat\_RMS  & Lever position Root mean square
-        level \\
-        5. & LeverPosition\_Stat\_mean  & Lever position mean value \\ 
-        \hline
-    \end{tabular}
-    \caption{First 5 ranked features}
-    \label{tab:feat}
-\end{table}
+Kruskal-Wallis is very suitable to ranking features before using PCA or
+SVD.
 
 \subsubsection{Microphones}
-Cheap
+Cheap, good results, but maybe problems with real life integration (noise
+from another machines).
+\subsubsection{Encoder}
+Good results, 
+\subsubsection{Proximity Sensors}
+Very correlated features. Can not be used for classification. But suitable
+to detect binary classification (Health, Failed).
 
+Only statistical features,no Frequency domain.
+
+\subsubsection{Flow Sensors}
+Very expensive sensors. 
+
+\subsubsection{Air Pressure}
 
 
 \subsection{Classification Task}
 
 The main goal of the classification task is to train a model that can
-predict the "FaultCode" of pneumatic actuator configuration by
+predict the "FaultCode", or "Label" signalized about pneumatic actuator behavior by
 calculated features.
-Respecting to table \ref{feat}, the first five features have been used to
-find the best classification model for our data.
 Principal component analysis (PCA) has been used to reduce the number of
 features and chose the best representants.
 The trained model has been exported to
@@ -171,5 +172,7 @@ The trained model has been exported to
 The confusion matrix of the trained classification model shown in figure
 \ref{fig:conf}. Model accuracy on validation data is $\approx 93 \%$
 \ref{fig:pred}.
+
+
 
 \end{document}

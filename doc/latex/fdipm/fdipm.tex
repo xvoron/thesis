@@ -23,7 +23,10 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 
-%\usepackage{todonotes}
+%\usepackage[]{todonotes}
+\usepackage{xargs}
+\usepackage[pdftex,dvipsnames]{xcolor}  % Coloured text etc.
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
 
 %\usepackage[square, numbers]{natbib}
 %\bibliographystyle{unsrtnat}
@@ -45,13 +48,14 @@
 %\date{}
 
 \begin{document}
-\tableofcontents
+%\tableofcontents
 
 % -----------------------------------------------------------------------------
 % 
 % -----------------------------------------------------------------------------
 \section{Theoretical Survey}
-The relative arrangement PM and FDI methods representing in following
+Why FDA and PdM are useful? Similarities/Differences?
+The relative arrangement PdM and FDI methods representing in following
 figure \ref{fig:fdi_pm}
 \begin{figure}[h!]
     \centering
@@ -60,17 +64,34 @@ figure \ref{fig:fdi_pm}
     \label{fig:fdi_pm}
 \end{figure}
 
+
+
 % -----------------------------------------------------------------------------
 % 
 % -----------------------------------------------------------------------------
 
 \subsection{Problem Definition}
+
+In practice, many types of machinery require some calibration for adequately working,
+and online monitoring and classification algorithms can find the problem.
+
 % XXX FaultDetectionMethods-ALiteratureSurvay.pdf
+
+
+Smart systems = Sensors, but sensors only not doing the system smart. Smart
+is combination of sensors, processing signals, extraction useful information and
+some decision based on this information.
+
+What kind of sensors to use and which sensor is the best based on
+cost/technical efficient perspective.
+
 \begin{itemize}
     \item Fault
     \item Failure   
     \item Malfunction
 \end{itemize}
+
+
 
 \subsubsection{Types of Faults}
 \begin{itemize}
@@ -91,6 +112,7 @@ figure \ref{fig:fdi_pm}
 
 
 
+
 % -----------------------------------------------------------------------------
 % 
 % -----------------------------------------------------------------------------
@@ -101,7 +123,7 @@ Fault Detection and Analysis, FDA. (Fault detection and isolation, FDI)
 \paragraph{FD not new}
 FD exists from 60th.
 
-\subsubsection{Tasks}
+\subsubsection{Goals}
 
 \begin{itemize}
     \item{Fault detection: Detect malfunctions in real time, as soon and as
@@ -144,7 +166,7 @@ Figure \ref{fig:fault_detection} introduce 2 main approaches:
 \label{fig:fault_detection}
 \end{figure}
 
-\subsubsection{Signal-Based methods}
+\paragraph{Signal-Based methods}
 \begin{itemize}
     \item Limit Checking and Trend Checking
     \item Data Analysis (PCA)
@@ -152,13 +174,12 @@ Figure \ref{fig:fault_detection} introduce 2 main approaches:
     \item Parametric Signal Models
     \item Pattern Recognition (kNN, ANN, SOM)
 \end{itemize}
-\subsubsection{Model-Based methods}
+\paragraph{Model-Based methods}
 We know system structure. Faults modeled as some system variables changes.
 Parameter estimation
 
 
-\subsubsection{Knowledge-Based methods}
-
+\paragraph{Knowledge-Based methods}
 
 The result of FDI is the detection and identification of faults that occur
 during the operation of the device. Subsequently data is processed using
@@ -171,6 +192,14 @@ Fault Tolerance and Predictive maintenance methods.
 
 
 \subsubsection{Condition Monitoring}
+Answer to question:"How does system operate now?"
+CM gives Diagnostic methods that provides alarm or warning, but not
+prognostic forecast about the future behavior (Not RUL).
+
+But collected Condition Monitoring information can give information about
+system degradation.
+
+
 There is a optimization between technical and financial possibilities in a
 specific situation.
 
@@ -193,7 +222,7 @@ could occur.
 The are two main goals of Predictive maintenance, RUL (remaining useful
 life) estimation and identification where the future failure can appear, or what is
 the reason of decreasing RUL. 
-As a result of PM is RUL representing of number cycles, days, or some time
+As a result of PdM is RUL representing of number cycles, days, or some time
 period before fault occurred. And probability where this fault can appear.
 
 Predict where, when and what is the reason of failure (identify primary
@@ -217,7 +246,7 @@ factors).
 
 \subsubsection{Methods}
 There are couples of signal processing and analyzing methods that used in
-both PM and FDI. For example:
+both PdM and FDI. For example:
 
 \paragraph{Signal-Based} approach is suitable in situation when we have
 measurements from system in different operating conditions. 
@@ -230,27 +259,63 @@ models do not require a large dataset of failure data. And they can work in
 situations never observed before. 
 
 
+%\begin{itemize}
+%    \item Spectral Analysis
+%    \item Wavelet Analysis
+%    \item Wavelet transform
+%    \item FFT
+%    \item Short Term Fourier Transform
+%    \item Gabor Expansion
+%    \item Wigner-Ville distribution
+%    \item Correlation
+%    \item High resolution spectral analysis
+%    \item Waveform Analysis
+%    \item Time-Frequency Analysis
+%    \item PCA
+%    \item Machine Learning techniques:
+%        \begin{itemize}
+%            \item kNN
+%            \item ANN
+%        \end{itemize}
+%\end{itemize}
+
+\subsubsection{Condition Indicators}
+Features in PdM field are called Condition Indicators or CI.
 \begin{itemize}
-    \item Spectral Analysis
-    \item Wavelet Analysis
-    \item Wavelet transform
-    \item FFT
-    \item Short Term Fourier Transform
-    \item Gabor Expansion
-    \item Wigner-Ville distribution
-    \item Correlation
-    \item High resolution spectral analysis
-    \item Waveform Analysis
-    \item Time-Frequency Analysis
-    \item PCA
-    \item Machine Learning techniques:
-        \begin{itemize}
-            \item kNN
-            \item ANN
-        \end{itemize}
+    \item Time-domain
+    \item Frequency-domain
+    \item Time-frequency
 \end{itemize}
 
-\subsubsection{Using model of the system in PM}
+\subsubsection{Fault Classification}
+\subsubsection{Remaining useful life}
+
+
+\subsection{Digital twin}
+% https://explore.mathworks.com/digital-twins-for-predictive-maintenance
+
+Digital twin is digital representation of the real life system. Can be
+represented as a component, a system of components, or as a system of
+system.  
+
+\todo[inline]{Rewrite}
+Digital twin can hold historical data about behavior of a system
+and can be used for simulation system operation in different conditions,
+for designing control and simulate future behavior. (RUL, "What-if")
+
+Digital Twins are helpful in the field of Anomaly Detection and Predictive
+Maintenance.
+
+For creating digital twin, different approaches can be used:
+
+\begin{itemize}
+    \item Data-Driven
+    \item First Principles
+    \item Combination 
+\end{itemize}
+
+
+\subsubsection{Using Digital Twin in PdM}
 
 Mathematical model of the real world system can be created using different
 approaches. Modeling based on Physical modeling (Simscape) data-driven
@@ -270,7 +335,6 @@ system behavior and hides some information about system processing.
 Condition indicators represented by three main domain. There are Time
 domain, Frequency domain, Time-Frequency domain Condition Indicators.
 
-\subsubsection{Digital twin}
 
 %\subsubsection{Detect and Diagnose Faults}
 %Using condition indicators on Test data we can analyze actual system state.
@@ -278,7 +342,7 @@ domain, Frequency domain, Time-Frequency domain Condition Indicators.
 %combinations of condition indicators and different models to evaluate best
 %results.
 
-\subsection{Comparison PM and FDA approaches}
+\subsection{Comparison PdM and FDA approaches}
 
 \subsection{Application field}
 

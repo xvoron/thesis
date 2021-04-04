@@ -13,4 +13,6 @@ data3 = load('data/data11_1_3.mat');
 u1 = i_in_u1_1(:,2);
 u2 = i_in_u1_2(:,2);
 
+i_u = u2 - u1;
 clear data1 data2 data3
+Ts = 0.001;

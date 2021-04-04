@@ -8,6 +8,11 @@
 
 
 
+= NEW =
+sequence2sequence classification using Deep Learning
+[[https://www.mathworks.com/help/deeplearning/ug/sequence-to-sequence-classification-using-deep-learning.html]]
+S
+
 = Divide dataset =
 train - 70 % 
 validation - 15 %

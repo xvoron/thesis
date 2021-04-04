@@ -2,6 +2,10 @@
 \usepackage[subpreambles=true]{standalone}
 \usepackage{import}
 
+\usepackage{xargs}
+\usepackage[pdftex,dvipsnames]{xcolor}  % Coloured text etc.
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+
 \usepackage{subcaption}
 \usepackage{sectsty}
 \usepackage{graphicx}
@@ -28,7 +32,7 @@
 \headsep=0.25in
 
 
-\title{MT}
+\title{Predictive maintenance of pneumatic pistons}
 \author{Artyom Voronin} 
 \date{\today}
 
@@ -57,7 +61,7 @@
 % --------------------------------------------------------------------------
 % SECTION 3 
 % --------------------------------------------------------------------------
-\section{Model based}
+\import{mb/}{mb}
 \pagebreak
 % --------------------------------------------------------------------------
 % BIBLIOGRAPHY 

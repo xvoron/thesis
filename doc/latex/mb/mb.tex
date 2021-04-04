@@ -12,6 +12,10 @@
 \usepackage[subpreambles=true]{standalone}
 \usepackage{subcaption}
 
+\usepackage{xargs}
+\usepackage[pdftex,dvipsnames]{xcolor}  % Coloured text etc.
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+
 \usepackage{sectsty}
 \usepackage{graphicx}
 \graphicspath{{img/}{../img/}{../../img/}}
@@ -41,10 +45,14 @@
 %\date{}
 
 \begin{document}
-\tableofcontents
+%\tableofcontents
 
 
-\section{Model-Based PM}
+\section{PdM using a Simulation Model}
+
+\subsection{Differences between Model-Based PdM and PdM using Digital Twin}
+There is a difference between using Model-Based PdM and using Simulation
+Model as a Digital Twin.
 
 \subsection{Model-Based Condition Indicators}
 Model-Based approach is suitable when it's difficult to identify condition
@@ -62,10 +70,27 @@ State-Space or AR, ARX, NLARX (Nonlinear auto recursive model) and so on.
 Then condition indicators can be extracted as poles, zeros damping
 coefficients from estimated model.
 
-\subsubsection{Using Simulink Model}
+
+\subsection{Using Simulation Model for Residuals
+Estimation}\label{sec:residuals}
 Another option is using the Simulink model with \textbf{prediction
 error minimization function} to compute difference between Simulink model
 and measured data. From this difference we can separate fault condition and
 healthy operation. 
+
+
+\subsubsection{Comparison with Nominal System Model}
+\todo[inline]{Same thing as section \ref{sec:residuals}}
+
+Compare actual system behavior with system model. This will generate some
+error $e(t) = y(t) - \hat{y}(t)$. From this error residual can be generated
+in form $r(t)=\Phi(u_t,y_t, \varepsilon_t,v_t,d)$ and after some decision.
+
+\subsection{Using Digital Twin to Generate Fault Data}
+
+\subsection{Using Digital Twin to Generate Prognostic Data}
+
+\subsection{RUL}
+
 
 \end{document}

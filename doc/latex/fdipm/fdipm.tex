@@ -48,7 +48,7 @@
 %\date{}
 
 \begin{document}
-%\tableofcontents
+\tableofcontents
 
 % -----------------------------------------------------------------------------
 % 
@@ -90,8 +90,6 @@ cost/technical efficient perspective.
     \item Failure   
     \item Malfunction
 \end{itemize}
-
-
 
 \subsubsection{Types of Faults}
 \begin{itemize}
@@ -174,12 +172,15 @@ Figure \ref{fig:fault_detection} introduce 2 main approaches:
     \item Parametric Signal Models
     \item Pattern Recognition (kNN, ANN, SOM)
 \end{itemize}
+
 \paragraph{Model-Based methods}
 We know system structure. Faults modeled as some system variables changes.
 Parameter estimation
 
-
 \paragraph{Knowledge-Based methods}
+We know some Expert Knowledge about system behavior. Fuzzy,
+confidence-numbers, probability density functions, logic
+fault-symptom-tree, if-then rules.
 
 The result of FDI is the detection and identification of faults that occur
 during the operation of the device. Subsequently data is processed using
@@ -281,6 +282,12 @@ situations never observed before.
 
 \subsubsection{Condition Indicators}
 Features in PdM field are called Condition Indicators or CI.
+Condition Indicators are features extracted from the signals, representing some
+system behavior and hides some information about system processing.
+
+Condition indicators represented by three main domain. There are Time
+domain, Frequency domain, Time-Frequency domain Condition Indicators.
+
 \begin{itemize}
     \item Time-domain
     \item Frequency-domain
@@ -288,7 +295,22 @@ Features in PdM field are called Condition Indicators or CI.
 \end{itemize}
 
 \subsubsection{Fault Classification}
+
 \subsubsection{Remaining useful life}
+RUL goal is remaining time before machine requires maintenance. Not only
+predict but provide a confidence bound.
+
+\paragraph{RUL Models}:
+% https://www.mathworks.com/company/newsletters/articles/three-ways-to-estimate-remaining-useful-life-for-predictive-maintenance.html
+
+Inputs are condition indicators and models depends on data: 1. Lifetime,
+Run-to-failure, known threshold for CI.
+
+\begin{itemize}
+    \item Similarity model 
+    \item Survival model
+    \item Degradation model
+\end{itemize}
 
 
 \subsection{Digital twin}
@@ -298,6 +320,12 @@ Digital twin is digital representation of the real life system. Can be
 represented as a component, a system of components, or as a system of
 system.  
 
+\paragraph{Updating digital twin with incoming data} 
+
+Digital twin can be updated with incoming data from sensors. Fitting model
+to new data, digital twin represents the current condition state of the
+real world object.
+
 \todo[inline]{Rewrite}
 Digital twin can hold historical data about behavior of a system
 and can be used for simulation system operation in different conditions,
@@ -305,17 +333,6 @@ for designing control and simulate future behavior. (RUL, "What-if")
 
 Digital Twins are helpful in the field of Anomaly Detection and Predictive
 Maintenance.
-
-For creating digital twin, different approaches can be used:
-
-\begin{itemize}
-    \item Data-Driven
-    \item First Principles
-    \item Combination 
-\end{itemize}
-
-
-\subsubsection{Using Digital Twin in PdM}
 
 Mathematical model of the real world system can be created using different
 approaches. Modeling based on Physical modeling (Simscape) data-driven
@@ -325,16 +342,11 @@ Model with estimated parameters uses for simulation system behavior in
 different working conditions and with different faults during working
 process.
 
+\subsubsection{Using Digital Twin in PdM}
+
 Measured data, Generated data from mathematical model, or Synthetic data
 (Combination of measured and generated) can be used for assessment of
 Condition Indicators. 
-
-Condition Indicators are features extracted from the signals, representing some
-system behavior and hides some information about system processing.
-
-Condition indicators represented by three main domain. There are Time
-domain, Frequency domain, Time-Frequency domain Condition Indicators.
-
 
 %\subsubsection{Detect and Diagnose Faults}
 %Using condition indicators on Test data we can analyze actual system state.

@@ -41,7 +41,7 @@
 %\date{}
 
 \begin{document}
-%\tableofcontents
+\tableofcontents
 
 % ----------------------------------------------------------------------------- 
 
@@ -128,6 +128,20 @@ time-saving, parallel computing was used for all computationally
 demanding parts of the code.
 
 
+
+\subsection{FDI methods}
+
+\subsubsection{Line checking}
+
+We can use Proximity sensor time delay between input signal and upper
+proximity sensor signal to evaluate if there is some fault.
+
+Same with Position, if not reach some end position, there is a fault.
+
+Flow sensor, check if the float mean value is under some threshold, there
+is fault.
+
+
 \subsection{Condition Indicators extraction}
 
 For classification task purpose from the signals have been extracted
@@ -146,33 +160,41 @@ SVD.
 \subsubsection{Microphones}
 Cheap, good results, but maybe problems with real life integration (noise
 from another machines).
+
 \subsubsection{Encoder}
-Good results, 
+Good results, useful in simulations and compare results with Digital Twin.
+
 \subsubsection{Proximity Sensors}
 Very correlated features. Can not be used for classification. But suitable
 to detect binary classification (Health, Failed).
-
 Only statistical features,no Frequency domain.
 
 \subsubsection{Flow Sensors}
-Very expensive sensors. 
+Very expensive sensors. Not so good results.
 
 \subsubsection{Air Pressure}
-
+This sensor always used, to control pressure valve. But not good results.
+Maybe in combination with another sensor.
 
 \subsection{Classification Task}
 
 The main goal of the classification task is to train a model that can
 predict the "FaultCode", or "Label" signalized about pneumatic actuator behavior by
 calculated features.
+
+Using Kuskal-Wallis one way analysis of variance, features were ranked by
+importance with respect to correlation. This gives opportunity to reduce
+number of features before PCA analysis.
+
 Principal component analysis (PCA) has been used to reduce the number of
 features and chose the best representants.
+
 The trained model has been exported to
 \textbf{models/} directory.
+
 The confusion matrix of the trained classification model shown in figure
 \ref{fig:conf}. Model accuracy on validation data is $\approx 93 \%$
 \ref{fig:pred}.
-
 
 
 \end{document}

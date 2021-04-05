@@ -9,10 +9,9 @@
     - [[#Meetings|Meetings]]
     - [[#Notes|Notes]]
 
+
 = Info =
 - [[wiki0:VUT/RD6|Seminar]]
- 
-- good identification results 
  
 = Sections =
 - [[models/models|models]]: Models of pneumatic actuator
@@ -38,11 +37,13 @@
 
 TODO:
 * [X] Add Velocity from LeverPosition 
-* [ ] FaultCode of Failure data remote or note? ask brablc
-* [ ] Add latex to git ignore
+* [X] Add latex to git ignore
 * [ ] Friction R ~ 10% [N]
 
-* [ ] Isermann Fault Detection str. 70
-* [ ] Isermann Mechatronic:
-    * [ ] str. 457 Pneumatic Actuators
-    * [ ] str. 79 Energy Balance for Gases
+* [X] Isermann Fault Detection str. 70
+* [X] Isermann Mechatronic:
+    * [X] str. 457 Pneumatic Actuators
+    * [X] str. 79 Energy Balance for Gases
+* [ ] [[doc/notes/digital_twin]]
+* [ ] Kalman: https://www.mathworks.com/videos/series/understanding-kalman-filters.html
+* [ ] 

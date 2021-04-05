@@ -24,6 +24,10 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 
+\usepackage{xargs}
+\usepackage[pdftex,dvipsnames]{xcolor}  % Coloured text etc.
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+
 %\usepackage[square, numbers]{natbib}
 %\bibliographystyle{unsrtnat}
 %\usepackage[nottoc]{tocbibind}
@@ -44,13 +48,12 @@
 %\date{}
 
 \begin{document}
-%\tableofcontents
+\tableofcontents
 
 % -------------------------------------------------------
 % Section
 % -------------------------------------------------------
-\section{System modeling}
-
+\section{First Principle Approach (15 pages)}
 \paragraph{First Principles} (White-Box) \\
 % TODO Isermann Fault Detection str 72
 Simplification, Liniarization, Reduction, Parameter Estimation. \\
@@ -71,214 +74,74 @@ Measurements, Identification.
 %\end{figure}
 
 
+
+
+
+
+
 % -------------------------------------------------------
-% 
+%  __ _  ___ _ __   ___ _ __ __ _| |
+% / _` |/ _ \ '_ \ / _ \ '__/ _` | |
+%| (_| |  __/ | | |  __/ | | (_| | |
+% \__, |\___|_| |_|\___|_|  \__,_|_|
+% |___/                             
 % -------------------------------------------------------
-
-\subsection{Mechanical assembly}
-\subsubsection{Equation of motion}
-
-The motion of the pneumatic piston mechanism describes in terms of the
-general 1dof dynamical equation \ref{eq:1dof}. 
-
-\begin{equation}
-    m\ddot{x} + b\dot{x} + kx = u
-    \label{eq:1dof}
-\end{equation}
-
-%\begin{equation*}
-%    \ddot{x} +\frac{b}{m}\dot{x} + \frac{k}{m}x = \frac{1}{m}u
-%\end{equation*}
-%
-%\begin{equation*}
-%    \ddot{x} +2\delta\dot{x} + \Omega^2x = \frac{1}{m}u
-%\end{equation*}
-%
-%where $\delta = \frac{b}{2m}$ is damping and $\Omega = \sqrt{\frac{k}{m}}$
-%is natural frequency of system.
-%\begin{equation*}
-%    \ddot{x} +2\zeta\Omega\dot{x} + \Omega^2x = \frac{1}{m}u
-%\end{equation*}
-%where $\zeta = \frac{b}{2\sqrt{km}}$ is damping ratio.
-
-
-In the case of the pneumatic piston, the equation \ref{eq:1dof}
-transforms into an equation \ref{eq:mechanical}.
-
-\begin{equation}
-    (M + M_L) \ddot{x} + F_{damp} + F_g + F_{hs}  = F_p
-    \label{eq:mechanical}
-\end{equation}
-
-Where $M$ represents a mass of the all moveable part of the piston,
-$M_L$ is load mass, $F_g$ gravity force acting to mechanical moving assembly,
-$F_{hs}$ - models endpoints (hard stop),
-$F_{damp}$ represents shock absorbers acted at endpoints,
-$F_{p}$ is a force produced by the pneumatic piston \ref{eq:pneum}.
-
-\begin{equation}
-    F_p = P_A S_A - P_B S_B - P_0 S_0
-    \label{eq:pneum}
-\end{equation}
-
-\subsubsection{Hard stop}
-Hard stop can be represented as spring and dumps:
-
-\begin{align}
-    F_{HS} =
-    \begin{cases}
-        K_p(x-g_p) + D_pv & \text{for } x \ge g_p \\
-        0 & \text{for } g_n < x < g_p \\
-        K_n(x-g_n) + D_nv & \text{for } x \le g_n \\
-    \end{cases}
-\end{align}
-
-
-Possible parameters: \\
-\begin{tabular}{ |c|c|c| }
-    \hline
-    $K_p$ & $10^6$ & $[kg/s^2]$  \\
-    $K_n$ & $10^6$ & $[kg/s^2]$  \\
-    $D_p$ & $350$  & $[kg/s]$    \\
-    $D_n$ & $350$  & $[kg/s]$    \\
-    $g_n$ & $0  $  & $[m]$       \\
-    $g_p$ & $0.2$  & $[m]$       \\
-    \hline
-\end{tabular}
-
-\subsubsection{Shock Absorbers}
-
-\subsection{Pressure model}
-
-\begin{tabular}{ |c|c|c| }
-    \hline
-    $p_A, p_B$              & $Pa$              & pressure in chamber A, B \\
-    $\dot{m_A}, \dot{m_B}$  & $kg \cdot s^{-1}$ & mass flow on way to chamber A, B \\
-    $S_A, S_B$              & $m^2$             & piston area  \\
-    $V_A, V_B$              & $m^3$             & volume of chamber A,B \\
-    $V_{0A}, V_{0B}$        & $m^3$             & "dead" volume of chamber A,B \\
-    $m$                     & $kg$              & piston mass\\
-    $F_{load}$              & $N$               & load \\
-    $x$                     & $m$               & piston position \\
-    $l$                     & $m$               & maximum piston position \\
-    \hline
-\end{tabular}
-
-
-
-\paragraph{Isothermal model}
-\begin{align}
-    m = \rho V \\
-    \dot{m} = \dot{\rho} V + \rho \dot{V}
-\end{align}
-
-Applying \ref{eq:equation_of_state}:
-\begin{align}
-    \rho = \frac{p}{RT} \\
-    \dot{\rho} = \frac{\dot{p}}{RT} 
-\end{align}
-
-Finally get \ref{eq:pressure1}:
-\begin{align}
-    \dot{p} = - \frac{p}{V}\dot{V} + \frac{RT}{V}\dot{m}
-    \label{eq:pressure1}
-\end{align}
-
-\paragraph{Adiabatic model} 
-For simple adiabatic model following equation can be used
-\ref{eq:pressure_adiabatic_simple_model}:
-
-\begin{align}
-    \dot{p} = - \frac{\gamma p}{V}\dot{V} + \frac{\gamma RT}{V}\dot{m}
-    \label{eq:pressure_adiabatic_simple_model}
-\end{align}
-
-\begin{align}
-    \dot{p_A} = \frac{\gamma}{S_A x + V_{0A}} \left(- p_A S_A\dot{x} + RT_A\dot{m_A}
-    \right)
-\end{align}
-
-\begin{align}
-    \dot{p_B} = \frac{\gamma}{S_B (l-x) + V_{0B}} \left(p_B S_B\dot{x} + RT_B\dot{m_B}
-    \right)
-\end{align}
-
-Volumes of chambers:
-\begin{align}
-    V_A = S_A x + V_{0A} \\
-    V_B = S_B (l-x) + V_{0B} \\
-    \dot{V}_A = S_A \dot{x} \\
-    \dot{V}_B = - S_B \dot{x}
-\end{align}
-
-$T_A, T_B$ calculated from \ref{eq:equation_of_state}, or in adiabatic
-model this parameters can remain constant same as atmospheric temperature.
-
-
-
-
 \subsection{General physical principles}
-
-\subsubsection{Thermodynamics}
-\begin{tabular}{ |c|c|c| }
-    \hline
-    $p$                     & $Pa$              & pressure \\
-    $V$                     & $m^3$             & volume \\
-    $m$                     & $kg$              & mass \\
-    $n$                     & $mol$             & amount of substance \\
-    $R$                     & $Jkg^{-1}K^{-1}$  & ideal gas constant \\
-    $r$                     & $Jkg^{-1}K^{-1}$  & mass-specific gas constant \\
-    $T$                     & $K$               & temperature \\
-    $S$                     & $m$               & area \\
-    $z$                     & $m$               & height \\
-    $w$                     & $ms^{-1}$         & flow speed \\
-    $H$                     & $J$               & enthalpy \\
-    $\nu$                   & $m^3kg^{-1}$      & specific volume \\
-    $Q$                     & $J$               & heat shared with
-                                                    environment \\
-    $W_T$                   & $J$               & work \\
-    $c_p$                   & $Jkg^{-1}K^{-1}$  & is the specific heat
-                                                    at constant pressure \\
-    $c_v$                   & $Jkg^{-1}K^{-1}$  & is the specific heat at constant volume\\
-    $g=9.81$                & $ms^{-2}$         & gravity acceleration \\
-    $\gamma=1.4\text{(air)}$& $-$               & heat capacity ratio
-                                                    (isentropic expansion factor)\\
-    \hline
-\end{tabular}
-
-\subsubsection{Equation of state}
-Generally $pV=nRT$ but for air purpose were $r=\frac{pv}{T}=R=287.1 [Jkg^{-1}K^{-1}]$
-following equation can be used \ref{eq:equation_of_state}:
+\paragraph{Equation of state}
+Generally $pV=nR_mT$ but for air, using ideal gas constant $R=287.1 [Jkg^{-1}K^{-1}]$
+state equation can be rewrite as \ref{eq:equation_of_state}.
 \begin{align}
-    pV = mrT
+    pV = mRT
     \label{eq:equation_of_state}
 \end{align} 
 
-\subsubsection{Isothermal process}
-Used in some papers \ref{eq:isothermal_process}:
+\paragraph{Isothermal process}
+For isothermal process \ref{eq:isothermal_process}:
 \begin{align}
     p_1 V_1 = p_2 V_2 = const
     \label{eq:isothermal_process}
 \end{align}
-\subsubsection{Adiabatic process}
+
+\paragraph{Adiabatic process}
 
 Adiabatic process \ref{eq:adiobatic_process}:
 \begin{align}
-     p_1V_1^{\gamma} =  p_2V_2^{\gamma} = const
+     p_1V_1^{\kappa} =  p_2V_2^{\kappa} = const
     \label{eq:adiobatic_process}
 \end{align}
 
-Heat capacity ratio:
-\begin{align}
-    \gamma = \frac{c_p}{c_v}
-\end{align}
+where $\kappa = c_p/c_v$ is a heat capacity ratio. Another
+important equation is Mayer's relation $c_p = c_v + R$.
 
-Mayer's relation:
-\begin{align}
-    c_p = c_v + R
-\end{align}
+\paragraph{Thermodynamics}
+%\begin{tabular}{ |c|c|c| }
+%    \hline
+%    $p$                     & $Pa$              & pressure \\
+%    $V$                     & $m^3$             & volume \\
+%    $m$                     & $kg$              & mass \\
+%    $n$                     & $mol$             & amount of substance \\
+%    $R$                     & $Jkg^{-1}K^{-1}$  & ideal gas constant \\
+%    $r$                     & $Jkg^{-1}K^{-1}$  & mass-specific gas constant \\
+%    $T$                     & $K$               & temperature \\
+%    $S$                     & $m$               & area \\
+%    $z$                     & $m$               & height \\
+%    $w$                     & $ms^{-1}$         & flow speed \\
+%    $H$                     & $J$               & enthalpy \\
+%    $\nu$                   & $m^3kg^{-1}$      & specific volume \\
+%    $Q$                     & $J$               & heat shared with
+%                                                    environment \\
+%    $W_T$                   & $J$               & work \\
+%    $c_p$                   & $Jkg^{-1}K^{-1}$  & is the specific heat
+%                                                    at constant pressure \\
+%    $c_v$                   & $Jkg^{-1}K^{-1}$  & is the specific heat at constant volume\\
+%    $g=9.81$                & $ms^{-2}$         & gravity acceleration \\
+%    $\kappa=1.4\text{(air)}$& $-$               & heat capacity ratio
+%                                                    (isentropic expansion factor)\\
+%    \hline
+%\end{tabular}
 
-\subsubsection{Bernoulli's principle}
+
+\paragraph{Bernoulli's principle}
 Bernoulli's principle \ref{eq:bernoullis_principle}:
 \begin{align}
     H_1 + \frac{mw_1^2}{2} + mgz_1 + Q = H_2 + \frac{mw_2^2}{2} + mgz_w +
@@ -297,21 +160,21 @@ Differential form:
 \end{align}
 
 
-\subsubsection{Fluid mechanics}
-\begin{tabular}{ |c|c|c| }
-    \hline
-    $\dot{m}$                   & $kgs^{-1}$  & mass flow \\
-    $c$                         & $ms^{-2}$   & speed of sound \\
-    $w_k$                       & $ms^{-2}$   & critical flow velocity \\
-    $\psi$                      & $-$         & flow coefficient \\
-    $\psi_{max}$                & $-$         & critical flow coefficient \\
-    $\beta$                     & $-$         & ration of pressure
-                                                    differential \\
-    $\beta_k$                   & $-$         & critical ratio of pressure
-                                                    differential \\
-
-    \hline
-\end{tabular}
+\paragraph{Fluid mechanics}
+%\begin{tabular}{ |c|c|c| }
+%    \hline
+%    $\dot{m}$                   & $kgs^{-1}$  & mass flow \\
+%    $c$                         & $ms^{-2}$   & speed of sound \\
+%    $w_k$                       & $ms^{-2}$   & critical flow velocity \\
+%    $\psi$                      & $-$         & flow coefficient \\
+%    $\psi_{max}$                & $-$         & critical flow coefficient \\
+%    $\beta$                     & $-$         & ration of pressure
+%                                                    differential \\
+%    $\beta_k$                   & $-$         & critical ratio of pressure
+%                                                    differential \\
+%
+%    \hline
+%\end{tabular}
 
 Continuity equation \ref{eq:continuity_equation}: 
 \begin{align}
@@ -319,7 +182,7 @@ Continuity equation \ref{eq:continuity_equation}:
     \label{eq:continuity_equation}
 \end{align}
 
-\subsubsection{Air expansion from tank}
+\paragraph{Air expansion from tank}
 Assuming $W_T = 0, z_1 = z_2, Q = 0$ conditions and combine with
 \ref{eq:bernoullis_principle} we will get \ref{eq:w2} equation:
 
@@ -330,28 +193,28 @@ Assuming $W_T = 0, z_1 = z_2, Q = 0$ conditions and combine with
 
 \begin{align}
     w_2 =
-    \sqrt{2RT_1(\frac{\gamma}{\gamma-1})(1-(\frac{p_2}{p_1})^\frac{\gamma-1}{\gamma})}
+    \sqrt{2RT_1(\frac{\kappa}{\kappa-1})(1-(\frac{p_2}{p_1})^\frac{\kappa-1}{\kappa})}
     \label{eq:w2_final}
 \end{align}
 
 \begin{align}
-    \rho_2 = \frac{p_1}{RT_1} (\frac{p_2}{p_1})^{\frac{1}{\gamma}}
+    \rho_2 = \frac{p_1}{RT_1} (\frac{p_2}{p_1})^{\frac{1}{\kappa}}
     \label{eq:rho2}
 \end{align}
 
 Together \ref{eq:continuity_equation} \ref{eq:w2_final} \ref{eq:rho2}:
 \begin{align}
     \dot{m} = S p_1 \sqrt{\frac{2}{RT_1}} \cdot
-    \sqrt{\frac{\gamma}{\gamma-1}\left(\left(\frac{p_2}{p_1}\right)^\frac{2}{\gamma} -
-    \left(\frac{p_2}{p_1}\right)^\frac{\gamma + 1}{\gamma}\right)}
+    \sqrt{\frac{\kappa}{\kappa-1}\left(\left(\frac{p_2}{p_1}\right)^\frac{2}{\kappa} -
+    \left(\frac{p_2}{p_1}\right)^\frac{\kappa + 1}{\kappa}\right)}
     \label{}
 \end{align}
 
 where: 
 \begin{align}
     \psi\left(\frac{p_2}{p_1}\right) =  
-    \sqrt{\frac{\gamma}{\gamma-1}\left(\left(\frac{p_2}{p_1}\right)^\frac{2}{\gamma} -
-    \left(\frac{p_2}{p_1}\right)^\frac{\gamma + 1}{\gamma}\right)}
+    \sqrt{\frac{\kappa}{\kappa-1}\left(\left(\frac{p_2}{p_1}\right)^\frac{2}{\kappa} -
+    \left(\frac{p_2}{p_1}\right)^\frac{\kappa + 1}{\kappa}\right)}
     \label{eq:psi}
 \end{align}
 
@@ -361,21 +224,21 @@ Finally \ref{eq:mass_flow}:
     \label{eq:mass_flow}
 \end{align}
 
-\subsubsection{Critical flow velocity}
+\paragraph{Critical flow velocity}
 Speed of sound:
 \begin{align}
     c = \sqrt{\frac{dp}{d\rho}} = 
-    \sqrt{\frac{\gamma p}{\rho}} = \sqrt{\gamma R T}
+    \sqrt{\frac{\kappa p}{\rho}} = \sqrt{\kappa R T}
     \label{eq:speed_of_sound}
 \end{align}
 
 Assume $c=w_2$ (\ref{eq:w2_final}, \ref{eq:speed_of_sound}) we will get the
 critical flow velocity:
 \begin{align}
-    &c_2 = w_k = \sqrt{\gamma RT} =
-    \sqrt{2RT_1\frac{\gamma}{\gamma-1}-2w_k^2\frac{1}{\gamma-1}} \\
-    &w_k^2 = 2RT_1\frac{\gamma}{\gamma-1}-2w_k^2\frac{1}{\gamma-1} \\
-    &w_k = \sqrt{2RT_1\frac{\gamma}{\gamma-1}} = \sqrt{2p_1 \nu_1 \frac{\gamma}{\gamma + 1}}
+    &c_2 = w_k = \sqrt{\kappa RT} =
+    \sqrt{2RT_1\frac{\kappa}{\kappa-1}-2w_k^2\frac{1}{\kappa-1}} \\
+    &w_k^2 = 2RT_1\frac{\kappa}{\kappa-1}-2w_k^2\frac{1}{\kappa-1} \\
+    &w_k = \sqrt{2RT_1\frac{\kappa}{\kappa-1}} = \sqrt{2p_1 \nu_1 \frac{\kappa}{\kappa + 1}}
     \label{eq:wk}
 \end{align}
 
@@ -383,15 +246,15 @@ critical flow velocity:
 For calculating critical pressure ratio assume $w_k = w_2$ \ref{eq:wk}
 \ref{eq:w2_final}:
 \begin{align}
-    &\sqrt{2RT_1\frac{\gamma}{\gamma-1}}  = 
-    \sqrt{2RT_1 \frac{\gamma}{\gamma-1}
-    \left(1-\left(\frac{p_2}{p1}\right)^{\frac{\gamma+1}{\gamma}}\right)} \\
-    &\left(\frac{p_2}{p1}\right)^\frac{\gamma-1}{\gamma} = \frac{2}{\gamma+1} \\
+    &\sqrt{2RT_1\frac{\kappa}{\kappa-1}}  = 
+    \sqrt{2RT_1 \frac{\kappa}{\kappa-1}
+    \left(1-\left(\frac{p_2}{p1}\right)^{\frac{\kappa+1}{\kappa}}\right)} \\
+    &\left(\frac{p_2}{p1}\right)^\frac{\kappa-1}{\kappa} = \frac{2}{\kappa+1} \\
 \end{align}
 \begin{align}
     &\left(\frac{p_2}{p1}\right)_k =
     \left(\frac{p_k}{p1}\right) =
-    \left(\frac{2}{\gamma+1}\right)^\frac{\gamma}{\gamma-1}=\beta_k
+    \left(\frac{2}{\kappa+1}\right)^\frac{\kappa}{\kappa-1}=\beta_k
     \label{eq:beta_k}
 \end{align}
 
@@ -400,7 +263,7 @@ Critical pressure condition is $p_k = p_1 \beta_k$.
 Applying \ref{eq:beta_k} to \ref{eq:psi}:
 \begin{align}
     &\psi_{max} (\beta_k) = 
-    \left(\frac{2}{\gamma+1}\right)^\frac{\gamma}{\gamma-1}\sqrt{\frac{\gamma}{\gamma+1}}
+    \left(\frac{2}{\kappa+1}\right)^\frac{\kappa}{\kappa-1}\sqrt{\frac{\kappa}{\kappa+1}}
 \end{align}
 
 For air $\beta_k = 0.528, \psi_{max} = 0.484$
@@ -410,17 +273,96 @@ Final equation for $\psi$:
 \begin{align}
     \psi\left(\frac{p_2}{p_1}\right) = 
     \begin{cases}
-    \sqrt{\frac{\gamma}{\gamma-1}\left(\left(\frac{p_2}{p_1}\right)^\frac{2}{\gamma} -
-    \left(\frac{p_2}{p_1}\right)^\frac{\gamma + 1}{\gamma}\right)} & 0.528
+    \sqrt{\frac{\kappa}{\kappa-1}\left(\left(\frac{p_2}{p_1}\right)^\frac{2}{\kappa} -
+    \left(\frac{p_2}{p_1}\right)^\frac{\kappa + 1}{\kappa}\right)} & 0.528
     <\frac{p_2}{p_1} \le 1 \\
-    \left(\frac{2}{\gamma +1}\right)^{\frac{1}{\gamma+1}}
-    \sqrt{\frac{\gamma}{\gamma +1}} & 0 \ge \frac{p2}{p1} \le 0.528\\
+    \left(\frac{2}{\kappa +1}\right)^{\frac{1}{\kappa+1}}
+    \sqrt{\frac{\kappa}{\kappa +1}} & 0 \ge \frac{p2}{p1} \le 0.528\\
     \end{cases}
 \end{align}
 
 
+% -------------------------------------------------------
+% _ __  _ __ ___  ___ ___ _   _ _ __ ___ 
+%| '_ \| '__/ _ \/ __/ __| | | | '__/ _ \
+%| |_) | | |  __/\__ \__ \ |_| | | |  __/
+%| .__/|_|  \___||___/___/\__,_|_|  \___|
+%|_|                                     
+% -------------------------------------------------------
+\subsection{Pressure model}
 
-\subsection{Pneumatic actuator model}
+\begin{tabular}{ |c|c|c| }
+    \hline
+    $p_A, p_B$              & $Pa$              & pressure in chamber A, B \\
+    $\dot{m_A}, \dot{m_B}$  & $kg \cdot s^{-1}$ & mass flow on way to chamber A, B \\
+    $S_A, S_B$              & $m^2$             & piston area  \\
+    $V_A, V_B$              & $m^3$             & volume of chamber A,B \\
+    $V_{0A}, V_{0B}$        & $m^3$             & "dead" volume of chamber A,B \\
+    $m$                     & $kg$              & piston mass\\
+    $F_{load}$              & $N$               & load \\
+    $x$                     & $m$               & piston position \\
+    $l$                     & $m$               & maximum piston position \\
+    \hline
+\end{tabular}
+
+There are different approaches how to model thermal processes in pneumatic
+system. Isothermal, adiabatic, polytropic models are suitable in different
+technical applications. 
+
+
+\paragraph{Isothermal model of pressure in cylinder}
+
+\begin{align}
+    m = \rho V \\
+    \dot{m} = \dot{\rho} V + \rho \dot{V}
+\end{align}
+
+Applying \ref{eq:equation_of_state}:
+\begin{align}
+    \rho = \frac{p}{RT} \\
+    \dot{\rho} = \frac{\dot{p}}{RT} 
+\end{align}
+
+Finally get \ref{eq:pressure1}:
+\begin{align}
+    \dot{p} = - \frac{p}{V}\dot{V} + \frac{RT}{V}\dot{m}
+    \label{eq:pressure1}
+\end{align}
+
+
+\paragraph{Adiabatic model of pressure in cylinder} 
+In this work adiabatic process was chosen with
+respect to \ref{} \todo[inline]{Add source}.
+For simple adiabatic model following equation can be used
+\ref{eq:pressure_adiabatic_simple_model}:
+
+\begin{align}
+    \dot{p} = - \frac{\kappa p}{V}\dot{V} + \frac{\kappa RT}{V}\dot{m}
+    \label{eq:pressure_adiabatic_simple_model}
+\end{align}
+
+\begin{align}
+    \dot{p_A} = \frac{\kappa}{S_A x + V_{0A}} \left(- p_A S_A\dot{x} + RT_A\dot{m_A}
+    \right)
+\end{align}
+
+\begin{align}
+    \dot{p_B} = \frac{\kappa}{S_B (l-x) + V_{0B}} \left(p_B S_B\dot{x} + RT_B\dot{m_B}
+    \right)
+\end{align}
+
+Volumes of chambers:
+\begin{align}
+    V_A = S_A x + V_{0A} \\
+    V_B = S_B (l-x) + V_{0B} \\
+    \dot{V}_A = S_A \dot{x} \\
+    \dot{V}_B = - S_B \dot{x}
+\end{align}
+
+$T_A, T_B$ calculated from \ref{eq:equation_of_state}, or in adiabatic
+model this parameters can remain constant same as atmospheric temperature.
+
+\subsection{Mass flow model}
 
 \subsubsection{Input/Output mass flows}
 
@@ -431,10 +373,10 @@ Final equation for $\psi$:
 
 \subsubsection{Differential equation for Temperature change}
 \begin{align}
-    T = \int{ (\gamma T_s - T_{A/B})
+    T = \int{ (\kappa T_s - T_{A/B})
         \frac{R\dot{m}_{A/Bin}}{p_{A/B}V_{A}}T_{A/B} -
-    (\gamma-1)\frac{R\dot{m}_{A/Bout}}{p_{A/B}V_{A/B}} T_{A/B}^2 -
-(\gamma-1)\frac{\dot{V}_{A/B}}{V_{A/B}}T_{A/B}}
+    (\kappa-1)\frac{R\dot{m}_{A/Bout}}{p_{A/B}V_{A/B}} T_{A/B}^2 -
+(\kappa-1)\frac{\dot{V}_{A/B}}{V_{A/B}}T_{A/B}}
 \end{align}
 
 
@@ -526,14 +468,14 @@ voltage $u$.
     \dot{m}(P_u, P_d) = 
     \begin{cases}
         C_f A_v
-        \left(\frac{\gamma}{R}\left(\frac{2}{\gamma-1}\right)\right)^{\frac{1}{2}}
+        \left(\frac{\kappa}{R}\left(\frac{2}{\kappa-1}\right)\right)^{\frac{1}{2}}
         \cdot
-        \frac{P_u}{\sqrt{T}}\left(\frac{P_d}{P_u}\right)^{\frac{1}{\gamma}}
+        \frac{P_u}{\sqrt{T}}\left(\frac{P_d}{P_u}\right)^{\frac{1}{\kappa}}
         \cdot 
-        \sqrt{1 - \left(\frac{P_d}{P_u}\right)^{\frac{\gamma-1}{\gamma}}} &,
+        \sqrt{1 - \left(\frac{P_d}{P_u}\right)^{\frac{\kappa-1}{\kappa}}} &,
             \text{ if } \frac{P_d}{P_u}>P_{cr} \text{ (subsonic)} \\
-        C_f A_v \frac{P_u}{\sqrt{T}}\cdot \sqrt{\frac{\gamma}{R}
-        \left(\frac{2}{\gamma + 1}\right)^{\frac{\gamma+1}{\gamma-1}}} &,
+        C_f A_v \frac{P_u}{\sqrt{T}}\cdot \sqrt{\frac{\kappa}{R}
+        \left(\frac{2}{\kappa + 1}\right)^{\frac{\kappa+1}{\kappa-1}}} &,
             \text{ if }  \frac{P_d}{P_u} \le P_{cr} \text{ (sonic)} \\
     \end{cases}
     \label{eq:valve_2}
@@ -602,16 +544,60 @@ dead-zone can be used \ref{eq:deadzone}.
     \label{eq:deadzone}
 \end{equation}
 
-\subsection{Mechanical assembly}\label{sec:mech_assembly}
-Mechanical assembly basically represented by following equation
-\ref{eq:mech}.
+
+
+% -------------------------------------------------------
+% _ __ ___   ___  ___| |__   __ _ _ __ (_) ___ 
+%| '_ ` _ \ / _ \/ __| '_ \ / _` | '_ \| |/ __|
+%| | | | | |  __/ (__| | | | (_| | | | | | (__ 
+%|_| |_| |_|\___|\___|_| |_|\__,_|_| |_|_|\___|
+% -------------------------------------------------------
+\subsection{Mechanical assembly}
+\subsubsection{Equation of motion}
+
+The motion of the pneumatic piston mechanism describes in terms of the
+general 1dof dynamical equation \ref{eq:1dof}. 
 
 \begin{equation}
-    \ddot{x} = \frac{1}{m}\left(S_A p_A - S_B p_B - S_0 p_0 - F_f \right)
-    \label{eq:mech}
+    m\ddot{x} + b\dot{x} + kx = u
+    \label{eq:1dof}
 \end{equation}
 
-where $F_f$ is a friction force. Friction force can be modeled in the
+In the case of the pneumatic piston, the equation \ref{eq:1dof}
+transforms into an equation \ref{eq:mechanical}.
+
+\begin{equation}
+    (M + M_L) \ddot{x} + F_{damp} + F_g + F_{hs}  = F_p
+    \label{eq:mechanical}
+\end{equation}
+
+Where $M$ represents a mass of the all moveable part of the piston,
+$M_L$ is load mass, $F_g$ gravity force acting to mechanical moving assembly,
+$F_{hs}$ - models endpoints (hard stop),
+$F_{damp}$ represents shock absorbers acted at endpoints,
+$F_{p}$ is a force produced by the pneumatic piston \ref{eq:pneum}.
+
+\begin{equation}
+    F_p = P_A S_A - P_B S_B - P_0 S_0
+    \label{eq:pneum}
+\end{equation}
+
+\subsubsection{Hard stop}
+Hard stop can be represented as spring and dumps:
+
+\begin{align}
+    F_{HS} =
+    \begin{cases}
+        K_p(x-g_p) + D_pv & \text{for } x \ge g_p \\
+        0 & \text{for } g_n < x < g_p \\
+        K_n(x-g_n) + D_nv & \text{for } x \le g_n \\
+    \end{cases}
+\end{align}
+
+
+\subsubsection{Shock Absorbers}
+\subsubsection{Friction}
+Friction force can be modeled in the
 different ways.
 
 As an example of possible model is following equation. That consist from
@@ -633,8 +619,63 @@ maximum static friction, $\mu$ - dynamic friction factor, $v_s$ - Stribeck veloc
 $\delta$ - arbitrary index, $v_e$ critical velocity.
 
 
+% -------------------------------------------------------
+% ___  ___ _ __  ___  ___  _ __ ___ 
+%/ __|/ _ \ '_ \/ __|/ _ \| '__/ __|
+%\__ \  __/ | | \__ \ (_) | |  \__ \
+%|___/\___|_| |_|___/\___/|_|  |___/
+% -------------------------------------------------------
+\subsection{Sensors Modeling}
+Sensors
 
-\section{Models based on approximation}
+% -------------------------------------------------------
+%(_) __| | ___ _ __ | |_ 
+%| |/ _` |/ _ \ '_ \| __|
+%| | (_| |  __/ | | | |_ 
+%|_|\__,_|\___|_| |_|\__|
+% -------------------------------------------------------
+\subsection{Parameter identification}
+
+\subsubsection{Mechanical assembly}
+In mechanical system there is $F_f$ force represented by frictions accruing
+in the system. This force can be modeled by different friction models with
+respect to \ref{sec:mech_assembly}. Friction force parameters can be
+estimated using "gray-box" method. 
+Using $\dot{m}$ mass flow data versus $x$ position measured on real assembly
+and use these data as an input and output, we can fit $F_f$.
+Simplify model can contain TODO:
+\begin{itemize}
+    \item $F_C$ static friction
+    \item $C_v$ viscous
+    \item $C_p$ Pressure difference
+\end{itemize}
+
+\subsubsection{Cylinder}
+Dead volume: $p_1 V_1^n = p_2 V_2^n$ or datasheet.
+
+\subsubsection{Valve}
+For valve system there are two parameters that need to be estimated.
+According to equation \ref{eq:flow2} with constant $p_1$ (pressure supply) and $p_2$
+(atmospheric pressure), we can estimate $\boldsymbol{C}$ if we neglect Valve Spool dynamic.
+If in experiment we determine that spool dynamic necessary to include. We
+provide same experiment with spool model including to "Gray-box" fitting
+model.
+\begin{align}
+    \dot{m} = \boldsymbol{u}(x_s) \boldsymbol{C}  p_1 \sqrt{\frac{2}{RT_1}}
+    \cdot \psi\left(\frac{p_2}{p_1}\right)
+    \label{eq:flow2}
+\end{align}
+
+
+% -------------------------------------------------------
+%  __ _ _ __  _ __  _ __ _____  __
+% / _` | '_ \| '_ \| '__/ _ \ \/ /
+%| (_| | |_) | |_) | | | (_) >  < 
+% \__,_| .__/| .__/|_|  \___/_/\_\
+%      |_|   |_|                  
+% -------------------------------------------------------
+
+\section{Alternative Modeling Approaches (3 pages)}
 Generally with dataset of input-output signals approximation model can be
 fit. Using System Identification Toolbox and modeled as Black-Box or
 Gray-Box models. This section attempted to fit some models using data from
@@ -644,17 +685,35 @@ Fit approximation model make sense only if we know what to fit. Using
 signal process techniques and identify dominant signals that providing best
 classification features we will train models with respect to this signals.
 
-Demonstration scripts are done and waiting for signals :)
 
-\subsection{State-space model}
-\subsection{ARX model}
+\subsection{Simscape Model}
+Working, very slow.
 
-\pagebreak
-\section{Models comparison}
 
+\subsection{State-space Model}
+Not working, Nonlinearities.
+
+\subsection{ARX Model}
+Not working, Nonlinearities.
+
+\subsection{Hammerstein-Wiener Model}
+Working only for position.
+
+\subsection{Nonparametric Model}
+Working.
+
+
+% -------------------------------------------------------
+%  ___ ___  _ __ ___  _ __   __ _ _ __ ___ 
+% / __/ _ \| '_ ` _ \| '_ \ / _` | '__/ _ \
+%| (_| (_) | | | | | | |_) | (_| | | |  __/
+% \___\___/|_| |_| |_| .__/ \__,_|_|  \___|
+%                    |_|                   
+% -------------------------------------------------------
+\section{Models comparison (2-3 pages)}
 \subsection{Model based on equations}
-This model \ref{fig:model_equations} was developed with respect to equations represented in previous
-section.
+This model \ref{fig:model_equations} was developed with respect to equations
+represented before.
 
 \begin{figure}[h!]
     \centering
@@ -674,6 +733,9 @@ Model \ref{fig:model_simscape} was developed using SimScape toolbox.
     \label{fig:model_simscape}
 \end{figure}
 
+\subsection{Nonparametric model}
+
+
 
 \subsection{Comparison}
 Following figure \ref{fig:compare_of_models} represent comparison of 2 models
@@ -687,42 +749,6 @@ simplifications in model based on equations.
     \caption{Comparison of simscape and model based on equations}
     \label{fig:compare_of_models}
 \end{figure}
-
-
-\pagebreak
-\section{Parameter identification}
-\subsection{Mechanical assembly}
-In mechanical system there is $F_f$ force represented by frictions accruing
-in the system. This force can be modeled by different friction models with
-respect to \ref{sec:mech_assembly}. Friction force parameters can be
-estimated using "gray-box" method. 
-Using $\dot{m}$ mass flow data versus $x$ position measured on real assembly
-and use these data as an input and output, we can fit $F_f$.
-Simplify model can contain TODO:
-\begin{itemize}
-    \item $F_C$ static friction
-    \item $C_v$ viscous
-    \item $C_p$ Pressure difference
-\end{itemize}
-
-
-
-\subsection{Cylinder}
-Dead volume: $p_1 V_1^n = p_2 V_2^n$ or datasheet.
-
-\subsection{Valve}
-For valve system there are two parameters that need to be estimated.
-According to equation \ref{eq:flow2} with constant $p_1$ (pressure supply) and $p_2$
-(atmospheric pressure), we can estimate $\boldsymbol{C}$ if we neglect Valve Spool dynamic.
-If in experiment we determine that spool dynamic necessary to include. We
-provide same experiment with spool model including to "Gray-box" fitting
-model.
-
-\begin{align}
-    \dot{m} = \boldsymbol{u}(x_s) \boldsymbol{C}  p_1 \sqrt{\frac{2}{RT_1}}
-    \cdot \psi\left(\frac{p_2}{p_1}\right)
-    \label{eq:flow2}
-\end{align}
 
 \end{document}
 

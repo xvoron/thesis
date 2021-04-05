@@ -47,7 +47,7 @@
 
 % ----------------------------------------------------------------------------- 
 
-\section{Signal Based PM}
+\section{Signal-Based PdM (15 pages)}
 Signal-Based Predictive Maintenance.
 \paragraph{General}
 \paragraph{Workflow}
@@ -157,12 +157,15 @@ Kruskal-Wallis ANOVA algorithm. Following table \ref{tab:feat} contain
 Kruskal-Wallis is very suitable to ranking features before using PCA or
 SVD.
 
+
 \subsubsection{Microphones}
 Cheap, good results, but maybe problems with real life integration (noise
 from another machines).
 
 \subsubsection{Encoder}
 Good results, useful in simulations and compare results with Digital Twin.
+
+\subsubsection{Acceleration sensors}
 
 \subsubsection{Proximity Sensors}
 Very correlated features. Can not be used for classification. But suitable
@@ -191,10 +194,5 @@ features and chose the best representants.
 
 The trained model has been exported to
 \textbf{models/} directory.
-
-The confusion matrix of the trained classification model shown in figure
-\ref{fig:conf}. Model accuracy on validation data is $\approx 93 \%$
-\ref{fig:pred}.
-
 
 \end{document}

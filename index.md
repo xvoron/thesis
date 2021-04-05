@@ -36,6 +36,7 @@
 - How much time do i need to do this?
 
 TODO:
+
 * [X] Add Velocity from LeverPosition 
 * [X] Add latex to git ignore
 * [ ] Friction R ~ 10% [N]
@@ -46,4 +47,11 @@ TODO:
     * [X] str. 79 Energy Balance for Gases
 * [ ] [[doc/notes/digital_twin]]
 * [ ] Kalman: https://www.mathworks.com/videos/series/understanding-kalman-filters.html
-* [ ] 
+
+
+= Plan =
+* 6.4-7.4 Finish models + TS
+* 8.4-9.4 Finish Signal Based + TS
+* 10.4-13.4 Finish MB + TS
+
+

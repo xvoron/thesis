@@ -9,6 +9,9 @@
     - [[#Meetings|Meetings]]
     - [[#Notes|Notes]]
 
+= New =
+- [[https://gregstanleyandassociates.com/whitepapers/FaultDiagnosis/faultdiagnosis.htm]]
+
 
 = Info =
 - [[wiki0:VUT/RD6|Seminar]]

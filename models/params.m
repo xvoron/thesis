@@ -120,8 +120,8 @@ spool_dynamic = 0.0129687892258071;
 spool_valve_time_delay = 0.030215112821256;
 
 % 1.1.3 Control valves
-valve1 = 8;
-valve2 = 4;
+valve1 = 4;
+valve2 = 6;
 
 valve1_gain = 5e-3;
 valve2_gain = 5e-3;
@@ -133,8 +133,11 @@ conv_SI     = 1.666667e-5;       % [-]      [c] Convert [l/min]->[m^3/s]
 lookup_q_l  = [130 80 50 35 20 15 10 5 3 2 0.5];
 lookup_q_n  = lookup_q_l/130;
 
-lookup_n    = [1 2 3 4 5 6 7 8 9 10 11]; 
+lookup_n    = 0:1:10;
 lookup_q    = lookup_q_l*conv_SI*rho;
+
+lookup_qn_Kv = flip([0.25 0.1728 0.11232 0.06912 0.0432 0.02592 0.02027808 0.0135216 ...
+ 0.0094608 0.00675648 0.00405216]);
 
 % polynomial model 3
 p = polyfit(lookup_n, lookup_q_n, 4);
@@ -331,7 +334,10 @@ prox_up_band     = 0.1925;       % [-] [m] Upper position
 prox_bot_band    = 4e-4;         % [-] [m] Bottom position
 
 
-
+% 4.3 Accelerometer sensors
+acc_enable = 1;
+acc_C = -1/g;
+acc_noise_var = 1e-10;
 
 %% Estimated parameters:
 b_small = 5184.3;

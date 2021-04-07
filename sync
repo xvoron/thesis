@@ -3,4 +3,9 @@
 remt export mt/notes doc/scans/
 remt export mt/models models/doc/scans/
 remt export mt/equations models/doc/scans/
+remt export mt/sensors models/doc/scans/
+remt export mt/pca models/doc/scans/
+remt export mt/identification models/doc/scans/
+remt export mt/pm_notes models/doc/scans/
+remt export mt/dampers models/doc/scans/
 echo "Sync done!"

@@ -47,12 +47,17 @@
 \begin{document}
 \tableofcontents
 
-
 \section{PdM using a Simulation Model (10-15 pages)}
 
 \subsection{Differences between Model-Based PdM and PdM using Digital Twin}
 There is a difference between using Model-Based PdM and using Simulation
 Model as a Digital Twin.
+
+\subsection{Using Digital Twin to Generate Fault Data}
+We can use Digital Twin to model situations that were not captured in the
+original dataset or if it is hard to model some cases with real-world
+hardware. As an example, we can model sensors fault such as sensor drift or
+complete signal loss.
 
 \subsection{Model-Based Condition Indicators}
 Model-Based approach is suitable when it's difficult to identify condition
@@ -71,8 +76,13 @@ Then condition indicators can be extracted as poles, zeros damping
 coefficients from estimated model.
 
 
+\subsubsection{Using Hammerstain-Weiner Model}
+Demo using Hammerstain-Wiener Model. Fit model to position signal and
+extract coefficients from model as Condition indicators. Classification.
+
 \subsection{Using Simulation Model for Residuals
 Estimation}\label{sec:residuals}
+
 Another option is using the Simulink model with \textbf{prediction
 error minimization function} to compute difference between Simulink model
 and measured data. From this difference we can separate fault condition and
@@ -86,10 +96,14 @@ Compare actual system behavior with system model. This will generate some
 error $e(t) = y(t) - \hat{y}(t)$. From this error residual can be generated
 in form $r(t)=\Phi(u_t,y_t, \varepsilon_t,v_t,d)$ and after some decision.
 
-\subsection{Using Digital Twin to Generate Fault Data}
-
 \subsection{Using Digital Twin to Generate Prognostic Data}
+
 
 \subsection{RUL}
 
+
 \end{document}
+
+
+
+

@@ -12,7 +12,7 @@ disp("Starting")
 addpath('../utils/');
 addpath('../utils/preprocessing/');
 
-path2data_converted = '../data/data11/*.mat';
+path2data_converted = '../data/data22/*.mat';
 loc_files = fullfile(path2data_converted);
 ext_files = ".mat";
 
@@ -22,7 +22,6 @@ datastore = fileEnsembleDatastore(loc_files, ext_files);
 datastore.ReadFcn = @readData;
 
 datastore.DataVariables = ["FlowExtrusion"; ...  
-                           "FlowExtrusion_stats"; ...  
                            "FlowContraction"; ...
                            "AirPressure"; ...
                            "AccelerometerMoving_axisY"; ...
@@ -55,7 +54,6 @@ datastore.IndependentVariables = ["Temp_Cylinder"; ...
 
 datastore.SelectedVariables = ["FaultCode"; ...
                                "FlowExtrusion"; ... 
-                               "FlowExtrusion_stats"; ... 
                                "FlowContraction"; ...
                                "AirPressure"; ...
                                "AccelerometerMoving_axisY"; ...
@@ -77,8 +75,23 @@ datastore.WriteToMemberFcn = @writeData;
 clear loc_files ext_files path2data_converted
 disp("Datastore import - done");
 
+
+
+%% 2. Fault codes
+fault_codes = ["Start"];
+reset(datastore);
+while hasdata(datastore)
+   member = read(datastore);
+   if find(ismember(fault_codes, member.FaultCode))
+        continue
+   else
+       fault_codes = [fault_codes; member.FaultCode];
+   end
+    disp(string(progress(datastore)*100) + "% Done");
+end
+
 %% 3. Preprocess Data
-label_add = true;
+label_add = false;
 runParallel = false;
 
 datastore.ConditionVariables = [datastore.ConditionVariables; "Label"];

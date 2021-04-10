@@ -12,6 +12,21 @@
 = New =
 - [[https://gregstanleyandassociates.com/whitepapers/FaultDiagnosis/faultdiagnosis.htm]]
 
+- Signal based: easy extract and train model
+- Model based: Residual same as:
+[[https://www.mathworks.com/help/predmaint/ug/fault-diagnosis-of-centrifugal-pumps-using-residual-analysis.html]]
+- Using model:
+    - Generate data for RUL
+    - Apply RUL:
+    - https://www.mathworks.com/help/predmaint/ug/wind-turbine-high-speed-bearing-prognosis.html
+
+Acc Vibration modeling:
+https://www.mathworks.com/help/predmaint/ug/Use-Simulink-to-Generate-Fault-Data.html
+
+* [ ] Sort vs PCA ???
+    * [ ] PCA takes features and reduce them to Classifier
+    * [ ] Sort explain variance between different features
+
 
 = Info =
 - [[wiki0:VUT/RD6|Seminar]]
@@ -50,9 +65,13 @@ TODO:
     * [X] str. 79 Energy Balance for Gases
 * [ ] [[doc/notes/digital_twin]]
 * [ ] Kalman: https://www.mathworks.com/videos/series/understanding-kalman-filters.html
+* [X] Convert data22
+* [ ] Process data22
 
 
 = Plan =
 * 6.4-7.4 Finish models + TS
 * 8.4-9.4 Finish Signal Based + TS
 * 10.4-13.4 Finish MB + TS
+
+

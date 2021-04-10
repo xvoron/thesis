@@ -61,3 +61,35 @@ datastore.SelectedVariables = ["Label"; ...
 
 clear loc_files ext_files path2data_converted
 disp("Datastore import - done");
+
+
+
+%% Import feature table
+load('featuretable/encoder_features.mat');
+T = encoder_featrures(:, 1:5);
+P = T.Variables;
+R = T.Label;
+I = strcmp(R, 'health') | strcmp(R, 'valve1') | strcmp(R, 'valve2') | strcmp(R, "damp_small_bot") | strcmp(R, "damp_small_up");
+f = figure;
+gplotmatrix(str2double(P(I,2:end)),[],R(I))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

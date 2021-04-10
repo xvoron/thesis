@@ -1,7 +1,7 @@
 % Identification 
 clc;clear all;close all;
 
-fault_code = "1100001"; % USER INPUT
+fault_code = "2200001"; % USER INPUT
 
 run ../utils/import_only_signals_datastore.m
 run params.m
@@ -24,21 +24,20 @@ valve1 = member.ThrottleValve2{1,1}.Variables;
 SmallDamper_bottom = member.SmallDamper_bottom{1,1}.Variables;
 SmallDamper_upper = member.SmallDamper_upper{1,1}.Variables;
 
-damp_large_bot = member.LargeDamper_bottom{1,1}.Variables;
-damp_large_up = member.LargeDamper_upper{1,1}.Variables;
+LargeDamper_bottom = member.LargeDamper_bottom{1,1}.Variables;
+LargeDamper_upper = member.LargeDamper_upper{1,1}.Variables;
 
 M_L = member.("Settings.Load"){1,1}{1,1};
 
 fprintf("Parameters: \n valve1: %d, valve2: %d \n", valve1, valve2)
 fprintf("damp_small_up: %d, damp_small_bot: %d \n", SmallDamper_upper, SmallDamper_bottom)
-fprintf("damp_large_up: %d, damp_large_bot: %d \n", damp_large_up, damp_large_bot)
+fprintf("damp_large_up: %d, damp_large_bot: %d \n", LargeDamper_upper, LargeDamper_bottom)
 
 
-[f_code, t, i_in_u1, i_in_u2, i_out_x, i_out_dx, i_out_f] = extract_signals4identification(member);
+[t, u1, u2, pos, vel, f_in, f_out] = extract_signals4identification(member);
 
 
-function [f_code, t, i_in_u1, i_in_u2, i_out_x, i_out_dx, i_out_f] = extract_signals4identification(data)
-f_code = data.FaultCode{1,1};
+function [t, i_in_u1, i_in_u2, i_out_x, i_out_dx, i_out_flow_in, i_out_flow_out] = extract_signals4identification(data)
 preprocess = 0;
 
 i_in1 = data.outValveHP{1,1};
@@ -71,12 +70,6 @@ else
     i_out_dx = [i_out_t, dx];
 end
 
-
-% Flow conversion from l/min -> m^3/s -> kg/s
-% 1 l/min = 1.66667e-5 m^3/s
-% 1 m^3/s = 
-k = 1.66667e-5;
-rho = 1.2;
 i_out = data.FlowExtrusion{1,1};
 if preprocess
     [i_out, i_out_t] = preprocess_flow(i_out.Data, seconds(i_out.Time));
@@ -91,9 +84,7 @@ if preprocess
     i_out_flow_out = [i_out_t, i_out];
 else
     i_out_flow_out = [seconds(i_out.Time), i_out.Data];
-    i_out_t = seconds(i_out.Time);
 end
-i_out_f = [i_out_t, (i_out_flow_in(:,2) - i_out_flow_out(:,2))*k*rho];
 
 end
 

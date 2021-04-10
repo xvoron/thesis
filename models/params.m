@@ -242,10 +242,10 @@ endstop_length  = 30e-3;        % [m]    [ ] Endstop length
 % Shock Absorbs 
 % Small dampers 
 
-b_small_bot = 15138;        % [kg/s] [e] Damping coefficient
-b_small_up = 9806.9;        % [kg/s] [e] Damping coefficient
-k_small_bot = 1.6246;       % [kg/m] [e] Spring coefficient
-k_small_up = 1.7244;        % [kg/m] [e] Spring coefficient
+b_small_bot = 1400;        % [kg/s] [e] Damping coefficient
+b_small_up  = 1400;        % [kg/s] [e] Damping coefficient
+k_small_bot = 0;           % [kg/m] [e] Spring coefficient
+k_small_up  = 0;           % [kg/m] [e] Spring coefficient
 
 damp_small_gain_up = 4;
 damp_small_gain_bot = 4;
@@ -253,21 +253,18 @@ damp_small_gain_bot = 4;
 SmallDamper_bottom = 6;
 SmallDamper_upper  = 4;
 
+LargeDamper_bottom = 0;
+LargeDamper_upper  = 0;
+
+b_large_bot = 1400;        % [kg/s] [e] Damping coefficient
+b_large_up  = 1400;        % [kg/s] [e] Damping coefficient
+
 bot_damp_start = 0.01054;   % [m] [e] Lower damper starting point
 up_damp_start  =  0.18123;  % [m] [e] Upper damper starting point
 
-% New
-b_small_bot = 18164;
-b_small_up = 7110.2;
-k_small_bot = 1.5693;
-k_small_up = 630.06;
 
-% without K
-k_small_bot = 0;
-k_small_up = 0;
 
-b_small_bot = 3.03e3;
-b_small_up  = 1.78e3;
+
 
 % Initial Conditions 
 
@@ -370,6 +367,8 @@ inp_u2 = member.data.outValveWP{1,1};
 t = seconds(inp_u1.Time);
 u1 = inp_u1.Data;
 u2 = inp_u2.Data;
+% TODO
+
 
 
 C_B_in = 5.422e-07;
@@ -398,5 +397,5 @@ C_adj_in = 0.164370373676547;
 C_adj_out = 0.0892545896672297;
 spool_dynamic = 0.0211675780438368;
 spool_valve_time_delay = 0.0169649581718457;
-b_small_bot = 2056.46743029704;
+b_small_bot = 1400;
 b_small_up = 1417.14082244839;

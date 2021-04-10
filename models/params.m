@@ -399,3 +399,5 @@ spool_dynamic = 0.0211675780438368;
 spool_valve_time_delay = 0.0169649581718457;
 b_small_bot = 1400;
 b_small_up = 1417.14082244839;
+
+cycle = 0;

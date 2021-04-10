@@ -11,11 +11,11 @@
 % Brno 2021
 %%
 bdclose all; clc; clear all; close all;
-run params.m
+run ../models/params.m
 disp('[INFO] Parameters were loaded');
 %%
 output_path = '../data/data_gen_mdl_equation_beta';
-model = 'model_equation';
+model = '../models/model_equation';
 load_system(model);
 open_system(model);
 %open_system([model '/Mechanical system']);

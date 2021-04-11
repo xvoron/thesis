@@ -7,53 +7,10 @@
 %                            
 % Brno, 2020
 
-\documentclass[class=article, crop=false]{standalone}
-\usepackage[subpreambles=true]{standalone}
-
-\usepackage{subcaption}
-\usepackage{caption}
-\usepackage{sectsty}
-\usepackage{graphicx}
-\graphicspath{{img/}{../img/}{../../img/}}
-\usepackage{listings}
-\lstset{language=Python}
-\usepackage{hyperref}
-\usepackage{amsmath}
-\usepackage{import}
-\usepackage{subfiles}
-\usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
-
-\usepackage{xargs}
-\usepackage[pdftex,dvipsnames]{xcolor}  % Coloured text etc.
-\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
-
-%\usepackage[square, numbers]{natbib}
-%\bibliographystyle{unsrtnat}
-%\usepackage[nottoc]{tocbibind}
-
-%\usepackage{biblatex}
-%\addbibresource{citations.bib} %usage \cite{test}
-% Margins
-% 
-\topmargin=-0.45in
-\evensidemargin=0in
-\oddsidemargin=0in
-\textwidth=6.5in
-\textheight=9.0in
-\headsep=0.25in
-
-%\title{Models}
-%\author{Artyom Voronin} 
-%\date{}
-
-\begin{document}
-\tableofcontents
-
 % -------------------------------------------------------
 % Section
 % -------------------------------------------------------
-\section{First Principle Approach (15 pages)}
+\chapter{First Principle Modeling (15 pages)}
 \paragraph{First Principles} (White-Box) \\
 % TODO Isermann Fault Detection str 72
 Simplification, Liniarization, Reduction, Parameter Estimation. \\
@@ -65,7 +22,7 @@ Measurements, Identification.
 
 % Nonlinear dynamic modeling  Isermann FDS str. 84
 
-\subsection{Pneumatic piston system overview}
+\section{Pneumatic piston system overview}
 %\begin{figure}[h!]
 %    \centering
 %    \includegraphics[width=0.5\textwidth]{model_draw_vec.png}
@@ -86,7 +43,7 @@ Measurements, Identification.
 % \__, |\___|_| |_|\___|_|  \__,_|_|
 % |___/                             
 % -------------------------------------------------------
-\subsection{General physical principles}
+\section{General physical principles}
 \paragraph{Equation of state}
 Generally $pV=nR_mT$ but for air, using ideal gas constant $R=287.1 [Jkg^{-1}K^{-1}]$
 state equation can be rewrite as \ref{eq:equation_of_state}.
@@ -113,7 +70,6 @@ Adiabatic process \ref{eq:adiobatic_process}:
 where $\kappa = c_p/c_v$ is a heat capacity ratio. Another
 important equation is Mayer's relation $c_p = c_v + R$.
 
-\paragraph{Thermodynamics}
 %\begin{tabular}{ |c|c|c| }
 %    \hline
 %    $p$                     & $Pa$              & pressure \\
@@ -289,7 +245,7 @@ Final equation for $\psi$:
 %| .__/|_|  \___||___/___/\__,_|_|  \___|
 %|_|                                     
 % -------------------------------------------------------
-\subsection{Pressure model}
+\section{Pressure model}
 
 \begin{tabular}{ |c|c|c| }
     \hline
@@ -331,8 +287,7 @@ Finally get \ref{eq:pressure1}:
 
 
 \paragraph{Adiabatic model of pressure in cylinder} 
-In this work adiabatic process was chosen with
-respect to \ref{} \todo[inline]{Add source}.
+Assume adiabatic process.
 For simple adiabatic model following equation can be used
 \ref{eq:pressure_adiabatic_simple_model}:
 
@@ -359,28 +314,18 @@ Volumes of chambers:
     \dot{V}_B = - S_B \dot{x}
 \end{align}
 
-$T_A, T_B$ calculated from \ref{eq:equation_of_state}, or in adiabatic
-model this parameters can remain constant same as atmospheric temperature.
+\section{Mass flow model}
 
-\subsection{Mass flow model}
-
-\subsubsection{Input/Output mass flows}
+\subsection{Input/Output mass flows}
 
 \begin{align}
     \dot{m}T = \dot{m_{in}}T_s - \dot{m_{out}}T_{A/B}
 \end{align}
 
 
-\subsubsection{Differential equation for Temperature change}
-\begin{align}
-    T = \int{ (\kappa T_s - T_{A/B})
-        \frac{R\dot{m}_{A/Bin}}{p_{A/B}V_{A}}T_{A/B} -
-    (\kappa-1)\frac{R\dot{m}_{A/Bout}}{p_{A/B}V_{A/B}} T_{A/B}^2 -
-(\kappa-1)\frac{\dot{V}_{A/B}}{V_{A/B}}T_{A/B}}
-\end{align}
 
 
-\subsubsection{Valve model} %TODO
+\subsection{Valve model} %TODO
 \begin{tabular}{ |c|c|c| }
     \hline
     $S_{eq}$                & $m^2$         & Equivalent cross section \\
@@ -552,8 +497,8 @@ dead-zone can be used \ref{eq:deadzone}.
 %| | | | | |  __/ (__| | | | (_| | | | | | (__ 
 %|_| |_| |_|\___|\___|_| |_|\__,_|_| |_|_|\___|
 % -------------------------------------------------------
-\subsection{Mechanical assembly}
-\subsubsection{Equation of motion}
+\section{Mechanical assembly}
+\subsection{Equation of motion}
 
 The motion of the pneumatic piston mechanism describes in terms of the
 general 1dof dynamical equation \ref{eq:1dof}. 
@@ -582,7 +527,7 @@ $F_{p}$ is a force produced by the pneumatic piston \ref{eq:pneum}.
     \label{eq:pneum}
 \end{equation}
 
-\subsubsection{Hard stop}
+\subsection{Hard stop}
 Hard stop can be represented as spring and dumps:
 
 \begin{align}
@@ -595,13 +540,12 @@ Hard stop can be represented as spring and dumps:
 \end{align}
 
 
-\subsubsection{Shock Absorbers}
-\subsubsection{Friction}
+\subsection{Shock Absorbers}
+\subsection{Friction}
 Friction force can be modeled in the
 different ways.
 
-As an example of possible model is following equation. That consist from
-complex friction forces including viscous friction and Coulomb friction
+TO MUCH
 \ref{eq:friction1}.
 \begin{equation}
     F_f = 
@@ -625,8 +569,10 @@ $\delta$ - arbitrary index, $v_e$ critical velocity.
 %\__ \  __/ | | \__ \ (_) | |  \__ \
 %|___/\___|_| |_|___/\___/|_|  |___/
 % -------------------------------------------------------
-\subsection{Sensors Modeling}
-Sensors
+\section{Sensors Modeling}
+\begin{itemize}
+    \item Sensors models
+\end{itemize}
 
 % -------------------------------------------------------
 %(_) __| | ___ _ __ | |_ 
@@ -634,9 +580,9 @@ Sensors
 %| | (_| |  __/ | | | |_ 
 %|_|\__,_|\___|_| |_|\__|
 % -------------------------------------------------------
-\subsection{Parameter identification}
+\section{Parameter identification}
 
-\subsubsection{Mechanical assembly}
+\subsection{Mechanical assembly}
 In mechanical system there is $F_f$ force represented by frictions accruing
 in the system. This force can be modeled by different friction models with
 respect to \ref{sec:mech_assembly}. Friction force parameters can be
@@ -650,10 +596,10 @@ Simplify model can contain TODO:
     \item $C_p$ Pressure difference
 \end{itemize}
 
-\subsubsection{Cylinder}
+\subsection{Cylinder}
 Dead volume: $p_1 V_1^n = p_2 V_2^n$ or datasheet.
 
-\subsubsection{Valve}
+\subsection{Valve}
 For valve system there are two parameters that need to be estimated.
 According to equation \ref{eq:flow2} with constant $p_1$ (pressure supply) and $p_2$
 (atmospheric pressure), we can estimate $\boldsymbol{C}$ if we neglect Valve Spool dynamic.
@@ -667,41 +613,6 @@ model.
 \end{align}
 
 
-% -------------------------------------------------------
-%  __ _ _ __  _ __  _ __ _____  __
-% / _` | '_ \| '_ \| '__/ _ \ \/ /
-%| (_| | |_) | |_) | | | (_) >  < 
-% \__,_| .__/| .__/|_|  \___/_/\_\
-%      |_|   |_|                  
-% -------------------------------------------------------
-
-\section{Alternative Modeling Approaches (3 pages)}
-Generally with dataset of input-output signals approximation model can be
-fit. Using System Identification Toolbox and modeled as Black-Box or
-Gray-Box models. This section attempted to fit some models using data from
-SimScape and Equation model presented before.
-
-Fit approximation model make sense only if we know what to fit. Using
-signal process techniques and identify dominant signals that providing best
-classification features we will train models with respect to this signals.
-
-
-\subsection{Simscape Model}
-Working, very slow.
-
-
-\subsection{State-space Model}
-Not working, Nonlinearities.
-
-\subsection{ARX Model}
-Not working, Nonlinearities.
-
-\subsection{Hammerstein-Wiener Model}
-Working only for position.
-
-\subsection{Nonparametric Model}
-Working.
-
 
 % -------------------------------------------------------
 %  ___ ___  _ __ ___  _ __   __ _ _ __ ___ 
@@ -710,8 +621,10 @@ Working.
 % \___\___/|_| |_| |_| .__/ \__,_|_|  \___|
 %                    |_|                   
 % -------------------------------------------------------
-\section{Models comparison (2-3 pages)}
-\subsection{Model based on equations}
+\chapter{Models comparison (2-3 pages)}
+
+
+\section{First Principle Model}
 This model \ref{fig:model_equations} was developed with respect to equations
 represented before.
 
@@ -722,8 +635,18 @@ represented before.
     \label{fig:model_equations}
 \end{figure}
 
+\section{Alternative Modeling Techniques (3 pages)}
+Generally with dataset of input-output signals approximation model can be
+fit. Using System Identification Toolbox and modeled as Black-Box or
+Gray-Box models. This section attempted to fit some models using data from
+SimScape and Equation model presented before.
 
-\subsection{Model Simscape}
+Fit approximation model make sense only if we know what to fit. Using
+signal process techniques and identify dominant signals that providing best
+classification features we will train models with respect to this signals.
+
+\subsection{Physical Model (SimScape)}
+Working, very slow. Equations are faster for estimation parameters.
 Model \ref{fig:model_simscape} was developed using SimScape toolbox.
 
 \begin{figure}[h!]
@@ -733,11 +656,20 @@ Model \ref{fig:model_simscape} was developed using SimScape toolbox.
     \label{fig:model_simscape}
 \end{figure}
 
-\subsection{Nonparametric model}
+\subsection{State-space/ARX Models}
+Not working, Nonlinearities.
+
+
+\subsection{Hammerstein-Wiener Model}
+Working only for Position.
+
+\subsection{Nonparametric model (ANN)}
+
+Working. Can be used as "Normal operation" model.
 
 
 
-\subsection{Comparison}
+\section{Comparison}
 Following figure \ref{fig:compare_of_models} represent comparison of 2 models
 (Simscape and based on equations) using same parameters for simulation:
 There is slight difference between models causing Valve dynamics
@@ -745,10 +677,9 @@ simplifications in model based on equations.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=1\textwidth]{models_comparation.png}
+    \includegraphics[width=0.8\textwidth]{models_comparation.png}
     \caption{Comparison of simscape and model based on equations}
     \label{fig:compare_of_models}
 \end{figure}
 
-\end{document}
 

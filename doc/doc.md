@@ -74,10 +74,6 @@ between estimated values and measured are inputs to pattern matching?
 - Compile: data-driven
 - First Principles: engineering
 
-
-
-
-
 == source == 
 - [[https://gregstanleyandassociates.com/whitepapers/FaultDiagnosis/Model-Based-Reasoning/model-based-reasoning.htm]]
 

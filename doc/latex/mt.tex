@@ -1,77 +1,67 @@
-\documentclass[11pt]{article}
-\usepackage[subpreambles=true]{standalone}
-\usepackage{import}
+\documentclass[12pt,a4paper,twoside,openany]{book}
+
+\input{settings/layout_commands.tex}
+
+\usepackage{subcaption}
+\usepackage{graphicx}
+\graphicspath{{img/}{../img/}{../../img/}}
+\usepackage{caption}
 
 \usepackage{xargs}
 \usepackage[pdftex,dvipsnames]{xcolor}  % Coloured text etc.
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
 
-\usepackage{subcaption}
-\usepackage{sectsty}
-\usepackage{graphicx}
-%\graphicspath{{img/}{../img/}}
-\usepackage{listings}
-\usepackage{hyperref}
-\usepackage{amsmath}
-\usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
-\usepackage{natbib}
-\setcitestyle{square, comma, numbers,sort&compress, super}
-%\bibliographystyle{unsrtnat}
-%\usepackage[nottoc]{tocbibind}
-
-%\usepackage{biblatex}
-%\addbibresource{citations.bib} %usage \cite{test}
-
-% Margins
-\topmargin=-0.45in
-\evensidemargin=0in
-\oddsidemargin=0in
-\textwidth=6.5in
-\textheight=9.0in
-\headsep=0.25in
+% Mode:
+%\visualmode{print} % print mode 
+\visualmode{screen} % screen mode 
 
 
-\title{Predictive maintenance of pneumatic pistons}
-\author{Artyom Voronin} 
-\date{\today}
+% Language:
+%\thesislanguage{czech}
+\thesislanguage{english}
+
+\thesisauthor{Artyom Voronin}
+\thesissupervisor{Martin Brablc}
+\thesistitle{Predictive maintenance of pneumatic pistons }
+
+
+\input{settings/vut_style.tex} % nastaveni stylu dokumentu
 
 \begin{document}
-\maketitle	
-\tableofcontents
+	
+\VUTtitle{pages/titulni_color.pdf}{pages/zadani_color.pdf} 
+%\VUTtitle{pages/titulni_color.pdf}{blank} % Use when print
 
-\pagebreak
-\section{Introduction (2 pages)}
-\pagebreak
-% --------------------------------------------------------------------------
-% SECTION 1 
-% --------------------------------------------------------------------------
 
-\import{fdipm/}{fdipm}
-\pagebreak
+\abstract{ % abstrakt cesky
+	...Abstrakt...
+	}{ % abstrakt anglicky
+	...anglicky...
+	}{ % klicova slova česky
+	...klicova slova...
+	}{ % klicova slova anglicky
+	...anglicky...
+	} % vyrobi i citaci
 
-% --------------------------------------------------------------------------
-% SECTION 2 
-% --------------------------------------------------------------------------
-\import{models/}{models}
-\pagebreak
+\acknowledgements{
+	Prohlášení...
+	}{
+	Poděkování..
+	} % vlozi prohlaseni a podekovani
 
-% --------------------------------------------------------------------------
-% SECTION 3 
-% --------------------------------------------------------------------------
-\import{sb/}{sb}
-\pagebreak
 
-% --------------------------------------------------------------------------
-% SECTION 3 
-% --------------------------------------------------------------------------
-\import{mb/}{mb}
-\pagebreak
+\vutpagestyle % prepise styl stranky, vlozi obsah
 
-\section{Conclusion}
-% --------------------------------------------------------------------------
-% BIBLIOGRAPHY 
-% --------------------------------------------------------------------------
-%\bibliography{citations}
+
+\input{chapters/intro.tex} 
+\input{chapters/fdipm.tex}
+\input{chapters/models.tex}
+\input{chapters/sb.tex}
+\input{chapters/mb.tex}
+\input{chapters/conclusion.tex}
+
+%\input{chapters/abbreviations.tex}
+%\input{chapters/bibliography.tex}
+
 
 \end{document}

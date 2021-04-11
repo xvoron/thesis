@@ -7,53 +7,7 @@
 %%              |_|              
 %% Brno, 2021
 
-\documentclass[class=article, crop=false]{standalone}
-\usepackage[subpreambles=true]{standalone}
-\usepackage{subcaption}
-
-\usepackage{sectsty}
-\usepackage{graphicx}
-\graphicspath{{img/}{../img/}{../../img/}}
-\usepackage{listings}
-\lstset{language=Matlab}
-\usepackage{hyperref}
-\usepackage{amsmath}
-\usepackage{import}
-\usepackage{subfiles}
-\usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
-
-%\usepackage[]{todonotes}
-\usepackage{xargs}
-\usepackage[pdftex,dvipsnames]{xcolor}  % Coloured text etc.
-\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
-
-%\usepackage[square, numbers]{natbib}
-%\bibliographystyle{unsrtnat}
-%\usepackage[nottoc]{tocbibind}
-
-%\usepackage{biblatex}
-%\addbibresource{./citations.bib} %usage \cite{test}
-% Margins
-% 
-\topmargin=-0.45in
-\evensidemargin=0in
-\oddsidemargin=0in
-\textwidth=6.5in
-\textheight=9.0in
-\headsep=0.25in
-
-%\title{PM and FDI comparison}
-%\author{Artyom Voronin} 
-%\date{}
-
-\begin{document}
-\tableofcontents
-
-% -----------------------------------------------------------------------------
-% 
-% -----------------------------------------------------------------------------
-\section{Theoretical Survey (10-13 pages)}
+\chapter{Theoretical Survey (10-13 pages)}
 Why FDA and PdM are useful? Similarities/Differences?
 The relative arrangement PdM and FDI methods representing in following
 figure \ref{fig:fdi_pm}
@@ -70,7 +24,7 @@ figure \ref{fig:fdi_pm}
 % 
 % -----------------------------------------------------------------------------
 
-\subsection{Problem Definition}
+\section{Problem Definition}
 
 In practice, many types of machinery require some calibration for adequately working,
 and online monitoring and classification algorithms can find the problem.
@@ -91,14 +45,14 @@ cost/technical efficient perspective.
     \item Malfunction
 \end{itemize}
 
-\subsubsection{Types of Faults}
+\subsection{Types of Faults}
 \begin{itemize}
     \item Plant
     \item Sensor
     \item Combination
 \end{itemize}
 
-\subsubsection{Types of Maintenance}
+\subsection{Types of Maintenance}
 \begin{itemize}
     \item{Reactive (fails than fix)}
     \item{Preventative (schedules)}
@@ -107,21 +61,17 @@ cost/technical efficient perspective.
 \end{itemize}
 
 
-
-
-
-
 % -----------------------------------------------------------------------------
 % 
 % -----------------------------------------------------------------------------
 
-\subsection{Fault Detection and Analysis}
+\section{Fault Detection and Analysis (FDA)}
 Fault Detection and Analysis, FDA. (Fault detection and isolation, FDI) 
 
 \paragraph{FD not new}
 FD exists from 60th.
 
-\subsubsection{Goals}
+\subsection{Goals}
 
 \begin{itemize}
     \item{Fault detection: Detect malfunctions in real time, as soon and as
@@ -139,7 +89,7 @@ FD exists from 60th.
 \footnotetext{\textbf{Fault} - not acceptable deviation of at least one characteristic or
 parameter of the system from the standard condition.}
 
-\subsubsection{Methods}
+\subsection{Methods}
 Figure \ref{fig:fault_detection} introduce 2 main approaches:
 
 \begin{itemize}
@@ -192,7 +142,7 @@ Fault Tolerance and Predictive maintenance methods.
   situations.
 
 
-\subsubsection{Condition Monitoring}
+\subsection{Condition Monitoring}
 Answer to question:"How does system operate now?"
 CM gives Diagnostic methods that provides alarm or warning, but not
 prognostic forecast about the future behavior (Not RUL).
@@ -214,12 +164,12 @@ RCA (Root Cause Analysis) \\
 % -----------------------------------------------------------------------------
 
 
-\subsection{Predictive maintenance}
+\section{Predictive maintenance (PdM)}
 \textbf{Predictive maintenance (PdM)} is cost-effective maintenance strategy that
 predicts time to failure and warns of an anticipated location where this
 could occur.
 
-\subsubsection{Goals}
+\subsection{Goals}
 The are two main goals of Predictive maintenance, RUL (remaining useful
 life) estimation and identification where the future failure can appear, or what is
 the reason of decreasing RUL. 
@@ -245,7 +195,7 @@ factors).
 \end{enumerate}
 
 
-\subsubsection{Methods}
+\subsection{Methods}
 There are couples of signal processing and analyzing methods that used in
 both PdM and FDI. For example:
 
@@ -280,7 +230,7 @@ situations never observed before.
 %        \end{itemize}
 %\end{itemize}
 
-\subsubsection{Condition Indicators}
+\subsection{Condition Indicators}
 Features in PdM field are called Condition Indicators or CI.
 Condition Indicators are features extracted from the signals, representing some
 system behavior and hides some information about system processing.
@@ -294,9 +244,9 @@ domain, Frequency domain, Time-Frequency domain Condition Indicators.
     \item Time-frequency
 \end{itemize}
 
-\subsubsection{Fault Classification}
+\subsection{Fault Classification}
 
-\subsubsection{Remaining useful life}
+\subsection{Remaining useful life}
 RUL goal is remaining time before machine requires maintenance. Not only
 predict but provide a confidence bound.
 
@@ -313,7 +263,7 @@ Run-to-failure, known threshold for CI.
 \end{itemize}
 
 
-\subsection{Digital twin}
+\section{Digital twin}
 % https://explore.mathworks.com/digital-twins-for-predictive-maintenance
 
 Digital twin is digital representation of the real life system. Can be
@@ -326,7 +276,7 @@ Digital twin can be updated with incoming data from sensors. Fitting model
 to new data, digital twin represents the current condition state of the
 real world object.
 
-\todo[inline]{Rewrite}
+%\todo[inline]{Rewrite}
 Digital twin can hold historical data about behavior of a system
 and can be used for simulation system operation in different conditions,
 for designing control and simulate future behavior. (RUL, "What-if")
@@ -342,21 +292,24 @@ Model with estimated parameters uses for simulation system behavior in
 different working conditions and with different faults during working
 process.
 
-\subsubsection{Using Digital Twin in PdM}
+\subsection{Using Digital Twin in PdM}
 
 Measured data, Generated data from mathematical model, or Synthetic data
 (Combination of measured and generated) can be used for assessment of
 Condition Indicators. 
 
-%\subsubsection{Detect and Diagnose Faults}
+%\subsection{Detect and Diagnose Faults}
 %Using condition indicators on Test data we can analyze actual system state.
 %Designing algorithm is iterative process when you try different
 %combinations of condition indicators and different models to evaluate best
 %results.
 
-\subsection{Comparison PdM and FDA approaches}
+\section{Comparison PdM and FDA approaches}
+\begin{itemize}
+    \item Compare similarities and differences in FDA and PdM
+\end{itemize}
 
-\subsection{Application field}
-
-\end{document}
-
+\section{Application field}
+\begin{itemize}
+    \item Answer to question where FDA and PdM can be suitable.
+\end{itemize}

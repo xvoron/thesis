@@ -8,55 +8,21 @@
 %
 % Brno, 2021
 
-\documentclass[class=article, crop=false]{standalone}
-\usepackage[subpreambles=true]{standalone}
-\usepackage{subcaption}
-
-\usepackage{sectsty}
-\usepackage{graphicx}
-\graphicspath{{img/}{../img/}{../../img/}}
-\usepackage{listings}
-\lstset{language=Matlab}
-\usepackage{hyperref}
-\usepackage{amsmath}
-\usepackage{import}
-\usepackage{subfiles}
-\usepackage{caption}
-\usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
-
-%\usepackage[square, numbers]{natbib}
-%\bibliographystyle{unsrtnat}
-%\usepackage[nottoc]{tocbibind}
-
-\topmargin=-0.45in
-\evensidemargin=0in
-\oddsidemargin=0in
-\textwidth=6.5in
-\textheight=9.0in
-\headsep=0.25in
-
-%\title{Preprocessing data from pneumatic actuator}
-%\author{Artyom Voronin} 
-%\date{}
-
-\begin{document}
-\tableofcontents
 
 % ----------------------------------------------------------------------------- 
 
 % ----------------------------------------------------------------------------- 
 
-\section{Signal-Based PdM (15 pages)}
+\chapter{Signal-Based PdM (15 pages)}
 Signal-Based Predictive Maintenance.
 \paragraph{General}
 \paragraph{Workflow}
 
 
-\subsection{Sensors}
+\section{Sensors}
 Sensors comparison, cost.
 
-\subsection{Data exploring}
+\section{Data exploring}
 Data has been collect from 8 types of sensors corresponding table
 \ref{tab:measured_signals}:
 \begin{table}[h]
@@ -69,8 +35,9 @@ Data has been collect from 8 types of sensors corresponding table
            FlowContraction            &   Flow sensor       \\
            AirPressure                &   Pressure sensor   \\
            AccelerometerMoving\_axisY &   Accelerometer     \\
-           AccelerometerMoving\_axisY &   Position encoder  \\
-                                      &   Accelerometer     \\
+           AccelerometerMoving\_axisZ &   Accelerometer     \\
+           AccelerometerStat\_axisY   &   Accelerometer     \\
+           AccelerometerStat\_axisZ   &   Accelerometer     \\
                                       &   Temperature sensor\\
                                       &   Proximity sensor  \\
                                       &   Strain gauge      \\ 
@@ -81,8 +48,8 @@ Data has been collect from 8 types of sensors corresponding table
     \label{tab:measured_signals}
 \end{table}
 
-There are 660 measurements with different parameters system parameters
-\ref{tab:params}.
+There are 660 measurements with different parameters system parameters \ref{tab:params}.
+
 \begin{table}[h]
     \centering
     \begin{tabular}{|c|c|}
@@ -105,7 +72,7 @@ experiment are represented in figures \ref{fig:data_exmp1},
 \ref{fig:data_exmp2}. 
 
 
-\subsection{Data management}
+\section{Data management}
 \paragraph{Data Ensembles}
 Data files have been reshaped to Data Ensembles format used for Condition
 monitoring purposes. This format allows processing data without copying the
@@ -119,7 +86,7 @@ Divided to 3 datasets:
     \item Test data
 \end{itemize}
 
-\subsection{Preprocessing}
+\section{Preprocessing}
 Measured signals require preprocessing concerning the preservation of the information
 base. For smoothing data Moving Average function were used.
 As an example, the figure \ref{fig:preprocess} is shown the "raw" and filtered signals.
@@ -129,9 +96,9 @@ demanding parts of the code.
 
 
 
-\subsection{FDI methods}
+\section{FDI methods}
 
-\subsubsection{Line checking}
+\subsection{Line checking}
 
 We can use Proximity sensor time delay between input signal and upper
 proximity sensor signal to evaluate if there is some fault.
@@ -142,7 +109,7 @@ Flow sensor, check if the float mean value is under some threshold, there
 is fault.
 
 
-\subsection{Condition Indicators extraction}
+\section{Condition Indicators extraction}
 
 For classification task purpose from the signals have been extracted
 statistical features such as mean, median, peak to peak value, etc.
@@ -168,28 +135,42 @@ features.
 % PCA vs Sort features(Anova) 
 
 
-\subsubsection{Microphones}
+\subsection{Microphones}
 Cheap, good results, but maybe problems with real life integration (noise
-from another machines).
+from another machines). Another problem cannot be modeled in simulation
+system. For predictive purposes require data from real model.
 
-\subsubsection{Encoder}
+\subsection{Encoder}
 Good results, useful in simulations and compare results with Digital Twin.
+Can be used in Model-Based CI. 
+Digital twin can generate fault data, that will be applicable with encoder
+sensor.
 
-\subsubsection{Acceleration sensors}
+\subsection{Acceleration sensors}
+Not good, not bad. Can be used for classification task. But encoder has
+more accuracy information.
 
-\subsubsection{Proximity Sensors}
-Very correlated features. Can not be used for classification. But suitable
+\subsection{Proximity Sensors}
+Cheap. Very correlated features.Can not be used for classification. But suitable
 to detect binary classification (Health, Failed).
-Only statistical features,no Frequency domain.
+Only statistical features, no Frequency domain.
 
-\subsubsection{Flow Sensors}
+\subsection{Flow Sensors}
 Very expensive sensors. Not so good results.
 
-\subsubsection{Air Pressure}
+\subsection{Air Pressure}
 This sensor always used, to control pressure valve. But not good results.
 Maybe in combination with another sensor.
 
-\subsection{Classification Task}
+\subsection{Strain Gauge}
+Expensive, Normal results of classification. But not suitable for
+Simulation Model.
+
+\subsection{Temperature}
+No interesting information. No classification results, not interesting as
+Independent or Condition Variable.
+
+\section{Classification Task}
 
 The main goal of the classification task is to train a model that can
 predict the "FaultCode", or "Label" signalized about pneumatic actuator behavior by
@@ -202,7 +183,5 @@ number of features before PCA analysis.
 Principal component analysis (PCA) has been used to reduce the number of
 features and chose the best representants.
 
-The trained model has been exported to
-\textbf{models/} directory.
+The trained model has been exported to \textbf{models/} directory.
 
-\end{document}

@@ -47,6 +47,13 @@ https://www.mathworks.com/help/predmaint/ug/Use-Simulink-to-Generate-Fault-Data.
 - [[doc/meetings/10_9_2020]]
 - [[doc/meetings/25_02_2021]]
 
+== A/Q ==
+* [ ] Osnova
+* [ ] Acc sensor
+* [ ] RUL demo
+* [ ] Models
+* [ ] Kolik stoji enkjoder
+
 ----
 
 = Notes =

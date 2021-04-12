@@ -14,7 +14,7 @@ ensemble = simulationEnsembleDatastore(location);
 % ensemble.DataVariables = ["LeverPosition"; ...
 %     ];
 %ensemble.IndependentVariables = ["Cycle"];
-append_time(ensemble);
+%append_time(ensemble);
 
 
 %% Functions

@@ -57,8 +57,7 @@ https://www.mathworks.com/help/predmaint/ug/Use-Simulink-to-Generate-Fault-Data.
 ----
 
 = Notes =
-- Is that necessary to refactor MT directory?
-- How much time do i need to do this?
+- Temperature was measured with different ambient temperature 
 
 TODO:
 

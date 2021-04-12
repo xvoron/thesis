@@ -29,7 +29,7 @@ if runParallel && isempty(gcp('nocreate'))
 end
 
 % Parameters changing in the time. For system behavior simulation purposes.
-beta_values = 0:10:1000;
+beta_values = 0:1:500;
 
 for i = 1:numel(beta_values)
     tmp = Simulink.SimulationInput(model);

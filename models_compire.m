@@ -76,15 +76,15 @@ flow_ex_sim_eq  = get(simOut.logsout, "FlowExtrusion").Values;
 flow_con_sim_eq = get(simOut.logsout, "FlowContraction").Values;
 
 %% Simulation Equation model
-simOut = sim("models/model_simscape.slx");
-
-position_sim_ss = get(simOut.logsout, "LeverPosition").Values;
-velocity_sim_ss = get(simOut.logsout, "LeverVelocity").Values;
-prox_up_sim_ss  = get(simOut.logsout, "ProximitySensor_upper").Values;
-prox_bot_sim_ss = get(simOut.logsout, "ProximitySensor_bottom").Values;
-prox_up_sim_ss  = get(simOut.logsout, "ProximitySensor_upper").Values;
-flow_ex_sim_ss  = get(simOut.logsout, "FlowExtrusion").Values;
-flow_con_sim_ss = get(simOut.logsout, "FlowContraction").Values;
+% simOut = sim("models/model_simscape.slx");
+% 
+% position_sim_ss = get(simOut.logsout, "LeverPosition").Values;
+% velocity_sim_ss = get(simOut.logsout, "LeverVelocity").Values;
+% prox_up_sim_ss  = get(simOut.logsout, "ProximitySensor_upper").Values;
+% prox_bot_sim_ss = get(simOut.logsout, "ProximitySensor_bottom").Values;
+% prox_up_sim_ss  = get(simOut.logsout, "ProximitySensor_upper").Values;
+% flow_ex_sim_ss  = get(simOut.logsout, "FlowExtrusion").Values;
+% flow_con_sim_ss = get(simOut.logsout, "FlowContraction").Values;
 
 %% Delite last sample
 %position_sim_eq = delsample(position_sim_eq, 'Index', length(position_sim_eq));
@@ -95,7 +95,7 @@ figure
 hold on
 plot(position.Time, position.Data)
 plot(position_sim_eq.Time, position_sim_eq.Data)
-plot(position_sim_ss.Time, position_sim_ss.Data)
+% plot(position_sim_ss.Time, position_sim_ss.Data)
 legend("Measurement", "Equation Model", "Simscape Model")
 title("Positon")
 hold off
@@ -104,7 +104,7 @@ figure
 hold on
 plot(velocity.Time,     velocity.Data)
 plot(velocity_sim_eq.Time, velocity_sim_eq.Data)
-plot(velocity_sim_ss.Time, velocity_sim_ss.Data)
+% plot(velocity_sim_ss.Time, velocity_sim_ss.Data)
 legend("Measurement", "Equation Model", "Simscape Model")
 title("Velocity")
 hold off
@@ -113,7 +113,7 @@ figure
 hold on
 plot(prox_up.Time, prox_up.Data)
 plot(prox_up_sim_eq.Time, prox_up_sim_eq.Data)
-plot(prox_up_sim_ss.Time, prox_up_sim_ss.Data)
+% plot(prox_up_sim_ss.Time, prox_up_sim_ss.Data)
 legend("Measurement", "Equation Model", "Simscape Model")
 title("Proximity sensor bottom")
 hold off
@@ -123,7 +123,7 @@ figure
 hold on
 plot(prox_bot.Time, prox_bot.Data)
 plot(prox_bot_sim_eq.Time, prox_bot_sim_eq.Data)
-plot(prox_bot_sim_ss.Time, prox_bot_sim_ss.Data)
+% plot(prox_bot_sim_ss.Time, prox_bot_sim_ss.Data)
 legend("Measurement", "Equation Model", "Simscape Model")
 title("Proximity sensor upper")
 hold off
@@ -133,7 +133,7 @@ figure
 hold on
 plot(flow_ex.Time,     flow_ex.Data)
 plot(flow_ex_sim_eq.Time, flow_ex_sim_eq.Data)
-plot(flow_ex_sim_ss.Time, flow_ex_sim_ss.Data)
+% plot(flow_ex_sim_ss.Time, flow_ex_sim_ss.Data)
 legend("Measurement", "Equation Model", "Simscape Model")
 title("Flow Extrusion")
 hold off
@@ -142,7 +142,7 @@ figure
 hold on
 plot(flow_con.Time,     flow_con.Data)
 plot(flow_con_sim_eq.Time, flow_con_sim_eq.Data)
-plot(flow_con_sim_ss.Time, flow_con_sim_ss.Data)
+% plot(flow_con_sim_ss.Time, flow_con_sim_ss.Data)
 legend("Measurement", "Equation Model", "Simscape Model")
 title("Flow Contraction")
 hold off

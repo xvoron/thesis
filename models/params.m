@@ -200,8 +200,8 @@ beta = 0;       % [kg/s^2] [e] Viscous friction coefficient
 % 1.3 Hard stop
 L_max   = L;      % [m]       [ ] Hard stop upper bound
 L_min   = 0;      % [m]       [ ] Hard stop upper bound
-K_hs    = 1e5;    % [kg/s^2]  [ ] Hard stop spring
-B_hs    = 1e5;    % [kg/s^2]  [ ] Hard stop damping
+K_hs    = 1e7;    % [kg/s^2]  [ ] Hard stop spring
+B_hs    = 1e2;    % [kg/s^2]  [ ] Hard stop damping
 K_ks    = 1e5;    % [kg/s^2]  [ ] Hard stop spring
 B_ks    = 1e5;    % [kg/s^2]  [ ] Hard stop damping
 
@@ -334,7 +334,14 @@ prox_bot_band    = 4e-4;         % [-] [m] Bottom position
 % 4.3 Accelerometer sensors
 acc_enable = 1;
 acc_C = -1/g;
-acc_noise_var = 1e-10;
+acc_noise_var = 1e-1;
+
+% 4.4 Strain Gauge
+sg_enable = 1;
+Us = 10; % V
+F_max = 2e3; % N
+sg_C = Us/F_max; % 
+sg_noise_var = 1e-1;
 
 %% Estimated parameters:
 b_small = 5184.3;

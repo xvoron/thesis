@@ -8,7 +8,7 @@
 % Brno, 2021
 
 disp("Starting")
-path2data_converted = '../data/data_combined/*.mat';
+path2data_converted = '../data/data11/*.mat';
 loc_files = fullfile(path2data_converted);
 ext_files = ".mat";
 

@@ -16,6 +16,10 @@ f = C1 * m * 1/(V0 + x*S) - C2 *S * dx * 1/(V0 + x*S)
 print(sp.factor(f))
 f_x = sp.diff(f, x)
 f_x = sp.factor(f_x)
+
 print(f_x)
+jacob = sp.jacobi(f)
+
+print(jacob)
 
 

@@ -1,7 +1,7 @@
 % Identification 
 clc;clear all;close all;
 
-fault_code = "2200001"; % USER INPUT
+fault_code = "1100001"; % USER INPUT
 
 run ../utils/import_only_signals_datastore.m
 run params.m
@@ -34,8 +34,9 @@ fprintf("damp_small_up: %d, damp_small_bot: %d \n", SmallDamper_upper, SmallDamp
 fprintf("damp_large_up: %d, damp_large_bot: %d \n", LargeDamper_upper, LargeDamper_bottom)
 
 
-[t, u1, u2, pos, vel, f_in, f_out] = extract_signals4identification(member);
-
+[t, u1_i, u2_i, pos, vel, f_in, f_out] = extract_signals4identification(member);
+u1 = u1_i(:,2);
+u2 = u2_i(:,2);
 
 function [t, i_in_u1, i_in_u2, i_out_x, i_out_dx, i_out_flow_in, i_out_flow_out] = extract_signals4identification(data)
 preprocess = 0;

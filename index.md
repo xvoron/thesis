@@ -26,6 +26,7 @@ https://www.mathworks.com/help/predmaint/ug/Use-Simulink-to-Generate-Fault-Data.
 * [ ] Sort vs PCA ???
     * [ ] PCA takes features and reduce them to Classifier
     * [ ] Sort explain variance between different features
+    * [ ] linearization model?
 
 
 = Info =
@@ -46,13 +47,8 @@ https://www.mathworks.com/help/predmaint/ug/Use-Simulink-to-Generate-Fault-Data.
 - [[doc/meetings/20_8_2020]]
 - [[doc/meetings/10_9_2020]]
 - [[doc/meetings/25_02_2021]]
+- [[doc/meetings/14_04_2021]]
 
-== A/Q ==
-* [ ] Osnova
-* [ ] Acc sensor
-* [ ] RUL demo
-* [ ] Models
-* [ ] Kolik stoji enkjoder
 
 ----
 
@@ -73,11 +69,4 @@ TODO:
 * [ ] Kalman: https://www.mathworks.com/videos/series/understanding-kalman-filters.html
 * [X] Convert data22
 * [ ] Process data22
-
-
-= Plan =
-* 6.4-7.4 Finish models + TS
-* 8.4-9.4 Finish Signal Based + TS
-* 10.4-13.4 Finish MB + TS
-
 

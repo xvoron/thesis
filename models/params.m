@@ -172,8 +172,9 @@ friction_mode = 0;
 %       F_df - dynamic friction
 
 if friction_mode == 0
-    F_sf = 0;
-    F_df = 0;
+    F_sf = 1;
+    F_df = 1;
+    F_c = 1;
 end
 
 % 1.2.1 Friction given more complex equation:
@@ -293,9 +294,7 @@ B_simscape = 100;    % [N/(m/s)] [ ] Damping coeficient
 %S_s     = 0.01;      % [m^2] [ ] Cross section area at port on storage chamber
 
 
-F_sf = 100;
-F_df = 100;
-F_load = 1;
+
 
 
 %% 3. Parameters to identification
@@ -378,10 +377,7 @@ u2 = inp_u2.Data;
 
 
 
-C_B_in = 5.422e-07;
-C_B_out = 1.6346e-06;
-C_A_in = 6.6254e-07;
-C_A_out = 5.1408e-07;
+
 b_small_bot = 2056.2;
 b_small_up = 1350.3;
 spool_dynamic = 0.012096;
@@ -400,11 +396,83 @@ C_A_in  = Kv_max_main*A_v;
 C_A_out = Kv_max_main*A_v;
 
 
-C_adj_in = 0.164370373676547;
-C_adj_out = 0.0892545896672297;
+C_adj_in = 0.234651093725739;
+C_adj_out = 0.0916820948391511;
 spool_dynamic = 0.0211675780438368;
-spool_valve_time_delay = 0.0169649581718457;
-b_small_bot = 1400;
-b_small_up = 1417.14082244839;
+spool_valve_time_delay = 0.01;
+b_small_bot = 1729.83703146215;
+b_small_up = 1729.83703146215;
+% C_B_in = 4.88806601858009e-06;
+% C_B_out = 9.25036529961709e-06;
+% C_A_in = 6.80876777842245e-06;
+% C_A_out = 5.56413634738708e-06;
+
+
 
 cycle = 0;
+
+
+% health Simply valves fault code 1100001
+    C_A_in = 6.8608e-07;
+    C_A_out = 5.2299e-07;
+    C_B_in = 1.8721e-07;
+    C_B_out = 9.8141e-07;
+    F_c = 2.7029;
+    F_df = 11.671;
+    F_sf = 0.017658;
+    P_cr = 0.20105;
+    b_small_bot = 2281.3;
+    b_small_up = 1400;
+    
+    
+% 1103204 skrt1 = 6
+%     C_B_in = 5.9656e-08;
+%     C_B_out = 9.1966e-07;
+%     C_A_in = 5.736e-07;
+%     C_A_out = 2.5026e-07;
+%     P_cr = 0.79896;
+%     
+%     C_A_in = 5.7252e-07;
+%     C_A_out = 1.7001e-07;
+%     C_B_in = 4.8385e-07;
+%     C_B_out = 9.217e-07;
+%     P_cr = 0.72189;
+%     
+
+% % 1104203 skrt1 = 2
+%     C_A_in = 7.472e-07;
+%     C_A_out = 6.5855e-07;
+%     C_B_in = 3.7934e-07;
+%     C_B_out = 7.4774e-07;
+%     P_cr = 0.46996;
+%     F_c = 0.16477;
+%     F_df = 0.13658;
+%     
+
+% 1101607 skrt2 = 0;
+%     C_A_in = 6.5739e-07;
+%     C_A_out = 5.3311e-07;
+%     C_B_in = 2.0979e-07;
+%     C_B_out = 2.5924e-06;
+%     P_cr = 0.20501;
+
+% 1101608 skrt2 = 6;
+%     C_A_in = 4.7064e-07;
+%     C_B_out = 3.8056e-07;
+%     P_cr = 0.19786;
+
+
+
+% 1100220 damp_small_up = 2
+%     b_small_up = 1525;
+%     
+    
+% 1100223 damp_small_up = 6
+%   b_small_up = 6760.2;
+
+
+% 1100816 damp_small_bot = 5
+%    b_small_bot = 1682.5;
+
+% 1100817 damp_small_bot = 7
+%     b_small_bot = 1082.6

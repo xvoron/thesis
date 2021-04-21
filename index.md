@@ -57,16 +57,17 @@ https://www.mathworks.com/help/predmaint/ug/Use-Simulink-to-Generate-Fault-Data.
 
 TODO:
 
-* [X] Add Velocity from LeverPosition 
-* [X] Add latex to git ignore
-* [ ] Friction R ~ 10% [N]
-
-* [X] Isermann Fault Detection str. 70
-* [X] Isermann Mechatronic:
-    * [X] str. 457 Pneumatic Actuators
-    * [X] str. 79 Energy Balance for Gases
 * [ ] [[doc/notes/digital_twin]]
 * [ ] Kalman: https://www.mathworks.com/videos/series/understanding-kalman-filters.html
-* [X] Convert data22
-* [ ] Process data22
+
+* [ ] finish models:
+    * [ ] refactor
+    * [ ] new function for demo:
+        * [ ] different fault codes demo
+    * [ ] parameter estimation from matlab script without applet
+    * [ ] refactor models
+    * [ ] nn model demo
+    * [ ] hamm model demo
+    * [ ] main script for models
+
 

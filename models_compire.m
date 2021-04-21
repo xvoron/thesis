@@ -8,14 +8,23 @@ run models/params.m
 Ts = 0.001;
 
 %% Chose fault code for simulation
-fault_code = "1100001";
+fault_code = "1103204";
+number_in_fault_code_set = 19;
 reset(datastore);
+i = 1;
+
 while hasdata(datastore)
    member = read(datastore);
    if member.FaultCode{1,1} == fault_code
-      break;
+      if i == number_in_fault_code_set
+            break;
+        else
+            i = i+1;
+            continue
+        end
    end
 end
+
 
 fault_code = member.FaultCode{1,1};
 valve2 = member.ThrottleValve1{1,1}.Variables; % Reversed in models
@@ -23,11 +32,14 @@ valve1 = member.ThrottleValve2{1,1}.Variables;
 SmallDamper_bottom = member.SmallDamper_bottom{1,1}.Variables;
 SmallDamper_upper = member.SmallDamper_upper{1,1}.Variables;
 
-damp_large_bot = member.LargeDamper_bottom{1,1}.Variables;
-damp_large_up = member.LargeDamper_upper{1,1}.Variables;
+LargeDamper_bottom = member.LargeDamper_bottom{1,1}.Variables;
+LargeDamper_upper = member.LargeDamper_upper{1,1}.Variables;
 
 M_L = member.("Settings.Load"){1,1}{1,1};
-
+disp(fault_code)
+fprintf("Parameters: \n valve1: %d, valve2: %d \n", valve1, valve2)
+fprintf("damp_small_up: %d, damp_small_bot: %d \n", SmallDamper_upper, SmallDamper_bottom)
+fprintf("damp_large_up: %d, damp_large_bot: %d \n", LargeDamper_upper, LargeDamper_bottom)
 %temp_cylinder = member.Temp_Cylinder{1,1};
 %temp_ambient  = member.Temp_Ambient{1,1};
 
@@ -65,7 +77,7 @@ pressure = member.AirPressure{1,1};
 strain_gauge = member.StrainGauge{1,1};
 
 %% Simulation Equation model
-simOut = sim("models/model_equation.slx");
+simOut = sim("models/model_equation_simply_valves.slx");
 
 position_sim_eq = get(simOut.logsout, "LeverPosition").Values;
 velocity_sim_eq = get(simOut.logsout, "LeverVelocity").Values;

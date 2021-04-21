@@ -1,16 +1,23 @@
 % Identification 
 clc;clear all;close all;
 
-fault_code = "1100001"; % USER INPUT
+fault_code = "1100817"; % USER INPUT
+number_in_fault_code_set = 10;
+
 
 run ../utils/import_only_signals_datastore.m
 run params.m
-
 reset(datastore);
+i = 1;
 while hasdata(datastore)
    member = read(datastore);
    if member.FaultCode{1,1} == fault_code
-      break;
+        if i == number_in_fault_code_set
+            break;
+        else
+            i = i+1;
+            continue
+        end
    end
 end
 

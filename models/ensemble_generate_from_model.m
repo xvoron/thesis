@@ -10,19 +10,25 @@
 % Author: Artyom Voronin
 % Brno 2021
 %%
+
 bdclose all; clc; clear all; close all;
 run params.m
 disp('[INFO] Parameters were loaded');
 %%
 output_path = '../data/data_gen_mdl_equation_beta';
 model = 'model_equation';
+
+generate_ensemble(model, output_path)
+
+
+function [] = generate_ensemble(model, output_path)
+
 load_system(model);
 open_system(model);
 %open_system([model '/Mechanical system']);
 runParallel = 0;
 processParallel = 0;
 
-%%
 % Run using Parallel Computing Toolbox
 if runParallel && isempty(gcp('nocreate'))
     parpool([2,6]);
@@ -49,4 +55,6 @@ if status
     disp("[INFO] Data was successfully generated")
 else
     warning("Fault in data generation")
+end
+
 end

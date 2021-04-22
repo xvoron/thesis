@@ -32,6 +32,8 @@
 %   4. Sensors:
 %       4.1 Flow Sensor
 %
+%   5. Input signals
+%
 % Parameters style sheet:
 %   name    = value     % [units] [i/m/c/s] Description
 %       where  e - identified or estimated
@@ -311,14 +313,14 @@ Ts   = 1/Freq;  % [Hz] [c] Sample time
 
 % 4.1 Flow Sensor:
 % 8035301 SFTE-10U-Q4-V-0.3M8D
-U_f_max     = 10;                % [m^3]    [c] Maximum Voltage output
+U_f_max     = 10;                % [V]    [c] Maximum Voltage output
 dm_max      = 10;                % [l/min]  [c] Maximum Volume Flow
 conv_SI     = 1.666667e-5;       % [-]      [c] Convert [l/min]->[m^3/s]
 dm_max_SI   = dm_max*conv_SI;    % [m^3/s]  [c] Maximum Flow in SI
 flow_enable = 1;                 % [-]      [f] Flag enable/disable
 
 % Noise parameter:
-flow_noise_var = 1e-10;
+flow_noise_var = 1e-6;
 
 % Sensor constants for Matlab function:
 flow_C_ratio = dm_max/U_f_max;
@@ -351,7 +353,7 @@ k_small = 219.12;
 
 % 
 %   %Kv_max_cntr = 0.80345
-% %     Kv_max_main = 3.6725
+% %  Kv_max_main = 3.6725
 %     b_small = 7484.4;
 %     beta = 0.13225;
 %     k_small = 392.67;
@@ -364,9 +366,8 @@ k_small = 219.12;
 %     cs_G18 = 4.8851e-05;
 
 
-%test
-%
 %% Input signals for simulation:
+
 member = load('../data/data11/data11_1_1.mat');
 inp_u1 = member.data.outValveHP{1,1};
 inp_u2 = member.data.outValveWP{1,1};
@@ -374,9 +375,6 @@ t = seconds(inp_u1.Time);
 u1 = inp_u1.Data;
 u2 = inp_u2.Data;
 % TODO
-
-
-
 
 b_small_bot = 2056.2;
 b_small_up = 1350.3;
@@ -407,10 +405,7 @@ b_small_up = 1729.83703146215;
 % C_A_in = 6.80876777842245e-06;
 % C_A_out = 5.56413634738708e-06;
 
-
-
 cycle = 0;
-
 
 % health Simply valves fault code 1100001
     C_A_in = 6.8608e-07;
@@ -474,5 +469,65 @@ cycle = 0;
 % 1100816 damp_small_bot = 5
 %    b_small_bot = 1682.5;
 
+
 % 1100817 damp_small_bot = 7
 %     b_small_bot = 1082.6
+%
+%
+%
+%
+%
+%
+%
+
+F_c = 0;
+F_df = 0;
+F_sf = 0;
+
+
+
+
+
+% Identification 22.04
+% Health data 1100001
+C_A_in = 6.0242e-07;
+C_A_out = 5.155e-07;
+C_B_in = 1.7518e-07;
+C_B_out = 9.1476e-07;
+P_cr = 0.23894;
+b_small_bot = 2596.5;
+b_small_up = 1543.1;
+
+
+% 1103204 skrt1 = 6
+%    C_A_in = 5.1391e-07;
+%    C_A_out = 2.4302e-07;
+%    C_B_in = 6.5289e-08;
+%    C_B_out = 8.8367e-07;
+%    P_cr = 0.75666;
+%
+
+% 1103203 skrt1 = 2
+%    C_A_in = 5.1391e-07
+%    C_A_out = 2.4302e-07
+%    C_B_in = 6.5289e-08
+%    C_B_out = 8.8367e-07
+%    P_cr = 0.75666
+    
+% 1103203 skrt1 = 2
+%C_A_in = 6.8016e-07;
+%C_A_out = 6.6809e-07;
+%C_B_in = 2.966e-07;
+%C_B_out = 8.0969e-07;
+%P_cr = 0.8026;
+
+% 1100220 damp_small_up = 2
+%b_small_up = 1685.4;
+%C_A_in = 5.6585e-07;
+%C_A_out = 5.0623e-07;
+%C_B_in = 2.0692e-07;
+%C_B_out = 8.3411e-07;
+%P_cr = 0.28049;
+
+
+

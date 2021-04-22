@@ -1,7 +1,7 @@
 % Identification 
 clc;clear all;close all;
 
-fault_code = "1100817"; % USER INPUT
+fault_code = "1100220"; % USER INPUT
 number_in_fault_code_set = 10;
 
 

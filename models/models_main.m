@@ -6,5 +6,9 @@
 %
 % Author: Artyom Voronin
 % Brno, 2021
+
+%%
 clc; clear all; close all;
+
+%% Load parameters and model
 

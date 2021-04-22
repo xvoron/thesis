@@ -1,6 +1,5 @@
 run params.m
 
-
 P = polyfit(lookup_n, lookup_q_n, 3);
 Y2 = polyval(P, lookup_n);
 P = polyfit(lookup_n, lookup_q_n, 4)

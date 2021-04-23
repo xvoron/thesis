@@ -49,8 +49,6 @@ compare(data_dx, NonlinearModel)
 
 
 %%
-
-
 na = 1;
 nb = 2;
 nk = 1;

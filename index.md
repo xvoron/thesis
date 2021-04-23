@@ -60,10 +60,10 @@ TODO:
 * [ ] [[doc/notes/digital_twin]]
 * [ ] Kalman: https://www.mathworks.com/videos/series/understanding-kalman-filters.html
 
-* [ ] finish models:
+* [.] finish models:
     * [ ] refactor
-    * [ ] new function for demo:
-        * [ ] different fault codes demo
+    * [X] new function for demo:
+        * [X] different fault codes demo
     * [ ] parameter estimation from matlab script without applet
     * [ ] refactor models
     * [ ] nn model demo

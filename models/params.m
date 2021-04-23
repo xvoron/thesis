@@ -344,6 +344,11 @@ F_max = 2e3; % N
 sg_C = Us/F_max; % 
 sg_noise_var = 1e-1;
 
+% 4.3 Encoder
+resolution = 7.8125e-6;
+counter_bits = 32;
+threshold = 2^(counter_bits - 1);
+
 %% Estimated parameters:
 b_small = 5184.3;
 % beta = 0.407;

@@ -1,10 +1,11 @@
 clc;clear all;close all;
 %run params.m;
 %
-addpath('../utils/');
-data1 = load('data/data11_1_1.mat');
-data2 = load('data/data11_1_2.mat');
-data3 = load('data/data11_1_3.mat');
+addpath('../../utils/');
+addpath('../');
+data1 = load('../data/data11_1_1.mat');
+data2 = load('../data/data11_1_2.mat');
+data3 = load('../data/data11_1_3.mat');
 
 [f_code1,t1,i_in_u1_1,i_in_u1_2,i_out_x1,i_out_dx1,i_out_f1]=extract_signals4identification(data1);
 [f_code2,t2,i_in_u2_1,i_in_u2_2,i_out_x2,i_out_dx2,i_out_f2]=extract_signals4identification(data2);
@@ -83,8 +84,6 @@ figure;
 
 plot(t,T(3,:),'b-',t,Yopen(3,:),'r--',t,Yclosed(3,:),'k-.'); xlabel('Time (sec)');  ylabel('DSP1');
 legend('Actual','Predicted (openloop)','Predicted (closedloop)');
-
-
 
 
 function data = nn_refactor(data)

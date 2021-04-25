@@ -22,6 +22,7 @@ function [] = load_fault_code_params(fault_code)
             P_cr = 0.75666;
             b_small_bot = 2596.5;
             b_small_up = 1543.1;
+
         case "1103203"
             fprintf("Valve on B chamber changed value \n")
             C_A_in = 6.8016e-07;
@@ -31,6 +32,7 @@ function [] = load_fault_code_params(fault_code)
             P_cr = 0.8026;
             b_small_bot = 2596.5;
             b_small_up = 1543.1;
+
         case "1101607"
             fprintf("Valve on A chamber changed value \n")
             C_A_in = 6.5739e-07;
@@ -40,6 +42,7 @@ function [] = load_fault_code_params(fault_code)
             P_cr = 0.20501;
             b_small_bot = 2596.5;
             b_small_up = 1543.1;
+
         case "1101608"
             fprintf("Valve on A chamber changed value \n")
             C_A_in = 4.7064e-07;
@@ -49,6 +52,7 @@ function [] = load_fault_code_params(fault_code)
             P_cr = 0.19786;
             b_small_bot = 2596.5;
             b_small_up = 1543.1;
+
         case "1100220"
             fprintf("Upper small damper changed value \n")
             C_A_in = 5.6585e-07;
@@ -59,7 +63,6 @@ function [] = load_fault_code_params(fault_code)
             b_small_bot = 2596.5;
             b_small_up = 1685.4;
 
-
         case "1100223"
             fprintf("Upper small damper changed value \n")
             C_A_in = 6.8608e-07;
@@ -69,6 +72,7 @@ function [] = load_fault_code_params(fault_code)
             P_cr = 0.20105;
             b_small_bot = 2281.3;
             b_small_up = 6760.2;
+
         case "1100816"
             fprintf("Bottom small damper changed value \n")
             C_A_in = 6.8608e-07;
@@ -77,7 +81,7 @@ function [] = load_fault_code_params(fault_code)
             C_B_out = 9.8141e-07;
             P_cr = 0.20105;
             b_small_bot = 1682.5;
-            b_small_up = 1400;
+            b_small_up = 1543.1;
 
         case "1100817"
             fprintf("Bottom small damper changed value \n")
@@ -87,7 +91,7 @@ function [] = load_fault_code_params(fault_code)
             C_B_out = 9.8141e-07;
             P_cr = 0.20105;
             b_small_bot = 1082.6;
-            b_small_up = 1400;            
+            b_small_up = 1543.1;
     end
 end
 

@@ -53,21 +53,15 @@ https://www.mathworks.com/help/predmaint/ug/Use-Simulink-to-Generate-Fault-Data.
 ----
 
 = Notes =
-- Temperature was measured with different ambient temperature 
 
 TODO:
-
 * [ ] [[doc/notes/digital_twin]]
-* [ ] Kalman: https://www.mathworks.com/videos/series/understanding-kalman-filters.html
 
 * [.] finish models:
     * [ ] refactor
-    * [X] new function for demo:
-        * [X] different fault codes demo
-    * [ ] parameter estimation from matlab script without applet
-    * [ ] refactor models
-    * [ ] nn model demo
-    * [ ] hamm model demo
-    * [ ] main script for models
-
+    * [X] refactor models
+* [ ] nn model demo
+        * [ ] require more data with different input for proper dynamic
+              optimization
+        * [ ] Work on synthetic data ?
 

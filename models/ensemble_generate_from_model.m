@@ -16,7 +16,7 @@ run params.m
 disp('[INFO] Parameters were loaded');
 %%
 output_path = '../data/data_gen_mdl_equation_beta';
-model = 'model_equation';
+model = 'model_equation_simply_valves';
 
 generate_ensemble(model, output_path)
 

@@ -1,4 +1,4 @@
-function [] = config_print(member)
+function [fault_code] = config_print(member)
     global SmallDamper_upper SmallDamper_bottom
     fault_code = member.FaultCode{1,1};
     valve2 = member.ThrottleValve1{1,1}.Variables; % Reversed in models

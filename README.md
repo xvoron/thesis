@@ -1,7 +1,4 @@
 %date
-<span id="-master"></span><span id="master" class="tag">master</span>
-<span id="-pm"></span><span id="pm" class="tag">pm</span>
-<span id="-fdi"></span><span id="fdi" class="tag">fdi</span>
 
 -----
 
@@ -11,13 +8,7 @@
   - [Sections](#Sections)
   - [doc](#doc)
   - [Meetings](#Meetings)
-  - [Trash](#Trash)
   - [Notes](#Notes)
-
-# Info
-
-  - [Seminar](wiki0:VUT/RD6.html)
-  - good identification results
 
 # Sections
 
@@ -37,15 +28,6 @@
   - [doc/meetings/20\_8\_2020](doc/meetings/20_8_2020.html)
   - [doc/meetings/10\_9\_2020](doc/meetings/10_9_2020.html)
   - [doc/meetings/25\_02\_2021](doc/meetings/25_02_2021.html)
+  - [doc/meetings/14\_04\_2021](doc/meetings/14_04_2021.html)
 
 -----
-
-# Notes
-
-  - Is that necessary to refactor MT directory?
-  - How much time do i need to do this?
-
-<span class="todo">TODO:</span>
-
-  - <span class="done4"></span>Add Velocity from LeverPosition
-  - <span class="done0"></span>

@@ -5,6 +5,18 @@
 
 = NEW INFORMATION =
 
+- [[https://gregstanleyandassociates.com/whitepapers/FaultDiagnosis/faultdiagnosis.htm]]
+- Signal based: easy extract and train model
+- Model based: Residual same as:
+[[https://www.mathworks.com/help/predmaint/ug/fault-diagnosis-of-centrifugal-pumps-using-residual-analysis.html]]
+- Using model:
+    - Generate data for RUL
+    - Apply RUL:
+    - https://www.mathworks.com/help/predmaint/ug/wind-turbine-high-speed-bearing-prognosis.html
+
+Acc Vibration modeling:
+https://www.mathworks.com/help/predmaint/ug/Use-Simulink-to-Generate-Fault-Data.html
+
 = FDI =
 
 Automated fault detection and diagnosis depends heavily on input from

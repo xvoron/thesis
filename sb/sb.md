@@ -1,17 +1,19 @@
 %title Signal based PM
-:matlab:sbpm:pm:
 
 = Contents =
-    - [[#Matlab info|Matlab info]]
-    - [[#Features|Features]]
-        - [[#Features#matlab|matlab]]
-
-
+    - [[#NEW|NEW]]
+    - [[#Divide dataset|Divide dataset]]
+    - [[#Preprocessing|Preprocessing]]
+    - [[#FaultCodes Notes|FaultCodes Notes]]
+    - [[#matlab|matlab]]
+    - [[#Sensors|Sensors]]
+        - [[#Sensors#Microphones|Microphones]]
+            - [[#Sensors#Microphones#Features|Features]]
+        - [[#Sensors#Position/Velocity|Position/Velocity]]
 
 = NEW =
 sequence2sequence classification using Deep Learning
 [[https://www.mathworks.com/help/deeplearning/ug/sequence-to-sequence-classification-using-deep-learning.html]]
-S
 
 = Divide dataset =
 train - 70 % 
@@ -33,70 +35,6 @@ Anomalie ve vrchnim damperu. Urcite to bude nejaky problem
 * What to do with data?
 - Nothing for that but it must be solved in near feature !
 
-
-= Features =
-Shape-factor = rms/mean
-
-One-way ANOVA:
-| Feature                         | ANOVA    |
-|---------------------------------|----------|
-| FlowExtrusion_stats/SINAD       | 138.0057 |
-| FlowExtrusion_stats/SNR         | 136.4267 |
-| FlowContraction_stats/Std       | 118.4493 |
-| FlowContraction_stats/RMS       | 117.5115 |
-| FlowContraction_stats/PeakValue | 110.8327 |
-| FlowExtrusion_ps_spec/BandPower | 106.7830 |
-| LeverPosition_stats/Mean        | 105.6006 |
-
-Kruskal-Wallis
-| Feature                             | Kruskal-Wallis |
-|-------------------------------------|----------------|
-| LeverPosition_stats/THD             | 301.3332       |
-| LeverPosition_stats/PeakValue       | 292.4824       |
-| LeveFlowExtrusion_stats/SNR         | 239.3494       |
-| LeveLeverPosition_stats/Skewness    | 239.3162       |
-| LeveFlowExtrusion_stats/SINAD       | 239.2682       |
-| LeveFlowExtrusion_ps_spec/BandPower | 235.9301       |
-
-
-= TODO =
-* [ ] Preprocess all data
-
-
-= matlab =
-
-Usefull code:
-{{{matlab
-%Compute the FFT of the Time synchronous average of the vibration signal
-dt = seconds(dt);
-tp = seconds(data.TachoPulses{1});
-vibrationTSA = tsa(y,tp);
-np = numel(vibrationTSA);
-f = fft(vibrationTSA.tsa.*hamming(np))/np;
-frTSA = f(1:floor(np/2)+1);
-wTSA = (0:np/2)/np*(2*pi/dt);
-mTSA = abs(frTSA);
-
-%Peak frequency
-[~,idx] = max(mTSA);
-PeakFreq = wTSA(idx);
-
-%Power above 30Hz
-HighFreqPower = sum(mTSA(wTSA > 30).^2);
-
-%Envelope of TSA
-M_env = envspectrum(vibrationTSA);
-
-%Envelope power
-EnvPower = sum(M_env.^2);
-
-%Frequency with maximum spectral kurtosis
-[~,~,~,fc] = kurtogram(y.Data,1/dt,8);
-PeakSpecKurtosis = fc;
-}}}
-
-
-
 = Sensors =
 - [[../doc/sensors/sensors]]: All sensors comparison table
 
@@ -105,28 +43,154 @@ Cheapest sensor
 * [ ] Time domain:
 * [ ] Frequency domain:
 * [ ] Time-Frequency domain ???
-=== Features ===
 
-KW:
-MIC_bBumper_stats/Mean
-MIC_bBumper_stats/RMS
-MIC_Ambient_stats/SINAD
+= Notes 27.4 =
+
+Metric:
+best_sensor = C
+
+- Starting to refactor and finalize signal based pm.
+- Explore smaller dataset using App and then deploy for larger dataset
+  using script.
+- Taking All features vs PCA vs selected from ANOVA example.
+- Using All features 
+- Statical features can be efficient calculated.
+- Calculation Welch Power Spectum take some time too. Not in uC.
+
+- PCA transform data to lower dimension, some useful information can be
+  lost.
+- It's look like ANOVA has better performance
+
+= Encoder =
+On encoder data using all (48) features, 100 % can be achieved. Data has a
+lot of information about the process.
+
+Using PCA Accuracy 97 % (Fine KNN) using 6 pca-components for classification.
+
+But we need to calculate this 48 features to take 6 components. This is not
+good :)
+
+We can pre-rank features using ANOVA and take only 5-10 best features:
+Only 5 best features gives 99.2% best result. But using same Fine KNN 96.7%
+accuracy. A lot of classifiers has more than 90% accuracy. If we will
+deploy algorithms in uC or less efficient PC it's better to use minimal
+number of features (Better only statistic).
+It's not nescessary to use a PCA, but can be used. 
+1-PCA component 90+% accuracy achieved. Fine KNN 95 %
+
+
+| All features | All+PCA   | ANOVA     | ANOVA+PCA | Statis     | Statis+PCA  |
+|--------------|-----------|-----------|-----------|------------|-------------|
+| 99.8%        | 97%(6pca) | 99.2%(5f) | 95%(1pca) | 99.7%(10f) | 92.3%(2pca) |
+
+Best features:
+[[file:txt_features/enc_features.txt]]
+
+== Conclusion ==
+Very good accuracy, 2 useful signals: displacement and velocity. Only
+static can be used. But very expensive sensor.
+
+
+= Proximity sensors =
+Proximity sensors are digital sensors with 1/0 signal. There is no
+frequency domain. Only statistical features.
+Using correlation importance every feature goes to 0 or NaN.
+
+Maybe binary health vs fault will work.
+TODO:
+
+* [ ] In combined faulses it will 100% fail?
+
+
+| All features  | All+PCA   | ANOVA     | ANOVA+PCA   |
+|---------------|-----------|-----------|-------------|
+| 99.2%         | 82%(2pca) | 90.3%(8f) | 85.9%(1pca) |
+| 94.7% (Ftree) |           |           |             |
+
+
+== Conclusion ==
+Need to be proved on bigger dataset. But it's very cheap. If it will work
+it will be very good results.
+
+Maybe in combination with another sensor will be good.
+
+
+= Flow sensor =
+Flow sensors. This two sensors are in one side (chamber A input and
+output).
+
+2 sensors together:
+- 65 features
 
 ANOVA:
-MIC_uBumper_stats/Mean
-MIC_bBumper_stats/Mean
-MIC_bBumper_stat/THD
+- 8 features
+
+WOW, Flow Contraction sensor has very good performance.
+ 
+| All features | All+PCA     | ANOVA   | ANOVA+PCA | Extr (ANOVA) | Contr (ANOVA) |
+|--------------|-------------|---------|-----------|--------------|---------------|
+| 99.8%        | 99.8%(8pca) | 98%(8f) | 92%(3pca) | 90%(6f)      | 99.4%(6f)     |
 
 
-== Position/Velocity ==
-KW:
-LeverVelocity_ps_spec/PeakAmp6
-LeverVelocity_ps_spec/PeakAmp7
-LeverVelocity_ps_spec/PeakAmp8
-LeverVelocity_ps_spec/PeakAmp9
-LeverVelocity_ps_spec/PeakFreq3
+Best features:
+[[file:txt_features/flow_features.txt]]
+
+== Conclusion ==
+Very good performance of Flow Contraction Sensor. If that will be true on
+bigger dataset -  shock content :)
+Not cheap, but good performance.
+
+= Pressure =
+Pressure sensor always will be because of pressure control.
+
+Air Pressure - divided to preprocessed and raw:
+
+Air Pressure RAW performance:
+11 features only static
+
+| 11 static features |
+|--------------------|
+| 82%                |
 
 
+Air Pressure preprocessed performance:
+| 24 static features | with PCA |
+|--------------------|----------|
+| 78%                | 50%      |
 
+== Conclusion ==
+Very bad :) 
+
+= Acc =
+
+All features = 116 features
+| All features | All+PCA    | ANOVA   | ANOVA+PCA |
+|--------------|------------|---------|-----------|
+| 99.5%        | 77%(21pca) | 97%(8f) | 73%(1pca) |
+
+Moving acc:
+First 10 features by ANOVA:
+| 10 features |
+|-------------|
+| 97%         |
+
+Static acc:
+First 10 features by ANOVA:
+| 10 features |
+|-------------|
+| 95.6%       |
+
+
+= Mic =
+
+| All features | All+PCA   | ANOVA     | ANOVA+PCA | Statis     | Statis+PCA  |
+|--------------|-----------|-----------|-----------|------------|-------------|
+| x%           | %(xpca)   | x%(xf)    | x%(xpca)  | x%(xf)     | x%(xpca)    |
+
+= Strain Gauge =
+
+| All features | All+PCA   | ANOVA     | ANOVA+PCA | Statis     | Statis+PCA  |
+|--------------|-----------|-----------|-----------|------------|-------------|
+| x%           | %(xpca)   | x%(xf)    | x%(xpca)  | x%(xf)     | x%(xpca)    |
 
 

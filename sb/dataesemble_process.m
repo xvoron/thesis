@@ -12,7 +12,7 @@ disp("Starting")
 addpath('../utils/');
 addpath('../utils/preprocessing/');
 
-path2data_converted = '../data/data22/*.mat';
+path2data_converted = '../data/data2label_comb/*.mat';
 loc_files = fullfile(path2data_converted);
 ext_files = ".mat";
 
@@ -78,21 +78,21 @@ disp("Datastore import - done");
 
 
 %% 2. Fault codes
-fault_codes = ["Start"];
-reset(datastore);
-while hasdata(datastore)
-   member = read(datastore);
-   if find(ismember(fault_codes, member.FaultCode))
-        continue
-   else
-       fault_codes = [fault_codes; member.FaultCode];
-   end
-    disp(string(progress(datastore)*100) + "% Done");
-end
+% fault_codes = ["Start"];
+% reset(datastore);
+% while hasdata(datastore)
+%    member = read(datastore);
+%    if find(ismember(fault_codes, member.FaultCode))
+%         continue
+%    else
+%        fault_codes = [fault_codes; member.FaultCode];
+%    end
+%     disp(string(progress(datastore)*100) + "% Done");
+% end
 
 %% 3. Preprocess Data
-label_add = false;
-runParallel = false;
+label_add = true;
+runParallel = true;
 
 datastore.ConditionVariables = [datastore.ConditionVariables; "Label"];
 
@@ -105,14 +105,14 @@ if label_add
             subdatastore = partition(datastore, n, ct);
             while hasdata(subdatastore)
                 member = read(subdatastore);
-                add_data = faultCode2Label(member);
+                add_data = faultCode2Label_combinedFaults(member);
                 writeToLastMemberRead(subdatastore, "Label", add_data);
             end
         end
     else          
         while hasdata(datastore)
             member = read(datastore);
-            add_data = faultCode2Label(member);
+            add_data = faultCode2Label_combinedFaults(member);
             writeToLastMemberRead(datastore, "Label", add_data);
             disp(string(progress(datastore)*100) + "% Done");
         end

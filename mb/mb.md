@@ -14,7 +14,6 @@
 - [[../doc/notes/condition_indicators|Condition Indicators]]: MB condition indicators
 
 
-
 = Latex =
 [[file:../doc/latex/mb/mb.tex]]
 
@@ -23,3 +22,18 @@
 
 = Sources =
 source: [[file:../fdi_pm/sources/predmaint_ug.pdf]]
+
+= Notes =
+
+Air leak:
+
+| C_leak | impact   | interval |
+|--------|----------|----------|
+| 1e-10  | no       |          |
+| 1e-9   | no       |          |
+| 1e-8   | very low |          |
+| 1e-7   | yes      |          |
+| 1e-6   | very big |          |
+| 1e-5   | critical |          |
+
+

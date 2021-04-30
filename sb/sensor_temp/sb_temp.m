@@ -1,25 +1,4 @@
-%% import dataensemble
-% Description:
-% 	Processing esemble dataset add labels
-% Content:
-%	
-%
-% Author: Artyom Voronin
-% Brno, 2021
-
-disp("Starting")
-addpath('../utils/');
-
-path2data_converted = '../data/data11/*.mat';
-loc_files = fullfile(path2data_converted);
-ext_files = ".mat";
-
-% Create and configure Ensemble datastore
-datastore = fileEnsembleDatastore(loc_files, ext_files);
-
-datastore.ReadFcn = @readData;
-datastore.WriteToMemberFcn = @writeData;
-
+function [] = sb_temp(datastore)
 
 datastore.ConditionVariables = ["FaultCode"; ...
                                 "Label"; ...
@@ -39,7 +18,6 @@ datastore.IndependentVariables = [
 datastore.SelectedVariables = ["Label"; ...
                               "Temp_Cylinder"; ...
                               "Temp_Ambient"; ...
-                                
                                 ];
 
 
@@ -55,6 +33,7 @@ hold on;
 labels = [];
 temp_cyls = [];
 temp_ambs = [];
+
 while hasdata(datastore)
     member = read(datastore);
     label = member.Label{1,1};
@@ -84,23 +63,4 @@ hold off
 
 temp_features = table(labels, temp_cyls, temp_ambs, 'VariableNames', {'Label', 'Temp_Cylinder', 'Temp_Ambient'});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+end 

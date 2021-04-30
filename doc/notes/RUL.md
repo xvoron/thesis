@@ -25,7 +25,7 @@ Time evaluation and statistical properties:
 - Models that fits the time evaluation and predicts how long it will be
   before CI cross some threshold.
 - Models that compares the time evaluation of CI to measured or simulated
-  time series from systems that ran to failure.
+  time series from systems that run to failure.
 
 Statistical estimators:
 - Dynamic models from "System Identification Toolbox".

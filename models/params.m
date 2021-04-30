@@ -327,6 +327,12 @@ resolution = 7.8125e-6;             % [m]   [c] Sensor resolution
 counter_bits = 32;                  % [bit] [c] Maximum counter bits
 threshold = 2^(counter_bits - 1);   % [-]   [c] Maximum counter value
 
+%% 5.0 Faults simulation
+% 5.1 Air leak from B chamber
+P_cr_ref = P_cr;
+air_leak = 0;
+C_leak = 1e-15;
+
 %% Input signals for simulation
 %
 member = load('../data/data11/data11_1_1.mat');

@@ -12,6 +12,7 @@
         - [[#Sensors#Position/Velocity|Position/Velocity]]
 
 = NEW =
+
 sequence2sequence classification using Deep Learning
 [[https://www.mathworks.com/help/deeplearning/ug/sequence-to-sequence-classification-using-deep-learning.html]]
 
@@ -59,7 +60,12 @@ best_sensor = C
 
 - PCA transform data to lower dimension, some useful information can be
   lost.
-- It's look like ANOVA has better performance
+- It's look like ANOVA has better performance 
+
+* [X] Anova vs PCA:
+    * [X] It's clear that ANOVA performance is much much better reduce
+          number of features.
+
 
 = Encoder =
 On encoder data using all (48) features, 100 % can be achieved. Data has a
@@ -78,6 +84,7 @@ number of features (Better only statistic).
 It's not nescessary to use a PCA, but can be used. 
 1-PCA component 90+% accuracy achieved. Fine KNN 95 %
 
+== Small Dataset ==
 
 | All features | All+PCA   | ANOVA     | ANOVA+PCA | Statis     | Statis+PCA  |
 |--------------|-----------|-----------|-----------|------------|-------------|
@@ -85,6 +92,13 @@ It's not nescessary to use a PCA, but can be used.
 
 Best features:
 [[file:txt_features/enc_features.txt]]
+
+== Full dataset ==
+Lever position static data
+| ANOVA | Model    |
+|-------|----------|
+| 99.7% | Fine KNN |
+
 
 == Conclusion ==
 Very good accuracy, 2 useful signals: displacement and velocity. Only
@@ -180,17 +194,46 @@ First 10 features by ANOVA:
 |-------------|
 | 95.6%       |
 
+= Conclusion =
+In test dataset good performance.
 
 = Mic =
+3 mics - > 6 combinations
+3 microphones:
+- upper
+- bottom
+- ambient
 
-| All features | All+PCA   | ANOVA     | ANOVA+PCA | Statis     | Statis+PCA  |
-|--------------|-----------|-----------|-----------|------------|-------------|
-| x%           | %(xpca)   | x%(xf)    | x%(xpca)  | x%(xf)     | x%(xpca)    |
+All 3 together:
+92 features
+| All features | All+PCA    | ANOVA     |
+|--------------|------------|-----------|
+| 99.7%        | 88%(10pca) | 97.9%(8f) |
+
+Only upper first 10 ANOVA:
+| 10 features |
+|-------------|
+| 99.2%       |
+
+
+Only bottom first 10 ANOVA:
+| 10 features |
+|-------------|
+| 98.3%       |
+
+Only ambient first 10 ANOVA:
+| 10 features |
+|-------------|
+| 98.3%       |
 
 = Strain Gauge =
+Without preprocessing
+All features: 33 features:
 
-| All features | All+PCA   | ANOVA     | ANOVA+PCA | Statis     | Statis+PCA  |
-|--------------|-----------|-----------|-----------|------------|-------------|
-| x%           | %(xpca)   | x%(xf)    | x%(xpca)  | x%(xf)     | x%(xpca)    |
+| All features | All+PCA    | ANOVA     |
+|--------------|------------|-----------|
+| 98.6%        | 87.9(1pca) | 98.5%(5f) |
 
+== Conclusion ==
+Very good results on test data. 
 

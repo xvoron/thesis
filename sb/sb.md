@@ -5,11 +5,25 @@
     - [[#Divide dataset|Divide dataset]]
     - [[#Preprocessing|Preprocessing]]
     - [[#FaultCodes Notes|FaultCodes Notes]]
-    - [[#matlab|matlab]]
     - [[#Sensors|Sensors]]
         - [[#Sensors#Microphones|Microphones]]
-            - [[#Sensors#Microphones#Features|Features]]
-        - [[#Sensors#Position/Velocity|Position/Velocity]]
+    - [[#Notes 27.4|Notes 27.4]]
+    - [[#Encoder|Encoder]]
+        - [[#Encoder#Small Dataset|Small Dataset]]
+        - [[#Encoder#Full dataset|Full dataset]]
+        - [[#Encoder#Conclusion|Conclusion]]
+    - [[#Proximity sensors|Proximity sensors]]
+        - [[#Proximity sensors#Conclusion|Conclusion]]
+    - [[#Flow sensor|Flow sensor]]
+        - [[#Flow sensor#Conclusion|Conclusion]]
+    - [[#Pressure|Pressure]]
+        - [[#Pressure#Conclusion|Conclusion]]
+    - [[#Acc|Acc]]
+    - [[#Conclusion|Conclusion]]
+    - [[#Mic|Mic]]
+        - [[#Mic#Full dataset|Full dataset]]
+    - [[#Strain Gauge|Strain Gauge]]
+        - [[#Strain Gauge#Conclusion|Conclusion]]
 
 = NEW =
 
@@ -94,10 +108,17 @@ Best features:
 [[file:txt_features/enc_features.txt]]
 
 == Full dataset ==
+* [X] LP_stats
+* [X] LV_stats
+* [X] LP_ps
+* [ ] LV_ps
+
 Lever position static data
 | ANOVA | Model    |
 |-------|----------|
 | 99.7% | Fine KNN |
+
+Velocity stats data:
 
 
 == Conclusion ==
@@ -149,10 +170,25 @@ WOW, Flow Contraction sensor has very good performance.
 Best features:
 [[file:txt_features/flow_features.txt]]
 
+== Full data ==
+* [X] FC_stats
+* [X] FE_stats
+* [X] FC_ps
+* [X] FE_ps
+
+band 0-55, 5 peaks
+* [X] FC_ps_spec
+* [X] FE_ps_spec
+
+=== FlowContraction ===
+FC only - 97% model work
+
 == Conclusion ==
 Very good performance of Flow Contraction Sensor. If that will be true on
 bigger dataset -  shock content :)
 Not cheap, but good performance.
+
+Big dataset works well
 
 = Pressure =
 Pressure sensor always will be because of pressure control.
@@ -194,7 +230,14 @@ First 10 features by ANOVA:
 |-------------|
 | 95.6%       |
 
-= Conclusion =
+== Full dataset ==
+* [X] All statistics
+* [X] All ps
+
+10 peaks, band 0-301
+* [X] All ps_spec
+
+== Conclusion ==
 In test dataset good performance.
 
 = Mic =
@@ -226,6 +269,21 @@ Only ambient first 10 ANOVA:
 |-------------|
 | 98.3%       |
 
+== Full dataset ==
+Calculation:
+* [X] uMic_ps
+* [X] bMic_ps
+* [X] ambMic_ps
+
+band 0-1e4, 10 peaks
+* [X] uMic_ps_spec
+* [X] bMic_ps_spec
+* [X] ambMic_ps_spec
+
+* [X] uMic_stats
+* [X] bMic_stats
+* [X] ambMic_stats
+
 = Strain Gauge =
 Without preprocessing
 All features: 33 features:
@@ -236,4 +294,3 @@ All features: 33 features:
 
 == Conclusion ==
 Very good results on test data. 
-

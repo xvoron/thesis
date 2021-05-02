@@ -33,13 +33,12 @@ hold on;
 labels = [];
 temp_cyls = [];
 temp_ambs = [];
-
+actual_fault_code = "";
 while hasdata(datastore)
     member = read(datastore);
     label = member.Label{1,1};
     temp_cylinder = member.Temp_Cylinder{1,1}.Data;
     temp_ambient = member.Temp_Ambient{1,1}.Data;
-    
     labels = [labels; string(label)];
     temp_cyls = [temp_cyls; temp_cylinder];
     temp_ambs = [temp_ambs; temp_ambient];

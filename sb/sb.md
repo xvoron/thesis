@@ -144,6 +144,7 @@ TODO:
 
 
 == Conclusion ==
+
 Need to be proved on bigger dataset. But it's very cheap. If it will work
 it will be very good results.
 
@@ -207,6 +208,11 @@ Air Pressure preprocessed performance:
 | 24 static features | with PCA |
 |--------------------|----------|
 | 78%                | 50%      |
+
+== Full dataset ==
+0-15HZ band; 10 peaks
+
+* [ ] Full features
 
 == Conclusion ==
 Very bad :) 
@@ -291,6 +297,10 @@ All features: 33 features:
 | All features | All+PCA    | ANOVA     |
 |--------------|------------|-----------|
 | 98.6%        | 87.9(1pca) | 98.5%(5f) |
+
+== Full dataset ==
+band: 0-40 HZ, 10 peaks
+* [X] All features
 
 == Conclusion ==
 Very good results on test data. 

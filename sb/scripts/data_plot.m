@@ -4,8 +4,8 @@ function [] = data_plot(member)
 flow_ext = member.FlowExtrusion{1};
 flow_cont = member.FlowContraction{1};
 pressure = member.AirPressure{1};
-acc_Z = member.Accelerometer_axisZ{1};
-acc_Y = member.Accelerometer_axisY{1};
+acc_Z = member.AccelerometerMoving_axisZ{1};
+acc_Y = member.AccelerometerMoving_axisY{1};
 strain = member.StrainGauge{1};
 
 % Microphone

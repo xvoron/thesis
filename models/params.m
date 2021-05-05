@@ -343,7 +343,7 @@ u1 = inp_u1.Data;           % Input signal
 u2 = inp_u2.Data;           % Input signal
 
 cycle = 0;
-
+id = 0;
 %% Loading Different estimated modes depends on fault codes
 
 fault_code = "1100001"

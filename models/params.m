@@ -292,14 +292,19 @@ Ts   = 1/Freq;  % [Hz] [c] Sample time
 
 % 4.1 Flow Sensor:
 % 8035301 SFTE-10U-Q4-V-0.3M8D
-U_f_max     = 10;                % [V]      [c] Maximum Voltage output
-dm_max      = 10;                % [l/min]  [c] Maximum Volume Flow
-conv_SI     = 1.666667e-5;       % [-]      [c] Convert [l/min]->[m^3/s]
-dm_max_SI   = dm_max*conv_SI;    % [m^3/s]  [c] Maximum Flow in SI
-flow_enable = 1;                 % [-]      [f] Flag enable/disable
+U_f_max         = 10;                % [V]      [c] Maximum Voltage output
+dm_max          = 10;                % [l/min]  [c] Maximum Volume Flow
+conv_SI         = 1.666667e-5;       % [-]      [c] Convert [l/min]->[m^3/s]
+dm_max_SI       = dm_max*conv_SI;    % [m^3/s]  [c] Maximum Flow in SI
+flow_enable     = 1;                 % [-]      [f] Flag enable/disable
+flow_offset     = 0;                 % [l/min]  [c] Flow offset (sensor fault)
+flow_offset_ex  = 0;                 % [l/min]  [c] Flow offset (sensor fault)
+flow_offset_con = 0;                 % [l/min]  [c] Flow offset (sensor fault)
 
 % Noise parameter:
-flow_noise_var = 1e-6;           % [-] [e] Noise variance of flow sensors
+flow_noise_var      = 1e-6;           % [-] [e] Noise variance of flow sensors
+flow_noise_var_con  = 1e-6;           % [-] [e] Noise variance of flow sensors
+flow_noise_var_ex   = 1e-6;           % [-] [e] Noise variance of flow sensors
 
 % Sensor constants for Matlab function:
 flow_C_ratio = dm_max/U_f_max;

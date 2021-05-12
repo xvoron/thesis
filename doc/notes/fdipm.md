@@ -35,6 +35,9 @@ source: [[file:../sources/predmaint_ug.pdf]]
 - [[PM_detect_faults_cnn]]
 - [[fault_codes]]
 
+= Conclusion =
+- [[conclusion]]
+ 
 = Models =
 [[https://en.wikipedia.org/wiki/Mixture_model|Models2PM]]
 

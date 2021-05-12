@@ -7,17 +7,15 @@
 %%              |_|              
 %% Brno, 2021
 
-\chapter{Theoretical Survey (10-13 pages)}
-Why FDA and PdM are useful? Similarities/Differences?
-The relative arrangement PdM and FDI methods representing in following
-figure \ref{fig:fdi_pm}
-\begin{figure}[h!]
-    \centering
-    \includegraphics[scale=0.3]{FDI_PM.png}
-    \caption{PM and FDI }
-    \label{fig:fdi_pm}
-\end{figure}
+\chapter{Theoretical Survey (10-13 pages)}\label{ch:teor_surv}
 
+This chapter contains a short introduction to the main goals and problems
+presented in fault detection and analysis and predictive maintenance
+techniques. A brief review of methodologies used in these fields and
+general approaches.
+
+Section digital twin presents scenarios where a simulation model is used in
+predictive maintenance. 
 
 
 % -----------------------------------------------------------------------------
@@ -26,39 +24,62 @@ figure \ref{fig:fdi_pm}
 
 \section{Problem Definition}
 
-In practice, many types of machinery require some calibration for adequately working,
-and online monitoring and classification algorithms can find the problem.
-
 % XXX FaultDetectionMethods-ALiteratureSurvay.pdf
 
+In practice many types of machinery require some calibration and monitoring
+for adequate working. An anomaly or fault detection in time can prevent
+machinery from damage that causes loss of money due to non-working or
+destroyed equipment.  Predicting where the fault appears reduces the cost
+of diagnosis and replacement operations. The possibility of estimating the
+remaining useful life allows to optimize a maintenance process and reduce
+maintenance costs.
 
-Smart systems = Sensors, but sensors only not doing the system smart. Smart
-is combination of sensors, processing signals, extraction useful information and
-some decision based on this information.
 
-What kind of sensors to use and which sensor is the best based on
-cost/technical efficient perspective.
+Smart manufacturing, the combination of sensors, the possibility of
+preprocessing and extracting useful information from measurements and
+decision algorithms based on this information, allows increasing production
+efficiency and significantly reducing maintenance operations.
+
+
+
+\paragraph{Types of Maintenance} There are three main types of maintenances
+\ref{fig:maintenance}. Each following type of maintenance requires
+increasing complexity of monitoring
+and decision algorithms:
 
 \begin{itemize}
-    \item Fault
-    \item Failure   
-    \item Malfunction
+    \item Reactive maintenance, where maintenance coming after the life of
+        the system is excess
+    \item Preventive maintenance is driven item by
+        schedules that may keep the system safe but not optimal from an
+        efficiency/cost perspective. 
+    \item Predictive maintenance is an
+        effort to optimize a maintenance strategy.
 \end{itemize}
 
-\subsection{Types of Faults}
-\begin{itemize}
-    \item Plant
-    \item Sensor
-    \item Combination
-\end{itemize}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1.1\textwidth]{maintenance.png}
+    \caption{Reactive, preventive and predictive types of maintenance}
+    \label{fig:maintenance}
+\end{figure}
 
-\subsection{Types of Maintenance}
+
+\paragraph{Fault Types} A fault is not an acceptable deviation of at least one
+characteristic or parameter of the system from the standard condition.
+There are different faults by their sources. 
 \begin{itemize}
-    \item{Reactive (fails than fix)}
-    \item{Preventative (schedules)}
-    \item{Condition-based (based on assess of system)}
-    \item{Predictive (based on model that predict failure)}
+    \item Plant faults appear in system
+        behavior and cause manufacturing performance.
+    \item Component fault Actuator
+    \item fault Sensor faults occurred in the sensor during measurements.
+    \item Combination of faults
 \end{itemize}
+In many cases, faults lead to a system failure and
+the system is no longer able to perform required functions.
+
+Faults can be classified by the location where they appear, by a fault
+form, or based on the form in which the fault is added to the system.
 
 
 % -----------------------------------------------------------------------------
@@ -66,81 +87,74 @@ cost/technical efficient perspective.
 % -----------------------------------------------------------------------------
 
 \section{Fault Detection and Analysis (FDA)}
-Fault Detection and Analysis, FDA. (Fault detection and isolation, FDI) 
 
-\paragraph{FD not new}
-FD exists from 60th.
-
-\subsection{Goals}
-
+Fault Detection and Analysis, FDA (Fault Detection and Isolation, FDI) is a
+subfield of control engineering focused on detecting the fault and
+identifying where this fault is located. 
+The main goals of FDI are
 \begin{itemize}
-    \item{Fault detection: Detect malfunctions in real time, as soon and as
-        surely as possible}
-    \item{Fault isolation: Find the root cause, by isolating the system
-        components whose operation mode is not nominal}
-    \item{Fault identification: Estimation the magnitude (size) and type or
-            nature of the fault}
+    \item Fault detection, detect anomalies in real-time
+    \item Fault isolation, find the root cause
+    \item Fault identification, estimation of the magnitude, type, or nature of
+        the fault 
 \end{itemize}
 
-%\textbf{Fault \footnotemark detection and isolation} is subfield of control
-%engineering, identifying when fault  has occurred, and pinpointing the type
-%of fault and its location.
+Several methods are partly overlapped but divided into two main
+categories. 
 
-\footnotetext{\textbf{Fault} - not acceptable deviation of at least one characteristic or
-parameter of the system from the standard condition.}
-
-\subsection{Methods}
-Figure \ref{fig:fault_detection} introduce 2 main approaches:
+\paragraph{Signal-Based methods} Signal-Based methods (SB), explore measured
+data and extract useful information in the form of features
+\ref{fig:signal_based}. The following methods belong to the SB approach: 
 
 \begin{itemize}
-\item{Model-based FDI (compare data with healthy-model)}
-\item{Signal processing based FDI (using math methods to extract information
-    about the fault from data)}
+    \item Limit and trend checking
+    \item Spectral analysis
+    \item Data analysis (PCA)
+    \item Pattern recognition
 \end{itemize}
 
-\begin{figure}[h]
+\begin{figure}[h!]
     \centering
-\begin{subfigure}{0.5\textwidth}
-    \includegraphics[width=0.9\linewidth]{model_based.png}
-    \caption{Model-based fault detection}
-    \label{fig:model_based}
-\end{subfigure}%
-\begin{subfigure}{0.5\textwidth}
-    \includegraphics[width=0.9\linewidth]{signal_based.png}
-    \caption{Signal-based fault detection}
+    \includegraphics[width=0.7\textwidth]{signal_based.pdf}
+    \caption{Signal-Based Method}
     \label{fig:signal_based}
-\end{subfigure}
-\caption{Fault detection common approaches}
-\label{fig:fault_detection}
 \end{figure}
 
-\paragraph{Signal-Based methods}
+
+\paragraph{Model-Based methods} Model-Based methods exploit models identified
+from real-life systems \ref{fig:model_based}. The model-based approach is
+suitable when it is difficult to gain useful information using only
+measured signals. If the system structure is known, it is possible to
+extract features such as state variables or some system parameters. Typical
+model-based techniques include
+
 \begin{itemize}
-    \item Limit Checking and Trend Checking
-    \item Data Analysis (PCA)
-    \item Spectral Analysis
-    \item Parametric Signal Models
-    \item Pattern Recognition (kNN, ANN, SOM)
+    \item Residual estimation (compare measurements with "healthy" model)
+    \item Polynomial coefficients
+    \item State variables estimated using state observers
+    \item Parameter estimation
 \end{itemize}
 
-\paragraph{Model-Based methods}
-We know system structure. Faults modeled as some system variables changes.
-Parameter estimation
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{model_based.pdf}
+    \caption{Model-Based Method}
+    \label{fig:model_based}
+\end{figure}
 
-\paragraph{Knowledge-Based methods}
-We know some Expert Knowledge about system behavior. Fuzzy,
-confidence-numbers, probability density functions, logic
-fault-symptom-tree, if-then rules.
+
+Automated fault detection depends on input from sensors and postprocessing
+algorithms. In many manufacturing applications, sensor failures are the
+most common equipment failure.
+
 
 The result of FDI is the detection and identification of faults that occur
-during the operation of the device. Subsequently data is processed using
-Fault Tolerance and Predictive maintenance methods.
+during the operation of the device. Subsequently, predicted faults are
+processed using fault tolerance and predictive maintenance algorithms.
 
-\textbf{Fault Tolerance}: Provide the system with the hardware architecture and
-  software mechanisms which will allow, if possible to achieve a given
-  objective not only in normal operation, but also in given fault
-  situations.
-
+\textbf{Fault Tolerance}: Provide the system with the hardware architecture
+and software mechanisms that will allow, if possible, to achieve a given
+objective in normal operation and given fault situations.
 
 \subsection{Condition Monitoring}
 Answer to question:"How does system operate now?"
@@ -305,6 +319,17 @@ Condition Indicators.
 %results.
 
 \section{Comparison PdM and FDA approaches}
+
+Figure 1 presents a relative arrangement of Predictive Maintenance (PdM) and
+Fault Detection and Identification (FDI) algorithms. 
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.3]{FDI_PM.png}
+    \caption{Relative arrangement of PdM and FDI algorithm}
+    \label{fig:fdi_pm}
+\end{figure}
+
 \begin{itemize}
     \item Compare similarities and differences in FDA and PdM
 \end{itemize}

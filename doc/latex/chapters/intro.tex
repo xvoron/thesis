@@ -1,2 +1,61 @@
 \chapter{Introduction}
 
+The production process always included elements of fault control and online
+monitoring. From the first methods of fault detection, such as visual
+inspection, today's factories move to automated systems consisting of
+sensors and computing units to evaluate the faults. Sometimes it is
+critical to monitor processing equipment in real-time to prevent damage
+caused by fault or anomaly. Every single fault can cause a slowing down of
+the production process and thus reducing the profit.
+
+Device real-time monitoring algorithms have formed the Fault Detection and
+Analysis (FDA) field.  FDA methods, in most cases, do not require machine
+learning techniques and can detect failures, using fundamental algorithms
+from Fourier analysis and trend checking algorithms to more complex
+techniques such as Gaussian Mixture Models.
+
+Due to the amount of data collected in recent years and the expansion of
+data storage technology as cloud services and computation efficiency, it
+has become possible to use more advanced algorithms for fault detection and
+analysis. Using classification machine learning techniques, it is possible
+to isolate where does the fault occur.  Another option that becomes
+available with a large amount of data is to estimate the remaining useful
+life (RUL) of the entire system. These techniques have led to predictive
+maintenance as an effort for optimal maintenance solutions. The current
+technical condition of the equipment is always available by information
+extracted from measured signals. It is possible to use current system
+conditions to estimate remaining useful life in time or distance
+measurements such as days, kilometers, or cycles. Estimated residual
+lifetime gives an option to plan maintenance concerning actual system
+conditions.
+
+These remaining useful life estimation algorithms, the fault detection
+methods and system modeling and identification techniques form a new
+predictive maintenance field.
+
+System modeling allows providing experiments and developing solutions
+offline before physical hardware implementations. Unavailable or
+challenging to implement measurements can be replaced by generated data
+from the simulation model and finally helps to deploy a robust algorithm.
+
+This thesis provides a brief introduction to fault detection and predictive
+maintenance methodologies and a basic terminology. 
+The \ref{ch:teor_surv} chapter describes the main goal and problems
+in these areas and focuses on similarities and differences between these
+two approaches.
+
+Developing the simulation model of the double-acting pneumatic actuator and
+comparing it with the real-life equipment using different approaches is
+described in chapter 3, 4, and 5. 
+
+The following chapter 6 illustrates signal-based predictive maintenance
+methods using different sensors available in a demonstration device.
+Appling preprocessing, feature extraction, and classification model,
+sensors were evaluated in terms of functionality, accuracy, and price. 
+
+The model-based predictive maintenance techniques and simulation model
+exploitation are demonstrated in chapter 7. The simulation model is used to
+determine the residual signals between the measured data and the simulation
+model's output. Also, using a simulation model, degradation data are
+generated and used in the remaining useful life estimation.
+

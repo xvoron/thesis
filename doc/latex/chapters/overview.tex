@@ -1,0 +1,39 @@
+\chapter{Demonstration Device Overview}
+
+The case study of this thesis is the double-acting pneumatic piston, with a
+pneumatic circuit and mechanical assembly driven by a piston.  Figure
+\ref{} is a schematical representation of the system. Figure \ref{} is a 3D
+render of the system.
+
+
+There are seven types of sensors located on the system. Table 1 describes a
+sensor purpose, signal name in the datastore, and the signal unit. 
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Sensor} & \textbf{Unit} & \textbf{Description} & \textbf{Name} \\
+\hline
+Encoder       & m     & displacement measurement               & LeverPosition \\
+Encoder       & m/s   & velocity calculated from displacement  & LeverVelocity \\
+Accelerometer & g     & accelerometer on moving part           & AccelerometerMovin\_axisZ/Y \\ 
+Accelerometer & g     & accelerometer on static part           & AccelerometerStatic\_axisZ/Y \\ 
+Flow Sensor   & l/min & air flow extrusion to A chamber        & FlowExtrusion \\
+Flow Sensor   & l/min & air flow contraction from A chamber    & FlowContraction \\
+\hline
+    \end{tabular}
+    \caption{Sensors overview}
+    \label{tab:sensors_tab}
+\end{table}
+
+
+The dataset measured on the system contains almost five thousand thousand
+measurements in different operating conditions. Each measurement includes a
+10-second recording of moving the pistol up and down. This data was given
+in the format of massive files with the ".mat" extension, which was divided
+into files contains only one measurement.  The divided dataset is easier to
+maintain, and Matlab recommends this type of datastores called Data
+Ensemble \ref{}.
+
+The measured examples are shown in figures 2,3, and 4.

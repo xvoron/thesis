@@ -39,7 +39,7 @@ source: [[file:../sources/predmaint_ug.pdf]]
 - [[conclusion]]
  
 = Models =
-[[https://en.wikipedia.org/wiki/Mixture_model|Models2PM]]
+- [[https://en.wikipedia.org/wiki/Mixture_model|Models2PM]]
 
 = Sources =
 [[sources]]

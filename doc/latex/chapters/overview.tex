@@ -1,34 +1,111 @@
 \chapter{Demonstration Device Overview}
 
+\section{Double-Acting Pneumatic Actuator}
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{model3d.png}
+        \caption{3D render of the demonstration device}
+        \label{fig:3d}
+    \end{subfigure} 
+    \hfill
+    \begin{subfigure}[b]{0.6\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{system_scheme.pdf}
+        \caption{Schematically representation of the demonstration device}
+        \label{fig:device_scheme}
+    \end{subfigure}
+    \caption{Demonstration device}
+    \label{fig:device}
+\end{figure}
+
 The case study of this thesis is the double-acting pneumatic piston, with a
 pneumatic circuit and mechanical assembly driven by a piston.  Figure
-\ref{} is a schematical representation of the system. Figure \ref{} is a 3D
-render of the system.
+\ref{fig:device_scheme} is a schematical representation of the system.
+Figure \ref{fig:3d} is a 3D render of the system.
 
+Pneumatic systems use air to transmit power between components in the
+circuit. The air is a compressible gas, and we have to consider this when
+designing a model. Pneumatic actuators are highly efficient and fast
+drives. Using compressed air pneumatic actuator can move with high
+velocities and supply nominal force in the kN range. One of the advantages
+of a pneumatic system with a piston is that only one supply line is
+necessary, giving many opportunities to design and maintain the system.
+The basic pneumatic system includes an air reservoir with supplied air,
+pressure lines connection, pneumatic actuator and control valve to connect
+the supply pressure and actuator. Resistance to movement places a mass that
+acts on the piston. 
 
-There are seven types of sensors located on the system. Table 1 describes a
-sensor purpose, signal name in the datastore, and the signal unit. 
+In this thesis, a double-acting pneumatic actuator, as shown in figure
+\ref{fig:device_scheme} was used. Throttling valves A and B regulate the air mass flow to
+the piston's chambers. Proportion valve connects supply and ambient
+pressure lines to achieve piston control. There are two pairs of dampers
+installed to prevent possible destruction impact and simulate different
+material penetration resistance.
 
-\begin{table}[h]
+The demonstration device can be used in stamping, drilling, moving
+applications.
+
+\section{Sensors}
+
+There are seven types of sensors located on the system. Table
+\ref{tab:sensors_tab} describes a sensor purpose, signal name in the
+datastore, and the signal unit. 
+
+\begin{table}[h!]
     \centering
     \begin{tabular}{|c|c|c|c|}
 \hline
 \textbf{Sensor} & \textbf{Unit} & \textbf{Description} & \textbf{Name} \\
 \hline
-Encoder       & m     & displacement measurement               & LeverPosition \\
-Encoder       & m/s   & velocity calculated from displacement  & LeverVelocity \\
+Encoder       & m     & displacement                           & LeverPosition \\
+Encoder       & m/s   & velocity                               & LeverVelocity \\
 Accelerometer & g     & accelerometer on moving part           & AccelerometerMovin\_axisZ/Y \\ 
 Accelerometer & g     & accelerometer on static part           & AccelerometerStatic\_axisZ/Y \\ 
 Flow Sensor   & l/min & air flow extrusion to A chamber        & FlowExtrusion \\
 Flow Sensor   & l/min & air flow contraction from A chamber    & FlowContraction \\
+Pressure      & bar   & pressure measurement in reservoir      & AirPressure \\
+Microphone    & V     & microphone on upper bumper             & MIC\_uBumper \\ 
+Microphone    & V     & microphone on bottom bumper            & MIC\_bBumper \\ 
+Microphone    & V     & ambient microphone                     & MIC\_Ambient \\
+Temperature   & $^o$C & cylinder temperature measurement       & TempCylinder \\
+Temperature   & $^o$C & ambient temperature measurement        & TempAmbient \\
 \hline
     \end{tabular}
     \caption{Sensors overview}
     \label{tab:sensors_tab}
 \end{table}
 
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=1\textwidth]{overview_data_example_1.png}
+    \caption{Caption}
+    \label{fig:}
+\end{figure}
 
-The dataset measured on the system contains almost five thousand thousand
+%\begin{figure}[!htb]
+%    \centering
+%    \includegraphics[width=1\textwidth]{overview_data_example_2.png}
+%    \caption{Caption}
+%    \label{fig:}
+%\end{figure}
+%
+%\begin{figure}[!htb]
+%    \centering
+%    \includegraphics[width=1\textwidth]{overview_data_example_3.png}
+%    \caption{Caption}
+%    \label{fig:}
+%\end{figure}
+%
+%\begin{figure}[!htb]
+%    \centering
+%    \includegraphics[width=1\textwidth]{overview_data_example_4.png}
+%    \caption{Caption}
+%    \label{fig:}
+%\end{figure}
+
+The dataset measured on the system contains almost five thousand
 measurements in different operating conditions. Each measurement includes a
 10-second recording of moving the pistol up and down. This data was given
 in the format of massive files with the ".mat" extension, which was divided
@@ -36,4 +113,8 @@ into files contains only one measurement.  The divided dataset is easier to
 maintain, and Matlab recommends this type of datastores called Data
 Ensemble \ref{}.
 
-The measured examples are shown in figures 2,3, and 4.
+The measured examples are shown in figures \ref{fig:},\ref{fig:}, and \ref{fig:}.
+
+
+
+

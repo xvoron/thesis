@@ -27,104 +27,104 @@ out_valve_WP = member.outValveWP{1};
 
 %% Figures
 
-% Analog quantities
-figure
+f = figure;
+f.Position = [10 10 1000 500];
 
-subplot(3,2,1)
-plot(flow_ext.Time, flow_ext.Data)
-xlabel('t [s]')
-ylabel('Q [ l/min]')
-title(' Air flow extrusion')
+subplot(3,1,1)
+hold on
+plot(flow_ext.Time, flow_ext.Data, 'LineWidth' , 3)
+plot(flow_cont.Time, flow_cont.Data, 'LineWidth', 3)
+xlabel('time [s]')
+ylabel('flow [l/min]')
+title('Air flow extrusion/contraction')
+legend("extrusion", "contraction")
+grid on
+hold off
+
+
+subplot(3,1,2)
+plot(pressure.Time, pressure.Data, 'LineWidth', 2)
+xlabel('time [s]')
+ylabel('pressure [bar]')
+title('Air pressure')
 grid on
 
-subplot(3,2,2)
-plot(flow_cont.Time, flow_cont.Data)
-xlabel('t [s]')
-ylabel('Q [ l/min]')
-title(' Air flow contraction')
+subplot(3,1,3)
+plot(strain.Time, strain.Data, 'LineWidth', 2)
+xlabel('time [s]')
+ylabel('stain [Pa]')
+title('Strain Gauge')
 grid on
 
-subplot(3,2,3)
-plot(acc_Z.Time, acc_Z.Data)
-xlabel('t [s]')
-ylabel('a_Z [ g]')
+f = figure;
+f.Position = [10 10 1000 400];
+
+
+subplot(2,1,1)
+plot(acc_Z.Time, acc_Z.Data, 'LineWidth', 2)
+xlabel('time [s]')
+ylabel('Acc_Z [ g]')
 title(' Acceleration elevator Z-axis')
 grid on
 
-subplot(3,2,4)
-plot(acc_Y.Time, acc_Y.Data)
-xlabel('t [s]')
-ylabel('a_Y [ g]')
-title(' Acceleration static Y-axis')
+subplot(2,1,2)
+plot(acc_Y.Time, acc_Y.Data, 'LineWidth', 2)
+xlabel('time [s]')
+ylabel('Acc_Y [ g]')
+title('Acceleration static Y-axis')
 grid on
 
-subplot(3,2,5)
-plot(pressure.Time, pressure.Data)
-xlabel('t [s]')
-ylabel('p [ bar]')
-title(' Air pressure')
-grid on
 
-subplot(3,2,6)
-plot(strain.Time, strain.Data)
-xlabel('t [s]')
-ylabel('p [ Pa]')
-title(' Strain')
-grid on
 
-% Microphone
-figure
+
+f = figure;
+f.Position = [10 10 1000 500];
 
 subplot(3,1,1)
-plot(mic_ubump.Time,  mic_ubump.Data)
-xlabel('t [s]')
+plot(mic_ubump.Time,  mic_ubump.Data, 'LineWidth', 2)
+xlabel('time [s]')
 ylabel('U [ V]')
 title(' Microphone upper bumper')
 grid on
 
 subplot(3,1,2)
-plot(mic_bbump.Time, mic_bbump.Data)
-xlabel('t [s]')
+plot(mic_bbump.Time, mic_bbump.Data, 'LineWidth', 2)
+xlabel('time [s]')
 ylabel('U [ V]')
 title(' Microphone bottom bumper')
 grid on
 
 subplot(3,1,3)
-plot(mic_ambient.Time, mic_ambient.Data)
-xlabel('t [s]')
+plot(mic_ambient.Time, mic_ambient.Data, 'LineWidth', 2)
+xlabel('time [s]')
 ylabel('U [ V]')
 title(' Microphone ambient noise')
 grid on
 
-% Digital signals
-figure
-% //ps
-subplot(3,1,1)
-plot(out_valve_WP.Time, out_valve_WP.Data,'r-')
+
+f = figure;
+f.Position = [10 10 1000 400];
+
+subplot(2,1,1)
+plot(out_valve_WP.Time, out_valve_WP.Data,'r-', 'LineWidth', 2)
 hold on
-plot(out_valve_HP.Time, out_valve_HP.Data,'b--')
-xlabel('t [s]')
+plot(out_valve_HP.Time, out_valve_HP.Data,'b--', 'LineWidth', 2)
+xlabel('time [s]')
 ylabel('-')
 title('Valve input')
 grid on
 legend('Go up' , 'Go down')
-% \\ps
 
-subplot(3,1,2)
-plot(prox_bottom.Time, prox_bottom.Data,'b')
+subplot(2,1,2)
 hold on
-plot(prox_upper.Time, prox_upper.Data,'r')
-xlabel('t [s]')
-ylabel('-')
-title(' Lever position')
+plot(prox_bottom.Time, 0.2*prox_bottom.Data,'b--', 'LineWidth', 2)
+plot(prox_upper.Time, 0.2*prox_upper.Data,'r--', 'LineWidth', 2)
+plot(possition.Time, possition.Data, 'k', 'LineWidth', 3)
+xlabel('time [s]')
+ylabel('displacement [m]')
+title('Lever position: encoder, proximity sensors (scaled)')
+legend('proximity bottom' , 'proximity top', 'displacement')
 grid on
-legend('Bottom' , 'Top')
-
-subplot(3,1,3)
-plot(possition.Time, possition.Data)
-xlabel('t [s]')
-ylabel('d [m]')
-title(' Lever position- encoder')
-grid on
+hold off
 
 end

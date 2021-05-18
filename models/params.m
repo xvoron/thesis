@@ -7,11 +7,6 @@
 %
 % Parameters for Matlab/Simulink models.
 %
-% TODO:
-%   * [ ] Parameters to estimate/identify
-%   * [ ] Parameters measured
-%   * [ ] Parameters constant/calculated
-%
 % Table of content:
 %   1. Equation model parameters:
 %       1.0 Gas parameters

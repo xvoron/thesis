@@ -13,9 +13,10 @@
     - [[#Sources|Sources]]
     - [[#TODO|TODO]]
 
-= FDI =
-== Intro words ==
-[[intro sentenses]]
+= intro/conclusion =
+- [[intro sentenses]]
+- [[conclusion]]
+- [[todo]]
 
 = Manuals =
 source: [[file:../sources/predmaint_ug.pdf]]
@@ -35,9 +36,6 @@ source: [[file:../sources/predmaint_ug.pdf]]
 - [[PM_detect_faults_cnn]]
 - [[fault_codes]]
 
-= Conclusion =
-- [[conclusion]]
- 
 = Models =
 - [[https://en.wikipedia.org/wiki/Mixture_model|Models2PM]]
 

@@ -24,7 +24,7 @@ In fact, some of these methods can be used to classify data in order to train DN
 - Malfunction: A malfunction is an intermittent irregularity in the
                fulfillment of a system’s desired function.
 
-== Methods ==
+= Methods =
 1. Data and signal
 2. Model based
 3. Knowledge Based

@@ -6,10 +6,12 @@
 \usepackage{graphicx}
 \graphicspath{{img/}{../img/}{../../img/}}
 \usepackage{caption}
+\usepackage{amsmath}
 
 \usepackage{xargs}
 \usepackage[pdftex,dvipsnames]{xcolor}  % Coloured text etc.
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+%\usepackage{cite}
 
 % Mode:
 %\visualmode{print} % print mode 
@@ -57,12 +59,15 @@
 \input{chapters/fdipm.tex}
 \input{chapters/overview.tex}
 \input{chapters/models.tex}
+\input{chapters/alt_models.tex}
+\input{chapters/comp_models.tex}
 \input{chapters/sb.tex}
 \input{chapters/mb.tex}
 \input{chapters/conclusion.tex}
-
 \input{chapters/abbreviations.tex}
-\input{chapters/bibliography.tex}
+
+\bibliography{citations.bib}
+\bibliographystyle{plain}
 
 
 \end{document}

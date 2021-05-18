@@ -10,31 +10,26 @@
 % -------------------------------------------------------
 % Section
 % -------------------------------------------------------
-\chapter{First Principle Modeling (15 pages)}
-\paragraph{First Principles} (White-Box) \\
-% TODO Isermann Fault Detection str 72
-Simplification, Liniarization, Reduction, Parameter Estimation. \\
-SimScape (Physical modeling), Simulink (Differential equations).
+\chapter{First Principle Modeling}
+First-principle modeling is a common engineering modeling approach. Models
+developed using physical laws such as energy and mass balance, heat
+transfer, and so on. First-principle modeling requires knowledge of the
+system and the physical processes that take place in this system.
 
-\paragraph{Data-Driven modeling}(Black-Box) \\ % In many cases better for prediction
+First principle models (FPMs) are usually designed in the form of a system
+of differential equations, algebraic differential equations, transfer
+functions, state-space systems, etc.  In designing FPMs, it is necessary to
+determine the assumptions and simplifications that correspond to the level
+of technical resolution in a particular problem.
+
+This chapter introduces the design of a double-acting pneumatic piston
+assembly model, including sensors using a first-principle modeling
+approach. 
+
 % TODO Isermann Fault Detection str 72
-Measurements, Identification.
+%Measurements, Identification.
 
 % Nonlinear dynamic modeling  Isermann FDS str. 84
-
-\section{Pneumatic piston system overview}
-%\begin{figure}[h!]
-%    \centering
-%    \includegraphics[width=0.5\textwidth]{model_draw_vec.png}
-%    \caption{Schematic model}
-%    \label{fig:model_draw}
-%\end{figure}
-
-
-
-
-
-
 
 % -------------------------------------------------------
 %  __ _  ___ _ __   ___ _ __ __ _| |
@@ -44,31 +39,185 @@ Measurements, Identification.
 % |___/                             
 % -------------------------------------------------------
 \section{General physical principles}
+\paragraph{Assumptions}\label{assumptions}
+
+\begin{enumerate}
+    \item The effect of accelerated air mass is neglected. 
+    \item The gas is ideal. 
+    \item All the thermal processes are adiabatic.
+\end{enumerate}
+
+
 \paragraph{Equation of state}
-Generally $pV=nR_mT$ but for air, using ideal gas constant $R=287.1 [Jkg^{-1}K^{-1}]$
-state equation can be rewrite as \ref{eq:equation_of_state}.
+Equation of state for an ideal gas \ref{eq:equation_of_state}, describe the relationships between
+temperature, mass, pressure and volume of the gas, where $R=287.1 \rm [Jkg^{-1}K^{-1}]$ is an ideal gas
+constant.
+
 \begin{align}
     pV = mRT
     \label{eq:equation_of_state}
 \end{align} 
 
-\paragraph{Isothermal process}
-For isothermal process \ref{eq:isothermal_process}:
-\begin{align}
-    p_1 V_1 = p_2 V_2 = const
-    \label{eq:isothermal_process}
-\end{align}
-
 \paragraph{Adiabatic process}
+All processes take place without heat exchange with the environment by
+given equation \ref{eq:adiabatic_process}, where $\kappa = c_p/c_v$ is a
+heat capacity ratio.
 
-Adiabatic process \ref{eq:adiobatic_process}:
 \begin{align}
      p_1V_1^{\kappa} =  p_2V_2^{\kappa} = const
-    \label{eq:adiobatic_process}
+    \label{eq:adiabatic_process}
 \end{align}
 
-where $\kappa = c_p/c_v$ is a heat capacity ratio. Another
-important equation is Mayer's relation $c_p = c_v + R$.
+Relation between heat capacities and an ideal gas constant is given
+by Mayer's equation as $c_p = c_v + R$.
+
+
+
+\paragraph{Bernouilli's principle}
+Bernouilli's equation \ref{eq:bernoullis_principle} describes flow
+dynamics as a sum of kinetic, potential and internal energies.
+
+\begin{align}
+    H_1 + \frac{mw_1^2}{2} + mgz_1 + Q = H_2 + \frac{mw_2^2}{2} + mgz_w +
+    W_T
+    \label{eq:bernoullis_principle}
+\end{align}
+
+Transition to specific values:
+\begin{align}
+    h_1- h_2 = -\int_1^2 v dp = c_p(T_1-T_2) = 
+    c_p T_1\left(1-\frac{T_2}{T_1}\right)
+    \label{eq:etalpi_sub}
+\end{align}
+
+\paragraph{Continuity equation}
+Continuity equation \ref{eq:continuity_equation} describes a mass flow
+through a control volume.
+
+\begin{align}
+    \dot{m} = S_1 w_1 \rho_1 = S_2 w_2 \rho_2 = const
+    \label{eq:continuity_equation}
+\end{align}
+
+\section{Air Expansion}
+Air expansion from the reservoir, one of the fundamental sets of equations
+used in pneumatic elements. 
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{air_tank.pdf}
+    \caption{Air expansion from tank}
+    \label{fig:air_expansion}
+\end{figure}
+
+Assuming that $W_T = 0, Q = 0$ there is no work and heat shared with the
+the environment, there is no difference in height $z_1 = z_2$ and
+the velocity difference is vast $w_2 << w_1$, applying equation
+\ref{eq:bernoullis_principle}, get \ref{eq:w2}.
+
+
+\begin{align}
+    w_2 = \sqrt{2(h_1 - h_2)}
+    \label{eq:w2}
+\end{align}
+
+\begin{align}
+    w_2 = \sqrt{2c_p T_1 \left(1-\frac{T_2}{T_1}\right)}
+    \label{eq:w2}
+\end{align}
+
+where 
+
+\begin{align}
+    T_1 = \frac{p_1}{R \rho_1} && 
+    c_p = R  \left( \frac{\kappa}{\kappa-1} \right)   &&
+    \frac{T_2}{T_1} = \left(\frac{p_2}{p_1} \right)^{\frac{\kappa - 1}{\kappa}}
+    \label{eq:helpers}
+\end{align}
+
+Combine equations \ref{eq:w2}, \ref{eq:helpers} to get air expansion
+velocity \ref{eq:w2_final}.
+
+\begin{align}
+    w_2 =
+    \sqrt{2 \frac{\kappa}{\kappa-1} \frac{p_1}{\rho_1} 
+    \left[(1-\left(\frac{p_2}{p_1}\right)^\frac{\kappa-1}{\kappa}\right]}
+    \label{eq:w2_final}
+\end{align}
+
+From equations \ref{eq:helpers} express air density \ref{eq:rho2}.
+\begin{align}
+    \rho_2 = \frac{p_1}{RT_1} \left(\frac{p_2}{p_1}\right)^{\frac{1}{\kappa}}
+    \label{eq:rho2}
+\end{align}
+
+Using continuity equation \ref{eq:continuity_equation} and
+\ref{eq:w2_final} describe mass flow as \ref{eq:dot_m}:
+
+\begin{align}
+    \dot{m} = A p_1 \sqrt{\frac{2}{RT_1}}
+    \sqrt{\frac{\kappa}{\kappa-1} \frac{p_1}{\rho_1} 
+    \left[(1-\left(\frac{p_2}{p_1}\right)^\frac{\kappa-1}{\kappa}\right]}
+    \label{eq:dot_m}
+\end{align}
+
+where \ref{eq:psi} is the outflow function.
+
+\begin{align}
+    \psi\left(\frac{p_2}{p_1}\right) =  
+    \sqrt{\frac{\kappa}{\kappa-1} \frac{p_1}{\rho_1} 
+    \left[(1-\left(\frac{p_2}{p_1}\right)^\frac{\kappa-1}{\kappa}\right]}
+    \label{eq:psi}
+\end{align}
+
+Finally mass flow from the reservoir is given by equation \ref{eq:mass_flow}:
+\begin{align}
+    \dot{m} = A p_1\sqrt{\frac{2}{RT_1}} \cdot \psi\left(\frac{p_2}{p_1}\right)
+    \label{eq:mass_flow}
+\end{align}
+
+
+\paragraph{Critical flow velocity}
+The outflow function depends on the pressure ratio $p_2/p_1$. This function
+has a maximum value when the critical pressure is reached; the mass flow
+becomes chocked. Critical pressure is presented by \ref{eq:beta_k}. For the
+overcritical pressure ratio, the mass flow depends only on $p_1$ and $T_1$
+\cite{isermann}.
+
+\begin{align}
+    &\left(\frac{p_2}{p_1}\right)_{crit} =
+    \left(\frac{2}{\kappa+1}\right)^\frac{\kappa}{\kappa-1}=\beta_k
+    \label{eq:beta_k}
+\end{align}
+
+Critical pressure for air is $\beta_k = 0.528$ and critical velocity is
+give by outflow function \ref{eq:psi_max}. Combine equations for
+overcritical and undercritical pressure ratio using equations
+\ref{eq:beta_k}, \ref{eq:psi_max} we get the final equation for overflow
+function \ref{eq:psi_final}.
+
+\begin{align}
+    &\psi_{max} (\beta_k) = 
+    \left(\frac{2}{\kappa+1}\right)^\frac{\kappa}{\kappa-1}\sqrt{\frac{\kappa}{\kappa+1}}
+    = 0.484
+    \label{eq:psi_max}
+\end{align}
+
+\begin{align}
+\psi\left(\frac{p_2}{p_1}\right) = 
+    \begin{cases}
+    \sqrt{\frac{\kappa}{\kappa-1} \frac{p_1}{\rho_1} 
+    \left[(1-\left(\frac{p_2}{p_1}\right)^\frac{\kappa-1}{\kappa}\right]}
+    & 0.528 <\frac{p_2}{p_1} \le 1 \\
+    \left(\frac{2}{\kappa +1}\right)^{\frac{1}{\kappa+1}}
+    \sqrt{\frac{\kappa}{\kappa +1}} & 0 \le \frac{p2}{p1} \le 0.528\\
+    \end{cases}
+\label{eq:psi_final}
+\end{align}
+
+A detailed derivation of the equation \ref{eq:psi_final} can be found in
+\cite{isermann},\cite{}.
+
 
 %\begin{tabular}{ |c|c|c| }
 %    \hline
@@ -97,26 +246,6 @@ important equation is Mayer's relation $c_p = c_v + R$.
 %\end{tabular}
 
 
-\paragraph{Bernoulli's principle}
-Bernoulli's principle \ref{eq:bernoullis_principle}:
-\begin{align}
-    H_1 + \frac{mw_1^2}{2} + mgz_1 + Q = H_2 + \frac{mw_2^2}{2} + mgz_w +
-    W_T
-    \label{eq:bernoullis_principle}
-\end{align}
-
-\begin{align}
-    H_1- H_2 = -\int_1^2 V dp = c_p(T_1-T_2) = c_p T_1(1-\frac{T_2}{T_1})
-    \label{eq:etalpi_sub}
-\end{align}
-
-Differential form:
-\begin{align}
-    \nu dp + w dw + g dz + dw_T = 0
-\end{align}
-
-
-\paragraph{Fluid mechanics}
 %\begin{tabular}{ |c|c|c| }
 %    \hline
 %    $\dot{m}$                   & $kgs^{-1}$  & mass flow \\
@@ -132,112 +261,6 @@ Differential form:
 %    \hline
 %\end{tabular}
 
-Continuity equation \ref{eq:continuity_equation}: 
-\begin{align}
-    \dot{m} = S_1 w_1 \rho_1 = S_2 w_2 \rho_2 = const
-    \label{eq:continuity_equation}
-\end{align}
-
-\paragraph{Air expansion from tank}
-Assuming $W_T = 0, z_1 = z_2, Q = 0$ conditions and combine with
-\ref{eq:bernoullis_principle} we will get \ref{eq:w2} equation:
-
-\begin{align}
-    w_2 = \sqrt{2(H_1 - H_2)}
-    \label{eq:w2}
-\end{align}
-
-\begin{align}
-    w_2 =
-    \sqrt{2RT_1(\frac{\kappa}{\kappa-1})(1-(\frac{p_2}{p_1})^\frac{\kappa-1}{\kappa})}
-    \label{eq:w2_final}
-\end{align}
-
-\begin{align}
-    \rho_2 = \frac{p_1}{RT_1} (\frac{p_2}{p_1})^{\frac{1}{\kappa}}
-    \label{eq:rho2}
-\end{align}
-
-Together \ref{eq:continuity_equation} \ref{eq:w2_final} \ref{eq:rho2}:
-\begin{align}
-    \dot{m} = S p_1 \sqrt{\frac{2}{RT_1}} \cdot
-    \sqrt{\frac{\kappa}{\kappa-1}\left(\left(\frac{p_2}{p_1}\right)^\frac{2}{\kappa} -
-    \left(\frac{p_2}{p_1}\right)^\frac{\kappa + 1}{\kappa}\right)}
-    \label{}
-\end{align}
-
-where: 
-\begin{align}
-    \psi\left(\frac{p_2}{p_1}\right) =  
-    \sqrt{\frac{\kappa}{\kappa-1}\left(\left(\frac{p_2}{p_1}\right)^\frac{2}{\kappa} -
-    \left(\frac{p_2}{p_1}\right)^\frac{\kappa + 1}{\kappa}\right)}
-    \label{eq:psi}
-\end{align}
-
-Finally \ref{eq:mass_flow}:
-\begin{align}
-    \dot{m} = Sp_1\sqrt{\frac{2}{RT_1}} \psi\left(\frac{p_2}{p_1}\right)
-    \label{eq:mass_flow}
-\end{align}
-
-\paragraph{Critical flow velocity}
-Speed of sound:
-\begin{align}
-    c = \sqrt{\frac{dp}{d\rho}} = 
-    \sqrt{\frac{\kappa p}{\rho}} = \sqrt{\kappa R T}
-    \label{eq:speed_of_sound}
-\end{align}
-
-Assume $c=w_2$ (\ref{eq:w2_final}, \ref{eq:speed_of_sound}) we will get the
-critical flow velocity:
-\begin{align}
-    &c_2 = w_k = \sqrt{\kappa RT} =
-    \sqrt{2RT_1\frac{\kappa}{\kappa-1}-2w_k^2\frac{1}{\kappa-1}} \\
-    &w_k^2 = 2RT_1\frac{\kappa}{\kappa-1}-2w_k^2\frac{1}{\kappa-1} \\
-    &w_k = \sqrt{2RT_1\frac{\kappa}{\kappa-1}} = \sqrt{2p_1 \nu_1 \frac{\kappa}{\kappa + 1}}
-    \label{eq:wk}
-\end{align}
-
-
-For calculating critical pressure ratio assume $w_k = w_2$ \ref{eq:wk}
-\ref{eq:w2_final}:
-\begin{align}
-    &\sqrt{2RT_1\frac{\kappa}{\kappa-1}}  = 
-    \sqrt{2RT_1 \frac{\kappa}{\kappa-1}
-    \left(1-\left(\frac{p_2}{p1}\right)^{\frac{\kappa+1}{\kappa}}\right)} \\
-    &\left(\frac{p_2}{p1}\right)^\frac{\kappa-1}{\kappa} = \frac{2}{\kappa+1} \\
-\end{align}
-\begin{align}
-    &\left(\frac{p_2}{p1}\right)_k =
-    \left(\frac{p_k}{p1}\right) =
-    \left(\frac{2}{\kappa+1}\right)^\frac{\kappa}{\kappa-1}=\beta_k
-    \label{eq:beta_k}
-\end{align}
-
-Critical pressure condition is $p_k = p_1 \beta_k$.
-
-Applying \ref{eq:beta_k} to \ref{eq:psi}:
-\begin{align}
-    &\psi_{max} (\beta_k) = 
-    \left(\frac{2}{\kappa+1}\right)^\frac{\kappa}{\kappa-1}\sqrt{\frac{\kappa}{\kappa+1}}
-\end{align}
-
-For air $\beta_k = 0.528, \psi_{max} = 0.484$
-
-
-Final equation for $\psi$:
-\begin{align}
-    \psi\left(\frac{p_2}{p_1}\right) = 
-    \begin{cases}
-    \sqrt{\frac{\kappa}{\kappa-1}\left(\left(\frac{p_2}{p_1}\right)^\frac{2}{\kappa} -
-    \left(\frac{p_2}{p_1}\right)^\frac{\kappa + 1}{\kappa}\right)} & 0.528
-    <\frac{p_2}{p_1} \le 1 \\
-    \left(\frac{2}{\kappa +1}\right)^{\frac{1}{\kappa+1}}
-    \sqrt{\frac{\kappa}{\kappa +1}} & 0 \ge \frac{p2}{p1} \le 0.528\\
-    \end{cases}
-\end{align}
-
-
 % -------------------------------------------------------
 % _ __  _ __ ___  ___ ___ _   _ _ __ ___ 
 %| '_ \| '__/ _ \/ __/ __| | | | '__/ _ \
@@ -245,76 +268,99 @@ Final equation for $\psi$:
 %| .__/|_|  \___||___/___/\__,_|_|  \___|
 %|_|                                     
 % -------------------------------------------------------
-\section{Pressure model}
+\section{Pneumatic Piston Pressure Model}
 
-\begin{tabular}{ |c|c|c| }
-    \hline
-    $p_A, p_B$              & $Pa$              & pressure in chamber A, B \\
-    $\dot{m_A}, \dot{m_B}$  & $kg \cdot s^{-1}$ & mass flow on way to chamber A, B \\
-    $S_A, S_B$              & $m^2$             & piston area  \\
-    $V_A, V_B$              & $m^3$             & volume of chamber A,B \\
-    $V_{0A}, V_{0B}$        & $m^3$             & "dead" volume of chamber A,B \\
-    $m$                     & $kg$              & piston mass\\
-    $F_{load}$              & $N$               & load \\
-    $x$                     & $m$               & piston position \\
-    $l$                     & $m$               & maximum piston position \\
-    \hline
-\end{tabular}
+%\begin{tabular}{ |c|c|c| }
+%    \hline
+%    $p_A, p_B$              & $Pa$              & pressure in chamber A, B \\
+%    $\dot{m_A}, \dot{m_B}$  & $kg \cdot s^{-1}$ & mass flow on way to chamber A, B \\
+%    $S_A, S_B$              & $m^2$             & piston area  \\
+%    $V_A, V_B$              & $m^3$             & volume of chamber A,B \\
+%    $V_{0A}, V_{0B}$        & $m^3$             & "dead" volume of chamber A,B \\
+%    $m$                     & $kg$              & piston mass\\
+%    $F_{load}$              & $N$               & load \\
+%    $x$                     & $m$               & piston position \\
+%    $l$                     & $m$               & maximum piston position \\
+%    \hline
+%\end{tabular}
+A construction principle of the double-acting pneumatic piston is shown in
+the figure \ref{fig:pist_chamb}.  There are two chambers connected to the control valve.
+If the control valve is connected to chamber A, the supply pressure drives
+mass flow into chamber A. At the same time, the port at chamber B is
+connected to the ambient. Due to the pressure difference between chambers,
+pneumatic piston stroke start moving in a positive direction. 
+After the bound is reached and the pressure in the chamber equalizes to
+supply pressure, there is no longer any mass flow coming inside.
 
-There are different approaches how to model thermal processes in pneumatic
-system. Isothermal, adiabatic, polytropic models are suitable in different
-technical applications. 
 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\textwidth]{pressure_chamber.pdf}
+    \caption{Piston chamber}
+    \label{fig:pist_chamb}
+\end{figure}
 
-\paragraph{Isothermal model of pressure in cylinder}
+Assuming an isothermal process, derivation of the equation of state $m =
+\rho V$ get the equation \ref{eq:dm_state}. 
 
 \begin{align}
-    m = \rho V \\
     \dot{m} = \dot{\rho} V + \rho \dot{V}
+    \label{eq:dm_state}
 \end{align}
 
-Applying \ref{eq:equation_of_state}:
+where
+
 \begin{align}
-    \rho = \frac{p}{RT} \\
+    \rho = \frac{p}{RT} &&
     \dot{\rho} = \frac{\dot{p}}{RT} 
 \end{align}
 
-Finally get \ref{eq:pressure1}:
+Equation \ref{eq:pressure1} describe pressure difference in chamber due
+mass flow.
 \begin{align}
     \dot{p} = - \frac{p}{V}\dot{V} + \frac{RT}{V}\dot{m}
     \label{eq:pressure1}
 \end{align}
 
 
-\paragraph{Adiabatic model of pressure in cylinder} 
-Assume adiabatic process.
-For simple adiabatic model following equation can be used
-\ref{eq:pressure_adiabatic_simple_model}:
+For the adiabatic model of the pressure difference in the chamber,
+moreover, heat capacity ratio added
+\ref{eq:pressure_adiabatic_simple_model}.
 
 \begin{align}
     \dot{p} = - \frac{\kappa p}{V}\dot{V} + \frac{\kappa RT}{V}\dot{m}
     \label{eq:pressure_adiabatic_simple_model}
 \end{align}
+Volumes of the chambers can be represented concerning figure
+\ref{fig:pist_chamb} as volumes equations \ref{eq:volumes}.
 
-\begin{align}
-    \dot{p_A} = \frac{\kappa}{S_A x + V_{0A}} \left(- p_A S_A\dot{x} + RT_A\dot{m_A}
-    \right)
-\end{align}
-
-\begin{align}
-    \dot{p_B} = \frac{\kappa}{S_B (l-x) + V_{0B}} \left(p_B S_B\dot{x} + RT_B\dot{m_B}
-    \right)
-\end{align}
-
-Volumes of chambers:
 \begin{align}
     V_A = S_A x + V_{0A} \\
-    V_B = S_B (l-x) + V_{0B} \\
+    V_B = S_B (L-x) + V_{0B} \\
     \dot{V}_A = S_A \dot{x} \\
     \dot{V}_B = - S_B \dot{x}
+    \label{eq:volumes}
 \end{align}
 
-\section{Mass flow model}
+The pneumatic piston with chambers A, B is described by the system of
+differential equations \ref{eq:p_A}, \ref{eq:p_B}. These equations describe a pneumatic
+cylinder entirely. Furthermore, all the parameters can be directly measured
+or found in the datasheet \cite{}.
+
+\begin{align}
+    \dot{p_A} = \frac{\kappa}{S_A x + V_{0A}} \left(- p_A S_A\dot{x} +
+    RT_A\dot{m_A} \right)
+    \label{eq:p_A}
+\end{align}
+
+\begin{align}
+    \dot{p_B} = \frac{\kappa}{S_B (L-x) + V_{0B}} \left(p_B S_B\dot{x} +
+    RT_B\dot{m_B} \right)
+    \label{eq:p_B}
+\end{align}
+
+
+\section{Control Valve Model}
 
 \subsection{Input/Output mass flows}
 
@@ -324,8 +370,8 @@ Volumes of chambers:
 
 
 
-
-\subsection{Valve model} %TODO
+% TODO
+\subsection{Valve model} 
 \begin{tabular}{ |c|c|c| }
     \hline
     $S_{eq}$                & $m^2$         & Equivalent cross section \\
@@ -612,74 +658,5 @@ model.
     \label{eq:flow2}
 \end{align}
 
-
-
-% -------------------------------------------------------
-%  ___ ___  _ __ ___  _ __   __ _ _ __ ___ 
-% / __/ _ \| '_ ` _ \| '_ \ / _` | '__/ _ \
-%| (_| (_) | | | | | | |_) | (_| | | |  __/
-% \___\___/|_| |_| |_| .__/ \__,_|_|  \___|
-%                    |_|                   
-% -------------------------------------------------------
-\chapter{Models comparison (2-3 pages)}
-
-
-\section{First Principle Model}
-This model \ref{fig:model_equations} was developed with respect to equations
-represented before.
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=1\textwidth]{equations.png}
-    \caption{Simulink model based on equations}
-    \label{fig:model_equations}
-\end{figure}
-
-\section{Alternative Modeling Techniques (3 pages)}
-Generally with dataset of input-output signals approximation model can be
-fit. Using System Identification Toolbox and modeled as Black-Box or
-Gray-Box models. This section attempted to fit some models using data from
-SimScape and Equation model presented before.
-
-Fit approximation model make sense only if we know what to fit. Using
-signal process techniques and identify dominant signals that providing best
-classification features we will train models with respect to this signals.
-
-\subsection{Physical Model (SimScape)}
-Working, very slow. Equations are faster for estimation parameters.
-Model \ref{fig:model_simscape} was developed using SimScape toolbox.
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=1\textwidth]{simscape.png}
-    \caption{Simulink model using SimScape Toolbox}
-    \label{fig:model_simscape}
-\end{figure}
-
-\subsection{State-space/ARX Models}
-Not working, Nonlinearities.
-
-
-\subsection{Hammerstein-Wiener Model}
-Working only for Position.
-
-\subsection{Nonparametric model (ANN)}
-
-Working. Can be used as "Normal operation" model.
-
-
-
-\section{Comparison}
-Following figure \ref{fig:compare_of_models} represent comparison of 2 models
-(Simscape and based on equations) using same parameters for simulation:
-There is slight difference between models causing Valve dynamics
-simplifications in model based on equations.
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.8\textwidth]{models_comparation.png}
-    \caption{Comparison of simscape and model based on equations}
-    \label{fig:compare_of_models}
-\end{figure}
 
 

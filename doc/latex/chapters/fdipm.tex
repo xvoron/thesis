@@ -9,14 +9,13 @@
 
 \chapter{Theoretical Survey}\label{ch:teor_surv}
 
+
 This chapter contains a short introduction to the main goals and problems
 presented in fault detection and analysis and predictive maintenance
 techniques. A brief review of methodologies used in these fields and
-general approaches.
-
-Section digital twin presents scenarios where a simulation model is used in
-predictive maintenance. 
-
+general approaches. Section \ref{sec:digital_twin} digital twin describes scenarios where a
+simulation model is used in predictive maintenance and helps develop
+robust, efficient algorithms.
 
 % -----------------------------------------------------------------------------
 % 
@@ -88,7 +87,7 @@ form, or based on the form in which the fault is added to the system.
 % 
 % -----------------------------------------------------------------------------
 
-\section{Fault Detection and Analysis (FDA)}
+\section{Fault Detection and Analysis (FDA)}\label{sec:fda}
 
 Fault Detection and Analysis, FDA (Fault Detection and Isolation, FDI) is a
 subfield of control engineering focused on detecting the fault and
@@ -160,23 +159,6 @@ processed using fault tolerance and predictive maintenance algorithms.
 and software mechanisms that will allow, if possible, to achieve a given
 objective in normal operation and given fault situations.
 
-%\subsection{Condition Monitoring}
-%Answer to question:"How does system operate now?"
-%CM gives Diagnostic methods that provides alarm or warning, but not
-%prognostic forecast about the future behavior (Not RUL).
-%
-%But collected Condition Monitoring information can give information about
-%system degradation.
-%
-%
-%There is a optimization between technical and financial possibilities in a
-%specific situation.
-%
-%FMECA (Failure Mode, Effect and Criticality Analysis) \\
-%FTA (Fault Tree Analysis) \\
-%RCA (Root Cause Analysis) \\
-
-
 % -----------------------------------------------------------------------------
 % 
 % -----------------------------------------------------------------------------
@@ -188,13 +170,13 @@ predicts time to failure and warns of an anticipated location where this
 could occur.
 
 \subsection{Goals}
-The are two main goals of Predictive maintenance, RUL (remaining useful
-life) estimation and identification where the future failure can appear, or what is
-the reason of decreasing RUL. 
-As a result of PdM is RUL representing of number cycles, days, or some time
-period before fault occurred. And probability where this fault can appear.
+There are two main goals of predictive maintenance,  remaining useful life
+(RUL) estimation and identification where the future failure can appear or
+what is the reason for decreasing RUL.  As a result of PdM is RUL
+representing the number of cycles, days or time before the fault occurred.
+And the probability of when or where this fault can appear. 
 
-\subsection{Overview of the PdM development sequence}
+\subsection{Overview of the PdM development workflow}
 
 \begin{figure}[h!]
     \centering
@@ -203,47 +185,51 @@ period before fault occurred. And probability where this fault can appear.
     \label{fig:pdm_dev_seq}
 \end{figure}
 
+
 Figure \ref{fig:pdm_dev_seq} represents the recommended PdM development
 workflow.  The development of predictive maintenance algorithms starts with
-raw measured signals from sensors. For further working with data, it's an
-excellent manner to combine measurements to a dataset with a logical
-structure of elements. In this thesis, a common data ensemble structure was
-used. Each measurement has its data file with all measured signals at a
+raw measured signals from sensors. For further working with data, it is a
+good manner to combine measurements to a dataset with a logical structure
+of elements. In this thesis, a common data ensemble structure was used.
+Each measurement has its own data file with all measured signals at a
 particular time. 
+
 
 If collected data require some preprocessing techniques as data cleaning,
 smoothing or filter the signal, detrend, normalizing, etc., it can be done
 at this step. 
 
 The next step is to extract condition indicators using predictive
-maintenance methods described in \ref{sec:ci}. Figure out the best
-combination of CI to train the classification model. As long as the optimal
-solution not find, try to figure out the best combination of CI described
-in \ref{sec:ci_ranking} and train different classification models
-iteratively.  After the efficient solution is found, deploy the algorithm
-to work recursively with the study-case system.
+maintenance methods described in \ref{sec:ci}. As long as the optimal
+solution is not found, try to figure out the best combination of condition
+indicators described in \ref{sec:ci_ranking} and train different
+classification models iteratively.  After the efficient solution is found,
+deploy the algorithm to work recursively with the study-case system.
 
 
 \subsection{Condition Indicators}\label{sec:ci}
 In the prediction maintenance field, features extracted from measured
-signals are called \textbf{Condition Indicators, CI}.
+signals are called \textbf{Condition Indicators, CI}. 
 
-Condition Indicators represent some system behavior and hide information
-about system operation conditions.  Generally, CI is represented by three
-main domains. There is a time domain, frequency domain, time-frequency
-domain. But in fact, CI can be any system parameter or value corresponding
-with the system's current condition.
+Condition Indicators
+represent some system behavior and hide information about system operation
+conditions.  Generally, CI is represented by three main domains. There is a
+time domain, frequency domain, time-frequency domain. But in fact, CI can
+be any system parameter or value corresponding with the system's current
+condition.
 
 The methods of extracting condition indicators from the signal are defined
-in the same way as in FDI.  The \textbf{signal-based approach} is suitable
-when we have measurements from the system in different operating
-conditions.  But there is a problem that signal-based approach enables
-classifying and learning patterns observed in the training dataset.  On the
-other hand, the \textbf{model-based approach} uses physical failure models
-and does not require a large dataset of failure data. And they may work in
-situations never observed in data before. Also, the model-based method is
-helpful in case the measured signal has a more complex relationship with
-the input signal.
+in the same way as in FDI \ref{sec:fda}. 
+
+The \textbf{signal-based approach} is suitable when we have measurements
+from the system in different operating conditions.  But there is a problem
+that signal-based approach enables classifying and learning just the
+patterns observed in the training dataset.  On the other hand, the
+\textbf{model-based approach} uses physical failure models and does not
+require a large dataset of failure data. And they may work in situations
+never observed in data before. Moreover, the model-based method is helpful
+in case the measured signal has a more complex relationship with the input
+signal.
 
 Between common signal-based CI belongs:
 \begin{itemize}
@@ -263,33 +249,32 @@ Model-based approach use model properties such as:
 \end{itemize}
 
 \subsection{Condition Indicators Ranking}\label{sec:ci_ranking}
-
-From each sensor signal, multiple condition indicators can be extracted.  A
-good practice to reduce the number of CI and keep only those who provide
+Multiple condition indicators can be extracted from each sensor signal.  A
+good practice to reduce the number of CI and keep only those which provide
 essential information. 
 
 One of the possibilities is applying Principle Component Analysis (PCA) to
 transform features from one coordinate system to a new orthogonal basis.
-Data reduced by using first n principal components that optimally describe
-the variance of the dataset. Applying the PCA algorithm still requires the
-extraction of all condition indicators from the signal.
+Data reduced by using the first n principal components that optimally
+describe the variance of the dataset. Applying the PCA algorithm still
+requires the extraction of all condition indicators from the signal.
 
 Another option is to rank the futures using the Analysis of Variance
 (ANOVA) algorithm. This algorithm describes relations among CI in the form
 of their mean values. The result gives information about how much
-particular CI represents data. Using first n CI, we reduce the number of CI
-and reduce the number of extracted features from measured signals. This
-fact means that using ANOVA reduced the time and complexity of the
+particular CI represents data. Using the first n CI, we reduce the number
+of CI and reduce the number of extracted features from measured signals.
+This fact means that using ANOVA reduced the time and complexity of
 calculations.
 
 \subsection{Fault Classification}
-Classification models are used to recognize faults from a set of CI. The CI
-The set of CI must contain labels that determine the current condition of
-the device in the form of fault code, string, etc. The correlation between
-different CI can be explored using a 2d or 3d scatter plot. The model
+Classification models are used to recognize faults from a set of CI. The
+set of CI must contain labels that determine the current condition of the
+device in the form of fault code, string, etc. The correlation between
+different CI can be explored using a 2D or 3D scatter plot. The model
 performance is usually represented by total accuracy and confusion matrix,
-where on one axis true labels on another predicted from the model.  The
-common types of classification models are:
+where on one axis there are true labels and on the other there are
+predicted from the model. The common types of classification models are:
 
 \begin{itemize}
     \item Decision Trees
@@ -299,14 +284,16 @@ common types of classification models are:
     \item Neural Networks (ANN)
 \end{itemize}
 
-A good practice is to divide an original dataset of CI to train and test
-sub-datasets to prevent model overfitting. Choosing the best classification
-model depends on training data and requires experiments with different
-models.
+A good practice is to divide an original dataset of CI into train,
+validation and test sub-datasets to prevent model overfitting. Choosing the
+best classification model depends on training data and requires experiments
+with different models.
 
 \subsection{Remaining useful life}
-The remaining useful life is the expected time remaining before the machine
-requires repair or replacement, and it's a central goal of PdM.
+
+The remaining useful life (RUL) is the expected time remaining before the
+machine requires repairment or replacement, and it is a central goal of
+PdM.
 
 The problem of estimating the remaining useful life is connected with
 evaluating condition indicators associated with the system's degradation
@@ -314,7 +301,7 @@ process. These condition indicators must satisfy the requirements for
 monotonicity, trendability, and prognosability.
 
 The models used to estimate the remaining useful life depend on the
-historical data we have available. There are three types of possible
+historical data which are available. There are three types of possible
 models. 
 
 \paragraph{Survival model}
@@ -323,41 +310,42 @@ but the whole degradation history is not recorded. The probability density
 function can be obtained from failure data and used to estimate RUL.
 
 \paragraph{Degradation model}
-The degradation model gives an option to estimate RUL on data without
+The degradation model gives an option to estimate RUL based on data without
 failure moment captured but only recorded degradation process. In this
-situation, it's necessary to determine a safety threshold that CI shouldn't
+situation, it is necessary to determine a safety threshold that CI must not
 cross.
 
 \paragraph{Similarity model}
-In case we have a whole history of the degradation process of similar
+In case we have the whole history of the degradation process of similar
 systems, including failure, the similarity model can be used. The upcoming
 CI is compared with historical degradation paths obtained from the training
-dataset and evaluated best similarity trend as RUL value.
-
+dataset and the best similarity trend is evaluated as RUL value.
 
 \section{Digital twin}\label{sec:digital_twin}
 % https://explore.mathworks.com/digital-twins-for-predictive-maintenance
-
-A digital twin is a digital representation of the real-life system. Can be
-represented as a component, a system of components, or as a system of
-system. 
+A digital twin is a digital representation of the real-life system. It can
+be represented as a component, a system of components, or as a system of
+systems. 
 
 A digital twin can be updated with incoming data from sensors.
-Fitting model to new data, digital twin represents the current condition
-state of the real-world object.  There are many advantages to using models
-in PdM. A digital twin can hold historical data about system behavior and
-can be used for simulation system operation in different conditions,
-designing control, and simulating future behavior (RUL, "What-if"). Dataset
-extended by data from the simulation model represent synthetic dataset.
-This dataset type can contain different measured fault or healthy data of
-the system and hard to realizable in real-world fault situations. 
+Fitting the model to new data, the digital twin represents the current
+condition state of the real-world object.  There are many advantages of
+using models in PdM. A digital twin can hold historical data about system
+behavior. Apart from this, it can be used for simulation system operation
+in different conditions, designing control and simulating future behavior
+(RUL, "What-if"). The dataset extended by data from the simulation model
+represents synthetic dataset. This dataset type can contain different
+measured fault and healthy data of the system and hard to realizable in
+real-world fault situations. 
 
-A mathematical model of the real-world system can be created using different approaches. 
+A mathematical model of the real-world system can be created using
+different approaches. 
 \begin{itemize}
-    \item First-principles modeling requires an understanding of the fundamental process of the system.
+    \item First-principles modeling requires an understanding of the
+        fundamental process of the system.
     \item Physical modeling (Simscape).
     \item Data-driven modeling where the system is represented as a Blackbox.
-    \item Combination multiply approaches.
+    \item Combination of multiply approaches.
 \end{itemize}
 
 \section{Comparison PdM and FDA approaches}
@@ -365,30 +353,30 @@ A mathematical model of the real-world system can be created using different app
 \begin{figure}[h!]
     \centering
     \includegraphics[scale=0.3]{FDI_PM.png}
-    \caption{Relative arrangement of PdM and FDI algorithm \ref{}}
+    \caption{Relative arrangement of PdM and FDI algorithm \cite{fdi_cern2}}
     \label{fig:fdi_pm}
 \end{figure}
 
-Figure \ref{fig:fdi_pm} presents a relative arrangement of Predictive Maintenance (PdM)
-and Fault Detection and Identification (FDI or FDA) algorithms. From the
-figure, it's clear that Predictive Maintenance it's an extension of the FDI
-approach, with recommended workflow techniques suitable for optimizing
-system maintenance. 
 
-Both methods are closely overlapped and use quite
-similar techniques. However, Predictive maintenance over the FDA is
-extended by RUL estimation. And it leads not only to fault detection at a
-given moment but to the possible prediction of a fault in the future. Open
-the possibility of monitoring the system's state not only in the current
-time but predict near-future behavior too.
+Figure \ref{fig:fdi_pm} presents a relative arrangement of Predictive Maintenance
+(PdM) and Fault Detection and Identification (FDI or FDA) algorithms. From
+the figure, it is clear that Predictive Maintenance is an extension of the
+FDI approach, with recommended workflow techniques suitable for optimizing
+system maintenance.
+
+
+Both methods are closely overlapped and use quite similar techniques.
+However, predictive maintenance over the FDA is extended by RUL estimation.
+And it leads not only to fault detection and monitoring at a given moment
+but also to the possible prediction of a fault in the near future. 
 
 \section{Applications}\label{sec:applications}
 % https://www.reliableplant.com/Read/12495/preventive-predictive-maintenance
 
 The most significant interest in PdM is the manufacturing sector that
 requires efficiency maintenance strategies to increase productivity and
-reduce money-lost.  Another field for PdM applications is highly dependent
-on safety types of machinery such as aircraft or rail industry.  Using the
-PdM condition monitoring, it's possible to prevent unexpected fails. The
-oil and gas industry supports the PdM field; due to the amount of data
+reduce money-lost. The PdM is used in the field that is highly dependent on
+safety types of machinery such as aircraft or rail industry. Using the PdM
+condition monitoring, it is possible to prevent unexpected fails. The oil
+and gas industry supports the PdM field; due to the amount of data
 collected in these industries, the PdM techniques are beneficial.

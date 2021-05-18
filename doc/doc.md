@@ -14,6 +14,9 @@
     - Apply RUL:
     - https://www.mathworks.com/help/predmaint/ug/wind-turbine-high-speed-bearing-prognosis.html
 
+Very good article about fdi
+https://www.intechopen.com/books/fault-diagnosis-and-detection/fault-detection-and-isolation
+
 Acc Vibration modeling:
 https://www.mathworks.com/help/predmaint/ug/Use-Simulink-to-Generate-Fault-Data.html
 

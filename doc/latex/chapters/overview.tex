@@ -49,7 +49,7 @@ applications.
 
 \section{Sensors}
 
-There are seven types of sensors located on the system. Table
+There are eight types of sensors located on the system. Table
 \ref{tab:sensors_tab} describes a sensor purpose, signal name in the
 datastore, and the signal unit. 
 
@@ -71,39 +71,14 @@ Microphone    & V     & microphone on bottom bumper            & MIC\_bBumper \\
 Microphone    & V     & ambient microphone                     & MIC\_Ambient \\
 Temperature   & $^o$C & cylinder temperature measurement       & TempCylinder \\
 Temperature   & $^o$C & ambient temperature measurement        & TempAmbient \\
+Strain Gauge  & Pa    & strain measurements                    & StrainGauge \\
+Proximity     & -     & upper bound detection                  & ProximitySensor_upper \\
+Proximity     & -     & bottom bound detection                 & ProximitySensor_bottom \\
 \hline
     \end{tabular}
     \caption{Sensors overview}
     \label{tab:sensors_tab}
 \end{table}
-
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[width=1\textwidth]{overview_data_example_1.png}
-    \caption{Caption}
-    \label{fig:}
-\end{figure}
-
-%\begin{figure}[!htb]
-%    \centering
-%    \includegraphics[width=1\textwidth]{overview_data_example_2.png}
-%    \caption{Caption}
-%    \label{fig:}
-%\end{figure}
-%
-%\begin{figure}[!htb]
-%    \centering
-%    \includegraphics[width=1\textwidth]{overview_data_example_3.png}
-%    \caption{Caption}
-%    \label{fig:}
-%\end{figure}
-%
-%\begin{figure}[!htb]
-%    \centering
-%    \includegraphics[width=1\textwidth]{overview_data_example_4.png}
-%    \caption{Caption}
-%    \label{fig:}
-%\end{figure}
 
 The dataset measured on the system contains almost five thousand
 measurements in different operating conditions. Each measurement includes a
@@ -113,8 +88,40 @@ into files contains only one measurement.  The divided dataset is easier to
 maintain, and Matlab recommends this type of datastores called Data
 Ensemble \ref{}.
 
-The measured examples are shown in figures \ref{fig:},\ref{fig:}, and \ref{fig:}.
+The measured examples are shown in figures
+\ref{fig:over_examp_1},\ref{fig:over_examp_3}, and \ref{fig:over_examp_3}.
 
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=1\textwidth]{overview_data_example_4.png}
+    \caption{Caption}
+    \label{fig:over_examp_1}
+\end{figure}
+
+
+\newpage
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=1\textwidth]{overview_data_example_1.png}
+    \caption{Caption}
+    \label{fig:over_examp_2}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=1\textwidth]{overview_data_example_2.png}
+    \caption{Caption}
+    \label{fig:over_examp_3}
+\end{figure}
+
+%\begin{figure}[!htb]
+%    \centering
+%    \includegraphics[width=1\textwidth]{overview_data_example_3.png}
+%    \caption{Caption}
+%    \label{fig:over_examp_4}
+%\end{figure}
+
+TODO text
 
 
 

@@ -42,10 +42,10 @@
 	} 
 
 % abstrakt + klicova slova + citace
-\newcommand{\abstract}[4]{
+\newcommand{\abstract}[5]{
 	\pagestyle{empty}
 	\newpage
-	\section*{Abstrakt}
+	\section*{Abstract}
 	#1
 	\section*{Summary}
 	#2
@@ -62,6 +62,9 @@
 	\section*{Bibliographic citation}
 	\theciteauthor \textit{ \thethesistitle}. Brno: Brno University of Technology, Faculty of Mechanical Engineering, \the\year. \pageref{MyLastPage} pages, Master's thesis supervisor: \thethesissupervisor.
 	}
+    \newpage
+    \section*{Roz\v{s}\'{i}ren\'{y} abstrakt}
+    #5
     \ifthenelse{\equal{\docmode}{print}}{\newpage\phantom{}} % blank page
 	}
 	

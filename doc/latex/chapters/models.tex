@@ -47,6 +47,12 @@ approach.
     \item All the thermal processes are adiabatic.
 \end{enumerate}
 
+\paragraph{Simplifications}
+Throttle modeling and adjustment dampers require measurements that were
+unfortunately not available. In the case of throttle valves, the parameters
+of the throttle valves were combined with the parameters of the control
+solenoid valve.
+
 
 \paragraph{Equation of state}
 Equation of state for an ideal gas \ref{eq:equation_of_state}, describe the relationships between
@@ -99,7 +105,7 @@ through a control volume.
     \label{eq:continuity_equation}
 \end{align}
 
-\section{Air Expansion}
+\section{Air Expansion}\label{sec:air_expansion}
 Air expansion from the reservoir, one of the fundamental sets of equations
 used in pneumatic elements. 
 
@@ -170,7 +176,8 @@ where \ref{eq:psi} is the outflow function.
     \label{eq:psi}
 \end{align}
 
-Finally mass flow from the reservoir is given by equation \ref{eq:mass_flow}:
+Finally mass flow expansion from the reservoir is given by equation
+\ref{eq:mass_flow}:
 \begin{align}
     \dot{m} = A p_1\sqrt{\frac{2}{RT_1}} \cdot \psi\left(\frac{p_2}{p_1}\right)
     \label{eq:mass_flow}
@@ -193,7 +200,7 @@ overcritical pressure ratio, the mass flow depends only on $p_1$ and $T_1$
 Critical pressure for air is $\beta_k = 0.528$ and critical velocity is
 give by outflow function \ref{eq:psi_max}. Combine equations for
 overcritical and undercritical pressure ratio using equations
-\ref{eq:beta_k}, \ref{eq:psi_max} we get the final equation for overflow
+\ref{eq:beta_k}, \ref{eq:psi_max} we get the final equation for outflow
 function \ref{eq:psi_final}.
 
 \begin{align}
@@ -361,51 +368,77 @@ or found in the datasheet \cite{}.
 
 
 \section{Control Valve Model}
-
-\subsection{Input/Output mass flows}
+The pneumatic control valve manipulates air mass flow to connect piston
+chambers with supply and ambient pressure lines. There are different
+approaches to model pneumatic control valve describes \cite{}, \cite{}.
+Demonstration device includes 5/2 bistable solenoid valve
+\ref{fig:device_scheme}. The movable part, valve spool driven by a magnetic
+field, can be in the two positions, where one of the chambers connects to
+the supply pressure line, another to ambient. A digital input signal
+switches between these two positions \ref{}.  Equation \ref{eq:input_u},
+describe the input signal $u \in \langle-1,1\rangle$, which regulates the
+spool movement to acquire one of
+the states. 
 
 \begin{align}
-    \dot{m}T = \dot{m_{in}}T_s - \dot{m_{out}}T_{A/B}
-\end{align}
+    u =
+    \begin{cases}
+        -1 & \text{discharge the chamber} \\
+       \  1  & \text{filling the chamber} 
+    \end{cases}
+    \label{eq:input_u}
+\end{align} 
+
+Spool dynamic and pressure lines transport delay can be modeled as a 1dof
+system with the time constant $T$ and delay $\tau$ \ref{eq:spool_dynamic}. For
+more precise control and modeling of the valve system, valve dead zones can
+be considered \ref{eq:deadzone}.
+
+\begin{equation}
+    G(s) = \frac{1}{T s + 1}e^{-\tau s}
+    \label{eq:spool_dynamic}
+\end{equation}
+
+
+\begin{equation}
+    u_z = 
+    \begin{cases}
+        g_z(u) < 0 &, \text{ if } u \le u_n \\
+        0          &, \text{ if } u_n < u < u_p \\
+        h_z(u) > 0 &, \text{ if } u \ge u_p \\
+    \end{cases}  
+    \label{eq:deadzone}
+\end{equation}
 
 
 
-% TODO
-\subsection{Valve model} 
-\begin{tabular}{ |c|c|c| }
-    \hline
-    $S_{eq}$                & $m^2$         & Equivalent cross section \\
-    $S_{max}$               & $m^2$         & Maximum cross section \\
-    $Cd$                    & $-$           & Coefficient of contraction \\
-    $u$                     & $-$           & Regulation variable \\
-    \hline
-\end{tabular}
+To parametrize the pneumatic valve discharge coefficient (coefficient of
+contraction) can be used. This parameter must be determined experimentally.
+The discharge coefficient \ref{eq:coefficient_of_contraction} is the ratio
+between the equivalent area of the opened flow path and the maximum area of
+this path. The equivalent area limits the maximum mass flow value. 
 
-\paragraph{Valve flow model with simply input control signal}
-For regulation flow this model used input control signal directly without
-spool mechanics.
-
-Coefficient of contraction \ref{eq:coefficient_of_contraction}:
 \begin{align}
     C_d = \frac{S_{eq}}{S_{max}}
     \label{eq:coefficient_of_contraction}
 \end{align}
 
-For flow control regulation $u \in \langle-1,1\rangle$ can be used.
-\begin{align}
-    u =
-    \begin{cases}
-        u \in \langle -1, 0) & \text{discharge the chamber} \\
-        u = 0& \text{valve closed}  \\
-        u \in (0, 1\rangle & \text{filling the chamber} 
-    \end{cases}
-\end{align} 
+With respect to outflow function \ref{eq:psi_final} and mass flow function
+\ref{eq:mass_flow} derived in section \ref{sec:air_expansion},  control
+valve equation is given \ref{eq:flow}.
 
 \begin{align}
     \dot{m} = u S_{max} C_d p_1 \sqrt{\frac{2}{RT_1}}
     \cdot \psi\left(\frac{p_2}{p_1}\right)
     \label{eq:flow}
 \end{align}
+
+
+
+Using the notation introduced on the schemes \ref{fig:device_scheme},
+\ref{fig:pist_chamb} we compile a complete set of equations for the
+description of the behavior of a
+pneumatic solenoid valve \ref{eq:m_A_final}, \ref{eq:m_B_final}.
 
 \textbf{For filling the chamber:}
 \begin{itemize}
@@ -421,18 +454,18 @@ For flow control regulation $u \in \langle-1,1\rangle$ can be used.
 \item $T_1 = T_A, T_B$
 \end{itemize}
 
-where $p_s$ is supply pressure. $p_0$ atmospheric pressure. As $T_i$ - 
-atmospheric temperature using according to isothermal process.
+where $p_s$ is supply pressure. $p_0$ atmospheric pressure, $T_A = T_B =
+T_0$ ambient temperature.
 
 \begin{align}
     \dot{m}_A =
     \begin{cases}
         u S_v C_d p_s \sqrt{\frac{2}{RT_s}}
         \cdot \psi\left(\frac{p_A}{p_s}\right)  &,   u \in (0, 1 \rangle \\
-        0   &,  u = 0 \\
         u S_v C_d p_A \sqrt{\frac{2}{RT_A}}
         \cdot \psi\left(\frac{p_0}{p_A}\right)  &,   u \in \langle -1, 0) \\
     \end{cases}
+    \label{eq:m_A_final}
 \end{align}
 
 \begin{align}
@@ -440,101 +473,22 @@ atmospheric temperature using according to isothermal process.
     \begin{cases}
         u S_v C_d p_s \sqrt{\frac{2}{RT_s}}
         \cdot \psi\left(\frac{p_B}{p_s}\right)  &,   u \in (0, 1 \rangle \\
-        0   &,  u = 0 \\
         u S_v C_d p_A \sqrt{\frac{2}{RT_B}}
         \cdot \psi\left(\frac{p_0}{p_B}\right)  &,   u \in \langle -1, 0) \\
     \end{cases}
+    \label{eq:m_B_final}
 \end{align}
 
-\paragraph{Valve flow with spool mechanic included}
-
-With respect to valve spool modeled as 1DOF system \ref{eq:1dof} and
-mechanical and geometrical properties following equation were used.
-
-\paragraph{Valve flow with spool}
-In this model we accept a spool displacement $x_s$, controlled by input
-voltage $u$.
-
-\begin{equation}
-    \dot{m}(P_u, P_d) = 
-    \begin{cases}
-        C_f A_v
-        \left(\frac{\kappa}{R}\left(\frac{2}{\kappa-1}\right)\right)^{\frac{1}{2}}
-        \cdot
-        \frac{P_u}{\sqrt{T}}\left(\frac{P_d}{P_u}\right)^{\frac{1}{\kappa}}
-        \cdot 
-        \sqrt{1 - \left(\frac{P_d}{P_u}\right)^{\frac{\kappa-1}{\kappa}}} &,
-            \text{ if } \frac{P_d}{P_u}>P_{cr} \text{ (subsonic)} \\
-        C_f A_v \frac{P_u}{\sqrt{T}}\cdot \sqrt{\frac{\kappa}{R}
-        \left(\frac{2}{\kappa + 1}\right)^{\frac{\kappa+1}{\kappa-1}}} &,
-            \text{ if }  \frac{P_d}{P_u} \le P_{cr} \text{ (sonic)} \\
-    \end{cases}
-    \label{eq:valve_2}
-\end{equation}
-
-where $C_f$ is discharge coefficient, $A_v$ is the effective are of valve
-orifice.
-
-\begin{equation}
-    A_v = \frac{\pi x_s^2}{4}
-    \label{eq:A_v}
-\end{equation}
-
-\begin{equation}
-    x_s = C_v u
-    \label{eq:x_s}
-\end{equation}
-
-where $C_v$ is the valve constant.
-
-\paragraph{Valve model by Endler}
-Require fitting constants and generally system identification.
-Mass flow rates are given by following equations:
-
-
-\begin{equation}
-    \begin{aligned}
-        \dot{m}_A(u, p_A) = g_1(p_A, sign(u))arctg(2u) \\
-        \dot{m}_B(u, p_B) = g_2(p_B, sign(u))arctg(2u)
-    \end{aligned}
-\end{equation}
-
-where $g_1, g_2$ are signal functions given:
-\begin{equation}
-    \begin{aligned}
-        g_1(p_A, sign(u)) = \beta \Delta p_A = 
-        \begin{cases}
-            (p_s - p_A) \beta^{ench} &, \rm \ if\  u \ge 0 \\
-            (p_A - p_0) \beta^{esv} &, \rm \ if\  u  < 0 \\
-        \end{cases} \\
-        g_2(p_B, sign(u)) = \beta \Delta p_B = 
-        \begin{cases}
-            (p_s - p_B) \beta^{ench} &, \rm \ if\  u < 0 \\
-            (p_B - p_0) \beta^{esv} &, \rm \ if\  u \ge 0 \\
-        \end{cases}
-    \end{aligned}
-    \label{eq:valve_3}
-\end{equation}
-
-where $\beta^{ench}, \beta^{evs}$ are constant coefficients.
-For fitting model stop piston (speed of piston is null). This mean that
-volume is constant. We can measure flow rate $\dot{m}$ versus input voltage
-$u$ with given pressure difference.
-
-\paragraph{Valve dead-zone}
-For more precision control and modeling of the valve system, valve
-dead-zone can be used \ref{eq:deadzone}.
-
-\begin{equation}
-    u_z = 
-    \begin{cases}
-        g_z(u) < 0 &, \text{ if } u \le u_n \\
-        0          &, \text{ if } u_n < u < u_p \\
-        h_z(u) > 0 &, \text{ if } u \ge u_p \\
-    \end{cases}  
-    \label{eq:deadzone}
-\end{equation}
-
+% TODO
+%\subsection{Valve model} 
+%\begin{tabular}{ |c|c|c| }
+%    \hline
+%    $S_{eq}$                & $m^2$         & Equivalent cross section \\
+%    $S_{max}$               & $m^2$         & Maximum cross section \\
+%    $Cd$                    & $-$           & Coefficient of contraction \\
+%    $u$                     & $-$           & Regulation variable \\
+%    \hline
+%\end{tabular}
 
 
 % -------------------------------------------------------
@@ -554,60 +508,58 @@ general 1dof dynamical equation \ref{eq:1dof}.
     \label{eq:1dof}
 \end{equation}
 
-In the case of the pneumatic piston, the equation \ref{eq:1dof}
-transforms into an equation \ref{eq:mechanical}.
+In the case of the pneumatic piston, equation \ref{eq:1dof}
+transforms into and equation \ref{eq:mechanical}.
 
 \begin{equation}
-    (M + M_L) \ddot{x} + F_{damp} + F_g + F_{hs}  = F_p
+    (M + M_L) \ddot{x} + F_{d} + F_g + F_{hs} + F_f  = F_p
     \label{eq:mechanical}
 \end{equation}
 
 Where $M$ represents a mass of the all moveable part of the piston,
 $M_L$ is load mass, $F_g$ gravity force acting to mechanical moving assembly,
 $F_{hs}$ - models endpoints (hard stop),
-$F_{damp}$ represents shock absorbers acted at endpoints,
-$F_{p}$ is a force produced by the pneumatic piston \ref{eq:pneum}.
+$F_{d}$ represents dampers (shock absorbers) acted at endpoints,
+$F_f$ describe Coulomb and viscous friction,
+$F_{p}$ is a force produced by the pneumatic piston and given by equation \ref{eq:pneum}.
 
 \begin{equation}
     F_p = P_A S_A - P_B S_B - P_0 S_0
     \label{eq:pneum}
 \end{equation}
 
+\paragraph{Friction} Friction force was modeled as a Coulomb and viscous
+friction\ref{eq:friction_force}.
+
+\begin{equation}
+    F_f = F_C \cdot \text{sign}(\dot{x}) + B_v \dot{x}
+    \label{eq:friction_force}
+\end{equation}
+
+
 \subsection{Hard stop}
-Hard stop can be represented as spring and dumps:
+The endpoint's material resistance can be represented as springs and
+dampers acting as one-way bound \ref{eq:hard_stop}
+The parameters $K$, $D$  have a significant impact on the numerical stability
+of the simulation system; therefore, they were tuned concerning stable
+performances.
 
 \begin{align}
-    F_{HS} =
+    F_{hs} =
     \begin{cases}
         K_p(x-g_p) + D_pv & \text{for } x \ge g_p \\
         0 & \text{for } g_n < x < g_p \\
         K_n(x-g_n) + D_nv & \text{for } x \le g_n \\
     \end{cases}
+    \label{eq:hard_stop}
 \end{align}
 
 
-\subsection{Shock Absorbers}
-\subsection{Friction}
-Friction force can be modeled in the
-different ways.
-
-TO MUCH
-\ref{eq:friction1}.
-\begin{equation}
-    F_f = 
-    \begin{cases}
-        C \dot{x} + \left(f_c + (f_s-f_c)
-        e^{-\left(\frac{\dot{x}}{v_s}\right)^{\delta}}\right) sign(\dot{x}) &,
-        \text{ if } \dot{x} \le v_e \\
-        \mu \dot{x} &,
-        \text{ if } \dot{x} > v_e \\
-    \end{cases}
-    \label{eq:friction1}
-\end{equation}
-where $C$ - viscous friction coefficient, $f_c$ - Coulomb friction, $f_s$ -
-maximum static friction, $\mu$ - dynamic friction factor, $v_s$ - Stribeck velocity,
-$\delta$ - arbitrary index, $v_e$ critical velocity.
-
+\subsection{Endpoint dampers}
+There are two types of dampers installed in demonstration device. One pair
+is adjustable, and other stable.  Endpoint dampers were modeled in the same
+way as a hard stop \label{eq:hard_stop}, emphasizing damping coefficient
+$D$. 
 
 % -------------------------------------------------------
 % ___  ___ _ __  ___  ___  _ __ ___ 
@@ -616,9 +568,24 @@ $\delta$ - arbitrary index, $v_e$ critical velocity.
 %|___/\___|_| |_|___/\___/|_|  |___/
 % -------------------------------------------------------
 \section{Sensors Modeling}
-\begin{itemize}
-    \item Sensors models
-\end{itemize}
+Modeling sensors include converting the measured physical signals to an
+analog or digital signal, adding noise and offset parameters to have an
+option to model faults conditions, and after converting back to the
+sensor's measured units. 
+
+\paragraph{Proximity sensors} In the case of digital signals such as
+proximity sensors, it is sufficient to control the boundaries at which the
+sensor is switched on.
+
+
+\paragraph{Encoder}
+The demonstration device includes a very precise linear magnetic encoder
+with a resolution $\approx 7 \rm \mu m$. This sensor provides an almost
+clean signal that gives an option to extract velocity signal by numerical
+derivation.  However, to model this type of encoder with parameters of real
+encoder requires a minimum sample time in the range of $\rm \mu s$. Due to
+this fact model of the encoder was embedded, but the output is taken
+directly from the model.
 
 % -------------------------------------------------------
 %(_) __| | ___ _ __ | |_ 
@@ -627,36 +594,75 @@ $\delta$ - arbitrary index, $v_e$ critical velocity.
 %|_|\__,_|\___|_| |_|\__|
 % -------------------------------------------------------
 \section{Parameter identification}
+To achieve closer behavior to the real system, it is necessary to determine
+all the parameters of the model.  There are parameters given as physical
+constants, or they can be directly measured or determined in the datasheet.
+Parameters that do not fall under these kinds must be deducted from the
+measurement.
 
-\subsection{Mechanical assembly}
-In mechanical system there is $F_f$ force represented by frictions accruing
-in the system. This force can be modeled by different friction models with
-respect to \ref{sec:mech_assembly}. Friction force parameters can be
-estimated using "gray-box" method. 
-Using $\dot{m}$ mass flow data versus $x$ position measured on real assembly
-and use these data as an input and output, we can fit $F_f$.
-Simplify model can contain TODO:
-\begin{itemize}
-    \item $F_C$ static friction
-    \item $C_v$ viscous
-    \item $C_p$ Pressure difference
-\end{itemize}
-
-\subsection{Cylinder}
-Dead volume: $p_1 V_1^n = p_2 V_2^n$ or datasheet.
-
-\subsection{Valve}
-For valve system there are two parameters that need to be estimated.
-According to equation \ref{eq:flow2} with constant $p_1$ (pressure supply) and $p_2$
-(atmospheric pressure), we can estimate $\boldsymbol{C}$ if we neglect Valve Spool dynamic.
-If in experiment we determine that spool dynamic necessary to include. We
-provide same experiment with spool model including to "Gray-box" fitting
-model.
+According to the simplification estimation process, throttle valves and
+solenoid valve parameters were combined into two valve coefficients
+$C_{i,in}, C_{i,out}$ in both input and output directions \ref{eq:valve_estimation}.
 \begin{align}
-    \dot{m} = \boldsymbol{u}(x_s) \boldsymbol{C}  p_1 \sqrt{\frac{2}{RT_1}}
+    \dot{m}_{i,in} = u(t)\cdot \boldsymbol{C_{i,in}} p_1 \sqrt{\frac{2}{RT_1}}
+    \cdot \psi\left(\frac{p_2}{p_1}\right) &&
+    \dot{m}_{i,out} = u(t)\cdot \boldsymbol{C_{i,out}} p_1 \sqrt{\frac{2}{RT_1}}
     \cdot \psi\left(\frac{p_2}{p_1}\right)
-    \label{eq:flow2}
+    \label{eq:valve_estimation}
 \end{align}
+
+where $i$ are ports to chambers $A, B$.
+
+
+Solenoid valve spool dynamic was estimated with respect to equation
+\ref{eq:spool_dynamic}
+in different displacement measurements. 
+
+Pneumatic piston parameters were taken from the dataset, and the remaining
+such as dead volumes $V_{0A}$ and $V_{0B}$ estimated approximately.
+
+Hard stop endpoints were determined from the construction design of a
+particular pneumatic piston. The values of the damping and spring were
+estimated to perform their functions and at the same time maintain
+numerical stability.
+
+Adjustment dampers were estimated from displacement measurement as $b_b$,
+$b_u$ parameters. The bounding range was directly measured from the
+displacement measurements.
+
+\newpage
+\section{Model performance}
+
+\begin{figure}[ptbh!]
+    \centering
+    \includegraphics[width=1\textwidth]{fpm_model.png}
+    \caption{First Principle model implementation in Simulink}
+    \label{fig:fpm_simulink}
+\end{figure}
+
+Text TODO
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{fpm_perfomance.png}
+    \caption{Caption}
+    \label{fig:}
+\end{figure}
+
+Text TODO
+
+\newpage
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{fpm_fault_example.png}
+    \caption{Caption}
+    \label{fig:}
+\end{figure}
+
+Text TODO
+
+
 
 
 

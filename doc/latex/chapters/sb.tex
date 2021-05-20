@@ -15,19 +15,36 @@
 
 \chapter{Signal-Based PdM}
 Signal-based predictive maintenance.
+
+\todo[inline]{Text about signal-based PdM}
+
+
+\section{FDI methods}
+\todo[inline]{More examples, rewrite}
+We can use Proximity sensor time delay between input signal and upper
+proximity sensor signal to evaluate if there is some fault.
+Same with Position, if not reach some end position, there is a fault.
+Flow sensor, check if the float mean value is under some threshold, there
+is fault.
+
 \section{Data Management and Preprocessing}
 Before the final solution was developed in the whole dataset, the smaller
-the reduced dataset was used for experiments and planning algorithms. 
+dataset was used for experiments and planning algorithms. 
 
-\subsection{Data storage}
+\subsection{Data Storage}
 \paragraph{Manage Data}
+
 First, a folder structure was created to collect all measured and
 calculated data. The measured signals were given in 6 large files with a
 ".mat" extension and divided into smaller files with only one measurement
-each.  The divided datastore is easier to maintain and Matlab recommends
-this type of datastores called Data Ensemble \ref{}.  The full dataset
-contains 4840 measurements. Each measurement includes a 10-second recording
-of all signals collected from moving the piston up and down.
+each.  Data files have been reshaped to Data Ensembles \cite{} format used
+for Condition monitoring purposes. This format allows processing data
+without copying the whole dataset to memory at once but processes them one
+by one. In large datasets it gives an option to manipulate with data
+without problems with allocated memory.  The full dataset contains 4840
+measurements. Each measurement includes a 10-second recording of all
+signals collected from moving the piston up and down.
+
 \paragraph{Labels}
 The whole dataset was divided into 20 Labels by place of fault accumulate: 
 \begin{itemize}
@@ -41,50 +58,111 @@ The whole dataset was divided into 20 Labels by place of fault accumulate:
 \end{itemize}
 
 \subsection{Data Exploration}
-Data from each sensor were explored in an attempt to find measurement
-errors or anomalies in data.  Figure \ref{} shown an example of the
-flow signal in different operation conditions. 
+Data from each of the eight sensors \ref{tab:sensors_tab} were explored in an attempt to find
+measurement errors or anomalies in data.  Figure \ref{fig:flow_sig} shown
+an example of the flow signal in different operation conditions. 
 
-There are eight types of sensors:
-\begin{enumerate}
-    \item Linear encoder
-    \item Flow sensor
-    \item Pressure sensor
-    \item Temperature sensor
-    \item Accelerometer
-    \item Strain gauge
-    \item Microphones
-    \item Proximity sensors
-\end{enumerate}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{sb_flow_signal.png}
+    \caption{Flow Signal in Different Operation Conditions}
+    \label{fig:flow_sig}
+\end{figure}
+
+
+%There are eight types of sensors:
+%\begin{enumerate}
+%    \item Linear encoder
+%    \item Flow sensor
+%    \item Pressure sensor
+%    \item Temperature sensor
+%    \item Accelerometer
+%    \item Strain gauge
+%    \item Microphones
+%    \item Proximity sensors
+%\end{enumerate}
 
 \subsection{Preprocessing}
-Some signals, such as Encoder, are very accurate. There is no preprocessing
-needed to apply. Signals noisier (pressure signal or strain) has to be
-preprocessed and applied some noise reduction algorithms. However, during
-experiments turned out that non preprocessed signals have better
-performance. For example, the preprocessed pressure classification model
-gives 78 \% accuracy; the raw pressure signal gives approximately 82 \%.
 
-\section{SB methods and Flow Sensor as an Example}
+After the data has been processed and organized in one datastore, the
+possibility arises to perform signal preprocessing.  Preprocessing includes
+smoothing, filtering, detrend the signal, and missing value removal.
+
+The datastore contains some signals, such as an encoder, that is very
+accurate. There is no preprocessing needed to apply. Signals noisier
+(pressure signal or strain) have to be preprocessed and applied algorithms
+to noise reduction such as smoothing and filtering concerning the
+preservation of the information base. However, during experiments turned
+out that non preprocessed signals have better performance. For example, the
+preprocessed pressure classification model gives 78 \% accuracy; model
+trained on CI from the raw pressure signal offers approximately 82 \%.
+
+\section{SB Methods and Flow Sensor as an Example}
 In this section, signal-based methods were applying to the flow sensor as a
 case study example.  The rest of the sensors was processed in the same way;
 however, each required an individual approach.
 
 \subsection{Flow Sensor Data}
 There are two flow signals in the datastore. Both are connected to port A
-in scheme \ref{}.
+in scheme \ref{}. Signals were sampled in 1kHz frequency; thus, in 10
+seconds, there are 10000 points measured. 
+
 \begin{itemize}
     \item Flow Extrusion
     \item Flow Contraction
 \end{itemize}
 
 \subsection{Condition Indicators Extraction}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{dfd_app.png}
+    \caption{Diagnostic Features Designer App Interface}
+    \label{fig:dfd_app}
+\end{figure}
+
+One of the reasons to use Matlab Data Ensemble format to manage the data
+instead of others is to use the Diagnostic Feature Designer App
+\ref{fig:dfd_app}.
+This app provides an intuitive environment for extracting both statistical
+condition indicators and power spectral density calculations with the
+following extraction of frequency condition indicators. It is also possible
+to generate Matlab functions to deploy the algorithms on a bigger scale.
+
 \paragraph{Statistical Condition Indicators}
-From every signal in the dataset, statistical features were calculated.
+
+For every flow signal in the dataset, statistical condition indicators were calculated: 
+\begin{itemize}
+    \item Mean
+    \item Standard deviation
+    \item RMS
+    \item Peak value
+    \item Kurtosis
+    \item Clearance factor
+    \item Crest factor
+    \item Impulse factor
+    \item etc.
+\end{itemize}
+
 
 \paragraph{Frequency Domain Condition Indicators}
-Using Welch's power spectral density estimation, frequency features were
-calculated. 
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{sb_flow_spec.png}
+    \caption{Welch's Power Spectral Density of the Flow Signal}
+    \label{fig:flow_sp}
+\end{figure}
+
+
+Using Welch's power spectral density estimation \ref{fig:flow_sp}, frequency CI were
+calculated: 
+
+\begin{itemize}
+\item First five peaks amplitude
+\item Peaks frequencies
+\item Spectrum band power
+\end{itemize}
 
 
 Extracted condition indicators were written to files with signals and
@@ -101,144 +179,184 @@ Moreover, a table was created, which contains all condition indicators
 extracted, to prepare the train and test dataset for the classification
 model.
 
-\subsection{Features Ranking}
-Kruskal-Wallis ANOVA
+\subsection{Condition Indicators Ranking}
+The table of calculated condition indicators contains 25 statistical and
+frequency CI. To train a classification model, it is good practice to
+reduce the number of features or transform them with PCA algorithm and use
+only first $n$ principal components, to remove linearly dependent condition
+indicators.  According to section \ref{} Analysis of Variance (ANOVA),
+specifically in our case Kruskal – Wallis one-way ANOVA algorithm was used. 
+
+
+The result is a sorted table \ref{tab:sorted_ci} of condition indicators depending on
+how much variance a particular condition indicator can describe in the
+dataset.
+
+\begin{table}[h]
+        \centering
+    \begin{tabular} {|c|c|c|} \hline
+          & Features & Kruskal-Wallis \\ \hline
+        1 & "FlowContraction\_ps\_spec/PeakAmp1" & 1.4815e+03 \\ \hline
+        2 & "FlowContraction\_stats/CrestFactor" & 967.6028 \\ \hline
+        3 & "FlowContraction\_ps\_spec/PeakAmp3" & 865.7571 \\ \hline
+        4 & "FlowContraction\_stats/Mean" & 567.6620 \\ \hline
+        5 & "FlowContraction\_ps\_spec/PeakAmp4" & 460.0924 \\ \hline
+    \end{tabular}
+    \caption{First Five Ranked Condition Indicators using ANOVA}
+    \label{tab:sorted_ci}
+\end{table}
+
+Figure \ref{fig:sb_scatt_mat} shows the scatter plot of the first three condition
+indicators for normal behavior and fault condition caused by the change of
+throttle valve 1.
+The first five condition indicators ranked by the ANOVA algorithm were used
+for training the final model on all 20 labels.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{sb_scatter_matrix.png}
+    \caption{Example of Scatter Plot with different CI}
+    \label{fig:sb_scatt_mat}
+\end{figure}
+
 
 \subsection{Train Classification Model}
+The main goal of the classification task is to train a model that can
+predict the fault code or label signalized about pneumatic actuator
+behavior by calculated condition indicators.
 
-\paragraph{Split CI to train and test}
+There are many classification models, but it is best to try different
+variants and be satisfied with the best result from a practical point of
+view.  The Classification Learner App from the Machine Learning Toolbox
+tool can be used for experiments and iterative tuning of different
+condition indicators and classification models. It is possible to try
+several models, apply the PCA algorithm, interactively draw Scatter plot
+and Confusion Matrix, and generate functions for practical applications.
+
+\paragraph{Train, Test Datasets} By splitting data to train and test
+datasets, we can ensure that the training model outcomes are valid. The
+cross-validation resampling procedure to prevent model overfitting was used
+during the model fitting.
 
 \paragraph{Classification Model Performance}
 
+
+Trained classification models show excellent results on the test dataset
+for all three situations: using all CI, after applying the PCA algorithm
+and using the first five CIs recommended by the ANOVA algorithm.  The
+accuracy evaluations of the models are shown in Table
+\ref{tab:classification_perfomance}.
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{approach} & \textbf{model}     &  \textbf{accuracy [\%]} \\
+        \hline
+        all features      &  Bagged Trees      &  99.45  \\
+        PCA               &  Bagged Trees      &  95.18  \\
+        ANOVA             &  Fine KNN          &  97.52  \\
+        \hline
+    \end{tabular}
+    \caption{All Features vs PCA vs ANOVA perfomance}
+    \label{tab:classification_perfomance}
+\end{table}
+
+Figure \ref{fig:conf_matrix} shows the confusion matrix from the Fine KNN
+classification model by training on data using the ANOVA algorithm.  From
+the confusion matrix, it is clear that combined faults in the dataset were
+not observed much. However, the model can successfully resolve these fault
+conditions too.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{sb_confusion_matrix.png}
+    \caption{Fine KNN trained on ANOVA Dataset Confusion Matrix}
+    \label{fig:conf_matrix}
+\end{figure}
+
+From a practical point of view, in this particular case, the use of the
+ANOVA algorithm allows not only to reduce the number of CIs for prediction
+on the model but also to calculate from the signal, not 25 CIs but only 5. 
+
+Considering this fact, deploy this algorithm on a bigger scale on many
+devices, where the calculation complexity plays a role, using the ANOVA
+algorithm is justified.
+
 \section{Summary All Sensors Comparison}
+\todo[inline]{Rewrite text}
+
+\subsection{Temperature}
+Good results on data. But only because Ambient temperature was changed
+between measurements. In one day it was warm, another colder :)
+\todo[inline]{Text dependence on Ambient temperature}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{sb_temp.png}
+    \caption{Caption}
+    \label{fig:}
+\end{figure}
+
+\subsection{Encoder}
+Good results, useful in simulations and compare results with Digital Twin.
+Can be used in Model-Based CI. 
+Digital twin can generate fault data, that will be applicable with encoder
+sensor.
+
+\subsection{Microphones}
+Cheap, good results, but maybe problems with real life integration (noise
+from another machines). Another problem cannot be modeled in simulation
+system. For predictive purposes require data from real model.
+
+
+\subsection{Accelerometers}
+Not good, not bad. Can be used for classification task. But encoder has
+more accuracy information.
+
+\subsection{Proximity Sensors}
+Cheap. Very correlated features.Can not be used for classification. But suitable
+to detect binary classification (Health, Failed).
+Only statistical features, no Frequency domain.
+
+\subsection{Flow Sensors}
+Very expensive sensors. Not so good results.
+
+\subsection{Air Pressure}
+This sensor always used, to control pressure valve. But not good results.
+Maybe in combination with another sensor.
+
+\subsection{Strain Gauge}
+Expensive, Normal results of classification. But not suitable for
+Simulation Model.
+
+
+\subsection{Conclusion}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{sensors_final_bar.png}
+    \caption{Comparison of sensors from accuracy/cost perspective}
+    \label{fig:sensors_final_bar}
+\end{figure}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|}
+        \hline
+        \textbf{Sensor}   & Acc & Encoder & Flow & Mics & Pressure & Proximity & Strain \\
+        \hline
+        \textbf{Accuracy [\%]} & 91.6 & 96.1 & 97.2 & 95.8 & 76.6 & 80.5 & 95.0 \\
+        \hline
+        \textbf{Cost [czk]} & 2x 3500 & 25000 & 6000 & 3x 500 & 1000 & 2x 1000 & 15000 \\
+        \hline
+    \end{tabular}
+    \caption{Comparison of sensors from accuracy/cost perspective}
+    \label{tab:sensors_final}
+\end{table}
 
 
 
 
-%Dataset was divided to 5 main categories.
-%
-%
-%Data has been accumulated to ".mat" files.
-%Each file contains signals from sensors during 10 seconds measurements with
-%different pneumatic actuator configuration. Example results from one
-%experiment are represented in figures \ref{fig:data_exmp1},
-%\ref{fig:data_exmp2}. 
-%
-%
-%\section{Data management}
-%Before the final solution was developed in the whole dataset, the smaller
-%reduced dataset was used for experiments and planning algorithms. 
-%
-%\paragraph{Data Ensembles}
-%Data files have been reshaped to Data Ensembles format used for Condition
-%monitoring purposes. This format allows processing data without copying the
-%whole dataset to memory at once but processes them one by one. In large datasets
-%it gives an option to manipulate with data without problems with allocated memory.
-%
-%Divided to 3 datasets:
-%\begin{itemize}
-%    \item Train data
-%    \item Validation data
-%    \item Test data
-%\end{itemize}
-%
-%\section{Preprocessing}
-%Measured signals require preprocessing concerning the preservation of the information
-%base. For smoothing data Moving Average function were used.
-%As an example, the figure \ref{fig:preprocess} is shown the "raw" and filtered signals.
-%The whole dataset of preprocessed data is relatively big. For
-%time-saving, parallel computing was used for all computationally
-%demanding parts of the code.
-%
-%
-%
-%\section{FDI methods}
-%
-%\subsection{Line checking}
-%
-%We can use Proximity sensor time delay between input signal and upper
-%proximity sensor signal to evaluate if there is some fault.
-%
-%Same with Position, if not reach some end position, there is a fault.
-%
-%Flow sensor, check if the float mean value is under some threshold, there
-%is fault.
-%
-%
-%\section{Condition Indicators extraction}
-%
-%For classification task purpose from the signals have been extracted
-%statistical features such as mean, median, peak to peak value, etc.
-%As a condition "FaultCode" variable
-%were used. This variable represent configuration of pneumatic actuator
-%during the measurement.
-%
-%All calculated features were added to the dataset and were ranked by
-%Kruskal-Wallis ANOVA algorithm. Following table \ref{tab:feat} contain
-%5 first best features ranked for classification purpose.
-%
-%Kruskal-Wallis is very suitable to ranking features before using PCA or
-%SVD.
-%
-%\paragraph{Selecting Condition Indicators} There is a problem if we will
-%deploy classification task with large features dataset.
-%There are different possibilities to reduce data before train
-%classification model or do a prediction. On of them is to rank a features
-%by Analysis of Variation algorithm to evaluate a good representation
-%features.
-%
-%
-%% PCA vs Sort features(Anova) 
-%
-%
-%\subsection{Microphones}
-%Cheap, good results, but maybe problems with real life integration (noise
-%from another machines). Another problem cannot be modeled in simulation
-%system. For predictive purposes require data from real model.
-%
-%\subsection{Encoder}
-%Good results, useful in simulations and compare results with Digital Twin.
-%Can be used in Model-Based CI. 
-%Digital twin can generate fault data, that will be applicable with encoder
-%sensor.
-%
-%\subsection{Acceleration sensors}
-%Not good, not bad. Can be used for classification task. But encoder has
-%more accuracy information.
-%
-%\subsection{Proximity Sensors}
-%Cheap. Very correlated features.Can not be used for classification. But suitable
-%to detect binary classification (Health, Failed).
-%Only statistical features, no Frequency domain.
-%
-%\subsection{Flow Sensors}
-%Very expensive sensors. Not so good results.
-%
-%\subsection{Air Pressure}
-%This sensor always used, to control pressure valve. But not good results.
-%Maybe in combination with another sensor.
-%
-%\subsection{Strain Gauge}
-%Expensive, Normal results of classification. But not suitable for
-%Simulation Model.
-%
-%\subsection{Temperature}
-%Good results on data. But only because Ambient temperature was changed
-%between measurements. In one day it was warm, another colder :)
-%
-%
-%\section{Classification Task}
-%
-%The main goal of the classification task is to train a model that can
-%predict the "FaultCode", or "Label" signalized about pneumatic actuator behavior by
-%calculated features.
-%
-%Using Kuskal-Wallis one way analysis of variance, features were ranked by
-%importance with respect to correlation. This gives opportunity to reduce
-%number of features before PCA analysis.
-%
-%Principal component analysis (PCA) has been used to reduce the number of
-%features and chose the best representants.
-%
-%The trained model has been exported to \textbf{models/} directory.
-%
+\todo[inline]{Conclusion text, good performance}
+

@@ -5,7 +5,7 @@
 % \___\___/|_| |_| |_| .__/ \__,_|_|  \___|
 %                    |_|                   
 % -------------------------------------------------------
-\chapter{Models comparison}
+\chapter{Models Comparison}
 
 As mentioned earlier \ref{sec:digital_twin}, the simulation model can be used in several
 situations.  Models of the normal condition can simulate system output to a
@@ -26,6 +26,11 @@ the actual model, the difficulty of deploying the model, the behavior under
 normal conditions and the possibility of simulating abnormal "What-If"
 situations.
 
+The speed of the simulation or calculation complexity performs a more
+prominent role in the model's design, especially during the estimation of
+the parameters, where the simulations are performed hundreds of times in a
+row.
+
 \begin{table}[h]
     \centering
     \begin{tabular}{|c|c|c|c|c|}
@@ -42,6 +47,7 @@ NARX           & fast          & high             & yes                  & - \\
     \label{tab:models_compare}
 \end{table}
     
+\todo[inline]{Text}
 
 %\section{First Principle Model}
 %This model \ref{fig:model_equations} was developed with respect to equations

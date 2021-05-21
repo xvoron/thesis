@@ -568,12 +568,37 @@ $D$.
 %|___/\___|_| |_|___/\___/|_|  |___/
 % -------------------------------------------------------
 \section{Sensors Modeling}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\textwidth]{fpm_signals_modeling.pdf}
+    \caption{Sensors Modeling Diagram}
+    \label{fig:sig_mod_diag}
+\end{figure}
+
+
 Modeling sensors include converting the measured physical signals to an
 analog or digital signal, adding noise and offset parameters to have an
 option to model faults conditions, and after converting back to the
-sensor's measured units. 
+sensor's measured units \ref{fig:sig_mod_diag}. 
 
-\todo[inline]{All sensors add}
+\paragraph{Flow sensors}
+Flow sensors are a typical representative of a comfortable sensor to
+implement by converting the units used in the model $\rm [kg/s]$ into a voltage
+$\rm [V]$ concerning the datasheet. Then added measurement noise and the
+possibility to add offset for further experiments and finally, converting
+back to physical quantity with respect to the sensor measuring in $\rm
+[l/min]$.
+
+\paragraph{Strain Gauge}
+Strain Gauge was modeled similarly as a flow sensor with the possibility of
+experimentation with the magnitude of noise and offset.
+
+\paragraph{Accelerometer}
+The accelerometer attached to the moving part of the system was modeled
+using a transfer function concerning the datasheet and estimated magnitude
+of the measurement noise. It's also the ability to add optionally offset or
+off the sensor itself.
+
 \paragraph{Proximity sensors} In the case of digital signals such as
 proximity sensors, it is sufficient to control the boundaries at which the
 sensor is switched on.
@@ -588,13 +613,22 @@ encoder requires a minimum sample time in the range of $\rm \mu s$. Due to
 this fact model of the encoder was embedded, but the output is taken
 directly from the model.
 
+\paragraph{Not implemented}
+
+Sensors that are difficult to implement or have not been included in the
+model have not been implemented. These sensors include microphones, a
+static accelerometer mounted on a construction pad, an air pressure sensor
+because the air reservoir was not modeled in this work, temperature
+sensors.
+
 % -------------------------------------------------------
 %(_) __| | ___ _ __ | |_ 
 %| |/ _` |/ _ \ '_ \| __|
 %| | (_| |  __/ | | | |_ 
 %|_|\__,_|\___|_| |_|\__|
 % -------------------------------------------------------
-\section{Parameter identification}
+\section{Parameter Estimation}
+
 To achieve closer behavior to the real system, it is necessary to determine
 all the parameters of the model.  There are parameters given as physical
 constants, or they can be directly measured or determined in the datasheet.
@@ -619,7 +653,7 @@ Solenoid valve spool dynamic was estimated with respect to equation
 \ref{eq:spool_dynamic}
 in different displacement measurements. 
 
-Pneumatic piston parameters were taken from the dataset, and the remaining
+Pneumatic piston parameters were taken from the datasheet, and the remaining
 such as dead volumes $V_{0A}$ and $V_{0B}$ estimated approximately.
 
 Hard stop endpoints were determined from the construction design of a
@@ -631,39 +665,64 @@ Adjustment dampers were estimated from displacement measurement as $b_b$,
 $b_u$ parameters. The bounding range was directly measured from the
 displacement measurements.
 
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{parameter} & \textbf{description}  \\
+        \hline
+        $C_{A,in}$      & valve coefficient connected to input path to  A chamber \\
+        $C_{A,output}$  & valve coefficient connected to output path from A chamber \\
+        $C_{B,in}$      & valve coefficient connected to input path to  B chamber \\
+        $C_{B,output}$  & valve coefficient connected to output path from B chamber \\
+        $b_{up}$        & upper damper value  \\
+        $b_{bot}$       & bottom damper value \\
+        \hline
+    \end{tabular}
+    \caption{Parameters to reestimate for different fault conditions}
+    \label{tab:est_params}
+\end{table}
+
 \section{Model performance}
 
-\todo[inline]{Text}
-\begin{figure}[ptbh!]
+\begin{figure}[h!]
     \centering
     \includegraphics[width=1\textwidth]{fpm_model.png}
     \caption{First Principle model implementation in Simulink}
     \label{fig:fpm_simulink}
 \end{figure}
 
-\todo[inline]{Text}
+The model was implemented using the Matlab/Simulink software using basic
+Simulink operations and the Matlab-Function block. The model shows good
+numerical stability and allows to perform simulations with a fix step
+solver with a sampling time of $1\cdot 10^{-3} \rm\ s$. Which significantly speeds up the
+simulations and the process of parameter estimation. Figure
+\ref{fig:fpm_simulink} shows
+the central part of the model in the Simulink environment.
 
-\begin{figure}[h!]
+
+The resulting behavior of the system after parameter estimation on health
+conditions data is shown in Figure \ref{fig:fpm_perfomance}. However, it is
+possible to reestimate the basic parameters \ref{tab:est_params} and thus
+realize the behavior of the system closer to the fault state.
+
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=1\textwidth]{fpm_perfomance.png}
-    \caption{Caption}
-    \label{fig:}
+    \caption{Comparison between measurement and model response}
+    \label{fig:fpm_perfomance}
 \end{figure}
 
 
-\todo[inline]{Text}
-\newpage
+Figure \ref{fig:fpm_fault_example} shows the simulation system
+response with different estimated parameters for the fault states caused by
+the Throttle valve 2. In the case of position, the measured and simulation
+signals practically overlap.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=1\textwidth]{fpm_fault_example.png}
-    \caption{Caption}
-    \label{fig:}
+    \caption{Simulation model performance in different fault conditions}
+    \label{fig:fpm_fault_example}
 \end{figure}
-
-
-
-\todo[inline]{Text}
-
-
 

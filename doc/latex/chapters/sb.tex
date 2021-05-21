@@ -14,18 +14,25 @@
 % ----------------------------------------------------------------------------- 
 
 \chapter{Signal-Based PdM}
-Signal-based predictive maintenance.
+This chapter introduces the signal-based method applied to a measured
+dataset.  The whole solution procedure will be presented on the example of
+the development solution on the flow sensor \ref{sec:flow_example}.  Most
+of the methods used in this chapter are closely related between FDI and PdM
+approaches. These methods work directly with the measured signal by
+extracting condition indicators and training the classification model. It
+is possible to do fault detection and classification using this model.
 
-\todo[inline]{Text about signal-based PdM}
 
-
-\section{FDI methods}
-\todo[inline]{More examples, rewrite}
-We can use Proximity sensor time delay between input signal and upper
-proximity sensor signal to evaluate if there is some fault.
-Same with Position, if not reach some end position, there is a fault.
-Flow sensor, check if the float mean value is under some threshold, there
-is fault.
+\section{FDI methods}\label{sec:easy_fdi}
+There are simple solutions that offer themselves. For example, the
+proximity sensor can be used to monitoring whether the actuator has reached
+the position in the expected interval or not. Based on these data, it can
+be concluded whether the device performs its function or a fault has
+occurred.  Similarly, we can monitor the flow course, and if this course
+exceeds any given threshold, then a fault has occurred.  Using more complex
+methods, we can not only show the occurrence of faults but also classify
+the cause. The implementation of these algorithms will be further discussed
+in this chapter.
 
 \section{Data Management and Preprocessing}
 Before the final solution was developed in the whole dataset, the smaller
@@ -97,7 +104,7 @@ out that non preprocessed signals have better performance. For example, the
 preprocessed pressure classification model gives 78 \% accuracy; model
 trained on CI from the raw pressure signal offers approximately 82 \%.
 
-\section{SB Methods and Flow Sensor as an Example}
+\section{SB Methods and Flow Sensor as an Example}\label{sec:flow_example}
 In this section, signal-based methods were applying to the flow sensor as a
 case study example.  The rest of the sensors was processed in the same way;
 however, each required an individual approach.
@@ -196,11 +203,11 @@ dataset.
         \centering
     \begin{tabular} {|c|c|c|} \hline
           & Features & Kruskal-Wallis \\ \hline
-        1 & "FlowContraction\_ps\_spec/PeakAmp1" & 1.4815e+03 \\ \hline
-        2 & "FlowContraction\_stats/CrestFactor" & 967.6028 \\ \hline
-        3 & "FlowContraction\_ps\_spec/PeakAmp3" & 865.7571 \\ \hline
-        4 & "FlowContraction\_stats/Mean" & 567.6620 \\ \hline
-        5 & "FlowContraction\_ps\_spec/PeakAmp4" & 460.0924 \\ \hline
+        1 & FlowContraction\_ps\_spec/PeakAmp1 & 1.4815e+03 \\ \hline
+        2 & FlowContraction\_stats/CrestFactor & 967.6028 \\ \hline
+        3 & FlowContraction\_ps\_spec/PeakAmp3 & 865.7571 \\ \hline
+        4 & FlowContraction\_stats/Mean        & 567.6620 \\ \hline
+        5 & FlowContraction\_ps\_spec/PeakAmp4 & 460.0924 \\ \hline
     \end{tabular}
     \caption{First Five Ranked Condition Indicators using ANOVA}
     \label{tab:sorted_ci}
@@ -283,62 +290,21 @@ Considering this fact, deploy this algorithm on a bigger scale on many
 devices, where the calculation complexity plays a role, using the ANOVA
 algorithm is justified.
 
-\section{Summary All Sensors Comparison}
-\todo[inline]{Rewrite text}
+\newpage
+\section{Summary All Sensors Comparison}\label{sec:sensors_summary}
 
-\subsection{Temperature}
-Good results on data. But only because Ambient temperature was changed
-between measurements. In one day it was warm, another colder :)
-\todo[inline]{Text dependence on Ambient temperature}
+Surprisingly, all sensors showed satisfactory results on the measured
+dataset.  Processing the entire dataset is a very demanding operation in
+terms of calculation. Therefore, only the final solutions were added to the
+attachments. The results for all sensors can be verifying by running
+matlab-live-script \textit{sb/signal\_based\_live.mlx}.
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=1\textwidth]{sb_temp.png}
-    \caption{Caption}
-    \label{fig:}
-\end{figure}
-
-\subsection{Encoder}
-Good results, useful in simulations and compare results with Digital Twin.
-Can be used in Model-Based CI. 
-Digital twin can generate fault data, that will be applicable with encoder
-sensor.
-
-\subsection{Microphones}
-Cheap, good results, but maybe problems with real life integration (noise
-from another machines). Another problem cannot be modeled in simulation
-system. For predictive purposes require data from real model.
+Table \ref{tab:sensors_final} compares all the sensors used in terms of the
+accuracy achieved on the test datasets and the approximate prices of the
+sensor itself taken from open sources.  Graph \ref{fig:sensors_final_bar}
+visualizes these data. Here are some notes on each of the sensors. 
 
 
-\subsection{Accelerometers}
-Not good, not bad. Can be used for classification task. But encoder has
-more accuracy information.
-
-\subsection{Proximity Sensors}
-Cheap. Very correlated features.Can not be used for classification. But suitable
-to detect binary classification (Health, Failed).
-Only statistical features, no Frequency domain.
-
-\subsection{Flow Sensors}
-Very expensive sensors. Not so good results.
-
-\subsection{Air Pressure}
-This sensor always used, to control pressure valve. But not good results.
-Maybe in combination with another sensor.
-
-\subsection{Strain Gauge}
-Expensive, Normal results of classification. But not suitable for
-Simulation Model.
-
-
-\subsection{Conclusion}
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=1\textwidth]{sensors_final_bar.png}
-    \caption{Comparison of sensors from accuracy/cost perspective}
-    \label{fig:sensors_final_bar}
-\end{figure}
 
 \begin{table}[h]
     \centering
@@ -355,8 +321,74 @@ Simulation Model.
     \label{tab:sensors_final}
 \end{table}
 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{sensors_final_bar.png}
+    \caption{Comparison of sensors from accuracy/cost perspective}
+    \label{fig:sensors_final_bar}
+\end{figure}
+
+\subsection{Temperature sensor}
+Temperature sensors do only one measurement during the experiment.  These
+values can be represented as condition indicators without any
+manipulations. Plotting data from the dataset \ref{fig:temp_scatter} shows
+that they correlated to an ambient temperature that is different in various
+measurement days. These data are sensitive to ambient conditions and
+measured data, not representative. The classification model trained on this
+data not robust in real life.
 
 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{sb_temp.png}
+    \caption{Scatter plot of temperature measured data}
+    \label{fig:temp_scatter}
+\end{figure}
 
-\todo[inline]{Conclusion text, good performance}
+\subsection{Encoder}
+A linear magnetic encoder is a perfect development sensor-tool for
+understanding system behavior and algorithm design. Up to three signals,
+displacement, speed, acceleration, can be available from one sensor. The
+trained classification model shows perfect results. From a practical point
+of view, the financial cost of purchasing, installing, and maintaining the
+sensor is unsuitable compared to cheaper sensors with similar prediction
+accuracy.
 
+\subsection{Microphones}
+Cheap, good results, but maybe problems with real life integration (noise
+from another machines). Another problem cannot be modeled in simulation
+system. For predictive purposes require data from real model.
+
+
+\subsection{Accelerometers}
+There are two accelerometer sensors. Each sensor contains two signals on
+the x, y-axis.  One sensor is placed on the movable part of the stand
+device; the second is on the statical part without movement and measure
+only vibrations. Sensors show good accuracy; choosing one of the two
+accelerometers, the static one, is preferable.
+
+\subsection{Proximity Sensors}
+As mentioned before, proximity sensors can be used for simple inspection
+purposes \ref{sec:easy_fdi}. Proximity sensors are digital and provide only
+statistical condition indicators; from statistical CI offers valuable
+information, only a few CI's due to signal shape.
+
+\subsection{Flow Sensors}
+Flow sensors achieve the best results. It is possible to achieve \approx 97
+\% accuracy using only one sensor. If the practical application requires
+maximum accuracy, the flow sensor is the best candidate. Nothing less in
+terms of price is an expensive sensor.
+
+\subsection{Air Pressure}
+The pressure sensor measures the pressure in the reservoir. Data from this
+sensor is not fully informative for the possibilities of predicting and
+identifying a fault condition. This sensor showed low accuracy compared to
+the others. From an economic view, combining a pressure sensor with another
+sensor does not make sense due to existing sensors such as microphones that
+are better from an accuracy/cost perspective.
+
+\subsection{Strain Gauge}
+Strain Gauge showed excellent results, but in general, it is similar to an
+encoder because it is an expensive sensor that requires maintenance.  From
+a practical point of view, there are better candidates for industrial
+applications.

@@ -9,13 +9,27 @@
 % Brno, 2021
 
 
-\chapter{PdM using a Simulation Model}
+\chapter{PdM using a Simulation Model}\label{ch:mb}
+This chapter deals with model-based methods and the possibilities of using
+a simulation model to design and develop a PdM algorithm.  Section
+\ref{sec:diffs_mb_dt} presents the difference between model-based PdM and
+PdM using the simulation model as a digital twin.  A demonstration of the
+possibility of generating sensor fault conditions is demonstrated in
+section \ref{sec:sensor_fault_generation}.  Using identified
+Hammerstein-Weiner model to extract condition indicators in the form of a
+dynamic system parameter shown in section \ref{sec:mb_hw_demo}.  In section
+\ref{sec:residuals}, the simulation model is used as a nominal, and
+residual estimation is performed with the following training of the
+classification model.  The left sections \ref{sec:mb_rul} deal with the use
+of a simulation model to generate degradation data. And the use of a newly
+generated dataset to estimate the remaining useful life.
 
-\section{Differences between Model-Based PdM and PdM using Digital Twin}
+
+\section{Differences between Model-Based PdM and PdM using Digital Twin}\label{sec:diffs_mb_dt}
 There is a difference between using Model-Based PdM and using Simulation
 Model as a Digital Twin.
 
-\section{Using Digital Twin to Generate Fault Data}
+\section{Using Digital Twin to Generate Fault Data}\label{sec:sensor_fault_generation}
 We can use Digital Twin to model situations that were not captured in the
 original dataset or if it is hard to model some cases with real-world
 hardware. As an example, we can model sensors fault such as sensor drift or
@@ -67,9 +81,8 @@ State-Space or AR, ARX, NLARX (Nonlinear auto recursive model) and so on.
 Then condition indicators can be extracted as poles, zeros damping
 coefficients from estimated model.
 
-
-\subsection{Using Hammerstain-Weiner Model}
-Demo using Hammerstain-Wiener Model. Fit model to position signal and
+\subsection{Using Hammerstein-Wiener Model}\label{sec:mb_hw_demo}
+Demo using Hammerstein-Wiener Model. Fit model to position signal and
 extract coefficients from model as Condition indicators. Classification.
 
 \begin{figure}[h!]
@@ -135,7 +148,7 @@ in form $r(t)=\Phi(u_t,y_t, \varepsilon_t,v_t,d)$ and after some decision.
 
 
 
-\section{Using Digital Twin to Generate Prognostic Data}
+\section{Using Digital Twin to Generate Prognostic Data}\label{sec:mb_rul}
 Another option is to use Digital Twin to generate a system degradation
 process. We can evaluate CI from sensor signal by changing a system's
 mechanical properties as friction or mass flow leakage.  Another advantage

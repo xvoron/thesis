@@ -25,8 +25,6 @@
 %   2. SimScape parameters
 %   3. Parameters to identify
 %   4. Sensors:
-%       4.1 Flow Sensor
-%
 %   5. Input signals
 %
 % Parameters style sheet:
@@ -312,7 +310,9 @@ prox_bot_band    = 4e-4;         % [-] [m] Bottom position
 % 4.3 Accelerometer sensors
 acc_enable = 1;         % [-]       [f] Flag enable/disable
 acc_C = -1/g;           % [s^2/m]   [c] Acc coefficient
-acc_noise_var = 1e-1;   % [-]       [e] Noise variance
+acc_noise_var = 1e-2;   % [-]       [e] Noise variance
+acc_bm = 1e-2;
+acc_km = 1e-1;
 
 % 4.4 Strain Gauge
 sg_enable = 1;         % [-]   [f] Flag enable/disable

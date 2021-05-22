@@ -1,4 +1,4 @@
-\chapter{Alternative modeling techniques}
+\chapter{Alternative Modeling Techniques}\label{ch:alt_model}
 
 This chapter deals with other possibilities of modeling the technical
 system, particularly the double-acting pneumatic piston. Physical modeling
@@ -11,7 +11,8 @@ the structure of the different physical domains. In this type of software,
 it is possible to combine different domains to create a complex system
 model.
 
-Matlab/Simulink provides a physical modeling library, Simscape, that meets
+Matlab/Simulink provides a physical modeling library, Simscape
+\cite{simscape}, that meets
 the above specifications. Using Simscape software, the user combines a
 model from different blocks representing different physical functions
 (spring, resistance, hydraulic valve), and connection links represent some
@@ -25,7 +26,7 @@ In this part, the same assumption applies as in section \ref{assumptions}. All t
 processes take place adiabatically, i.e., without heat exchange with the
 environment. 
 
-The resulting model was compiled using gas and mechanical domains \ref{simscape}.
+The resulting model was compiled using gas and mechanical domains \ref{fig:simscape}.
 
 \begin{figure}[h!]
     \centering
@@ -46,7 +47,7 @@ valve block.
 
 Providing simplification and reduce the model to the only control valve,
 there are still a few parameters that are not available such as valve and
-dampers coefficients mentioned before \ref{}.
+dampers coefficients mentioned before.
 
 The main problem is the computational complexity of the model compared with
 the first principle model. During the parameter estimation, the first
@@ -54,21 +55,21 @@ principle model is much faster than the Simscape model and gives an option
 to experiment with different fault states analysis. 
 
 However, both models showed quite close behavior during testing with the
-same parameters; results shown in figure \ref{}.
-
+same parameters.
 
 \section{Data-Driven Models}
 Data-Driven modeling explores collected measured signals to identify the
-system structure or learn the system behavior from data.
+system structure or learn the system behavior from data \cite{ident}.
 
 Between data-driven common models belongs parametric and non-parametric
 models. Parametric models take part in the system identification field. A
 collection of different generalized mathematical models can be fitted to
 the input-output signals pair, such as transfer functions, polynomial
-models, non-linear ARX models, etc.  A typical representative of
+models, non-linear ARX models, etc.   A typical representative of
 non-parametric models are neural networks of various structures.  In this
 thesis, experiments on test datasets were performed with both types of
 models. 
+
 \subsection{Hammerstein-Wiener Model}
 
 \begin{figure}[h!]
@@ -84,7 +85,6 @@ Toolbox, shown Hammerstein-Wiener Model. The model consists of three blocks
 nonlinearity.  The nonlinearities are represented by different functions
 such as dead-zone, polynomial estimator, saturation, wavelet network
 function, etc. 
-
 
 \begin{figure}[h!]
     \centering
@@ -113,7 +113,7 @@ the simplified models cannot take into account.
 
 Different structures can be used to train the neural network to predict
 system behavior. The most common way is using the nonlinear autoregressive
-with the external input model (NARX). This model predicts time-series data
+with the external input model (NARX) \cite{ident}. This model predicts time-series data
 by using different numbers of time-delayed values of input and output
 signals \ref{fig:ann}.
 
@@ -131,6 +131,3 @@ and its generalization capabilities.
 
 Some experiments have been performed with this modeling approach. The
 Neural Network can predict the behavior of the system based on input.
-
-\subsection{Limitations}
-\todo[inline]{Text about only normal behavior}

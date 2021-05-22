@@ -13,7 +13,7 @@
 
 % ----------------------------------------------------------------------------- 
 
-\chapter{Signal-Based PdM}
+\chapter{Signal-Based PdM}\label{ch:sb}
 This chapter introduces the signal-based method applied to a measured
 dataset.  The whole solution procedure will be presented on the example of
 the development solution on the flow sensor \ref{sec:flow_example}.  Most
@@ -29,10 +29,10 @@ proximity sensor can be used to monitoring whether the actuator has reached
 the position in the expected interval or not. Based on these data, it can
 be concluded whether the device performs its function or a fault has
 occurred.  Similarly, we can monitor the flow course, and if this course
-exceeds any given threshold, then a fault has occurred.  Using more complex
-methods, we can not only show the occurrence of faults but also classify
-the cause. The implementation of these algorithms will be further discussed
-in this chapter.
+exceeds any given threshold, then a fault has occurred \cite{isermann_fdi}.
+Using more complex methods, we can not only show the occurrence of faults
+but also classify the cause. The implementation of these algorithms will be
+further discussed in this chapter.
 
 \section{Data Management and Preprocessing}
 Before the final solution was developed in the whole dataset, the smaller
@@ -44,13 +44,13 @@ dataset was used for experiments and planning algorithms.
 First, a folder structure was created to collect all measured and
 calculated data. The measured signals were given in 6 large files with a
 ".mat" extension and divided into smaller files with only one measurement
-each.  Data files have been reshaped to Data Ensembles \cite{} format used
-for Condition monitoring purposes. This format allows processing data
-without copying the whole dataset to memory at once but processes them one
-by one. In large datasets it gives an option to manipulate with data
-without problems with allocated memory.  The full dataset contains 4840
-measurements. Each measurement includes a 10-second recording of all
-signals collected from moving the piston up and down.
+each.  Data files have been reshaped to Data Ensembles \cite{data_ensemble}
+format used for Condition monitoring purposes. This format allows
+processing data without copying the whole dataset to memory at once but
+processes them one by one. In large datasets it gives an option to
+manipulate with data without problems with allocated memory.  The full
+dataset contains 4840 measurements. Each measurement includes a 10-second
+recording of all signals collected from moving the piston up and down.
 
 \paragraph{Labels}
 The whole dataset was divided into 20 Labels by place of fault accumulate: 
@@ -77,23 +77,12 @@ an example of the flow signal in different operation conditions.
 \end{figure}
 
 
-%There are eight types of sensors:
-%\begin{enumerate}
-%    \item Linear encoder
-%    \item Flow sensor
-%    \item Pressure sensor
-%    \item Temperature sensor
-%    \item Accelerometer
-%    \item Strain gauge
-%    \item Microphones
-%    \item Proximity sensors
-%\end{enumerate}
-
 \subsection{Preprocessing}
 
 After the data has been processed and organized in one datastore, the
 possibility arises to perform signal preprocessing.  Preprocessing includes
-smoothing, filtering, detrend the signal, and missing value removal.
+smoothing, filtering, detrend the signal, and missing value removal
+\cite{matlab_full}.
 
 The datastore contains some signals, such as an encoder, that is very
 accurate. There is no preprocessing needed to apply. Signals noisier
@@ -111,7 +100,7 @@ however, each required an individual approach.
 
 \subsection{Flow Sensor Data}
 There are two flow signals in the datastore. Both are connected to port A
-in scheme \ref{}. Signals were sampled in 1kHz frequency; thus, in 10
+in scheme \ref{fig:device}. Signals were sampled in 1kHz frequency; thus, in 10
 seconds, there are 10000 points measured. 
 
 \begin{itemize}
@@ -130,7 +119,7 @@ seconds, there are 10000 points measured.
 
 One of the reasons to use Matlab Data Ensemble format to manage the data
 instead of others is to use the Diagnostic Feature Designer App
-\ref{fig:dfd_app}.
+(fig. \ref{fig:dfd_app}) \cite{dfd_app}.
 This app provides an intuitive environment for extracting both statistical
 condition indicators and power spectral density calculations with the
 following extraction of frequency condition indicators. It is also possible
@@ -138,7 +127,8 @@ to generate Matlab functions to deploy the algorithms on a bigger scale.
 
 \paragraph{Statistical Condition Indicators}
 
-For every flow signal in the dataset, statistical condition indicators were calculated: 
+For every flow signal in the dataset, statistical condition indicators were
+calculated \cite{matlab_intro}: 
 \begin{itemize}
     \item Mean
     \item Standard deviation
@@ -163,7 +153,7 @@ For every flow signal in the dataset, statistical condition indicators were calc
 
 
 Using Welch's power spectral density estimation \ref{fig:flow_sp}, frequency CI were
-calculated: 
+calculated \cite{matlab_full}: 
 
 \begin{itemize}
 \item First five peaks amplitude
@@ -191,7 +181,7 @@ The table of calculated condition indicators contains 25 statistical and
 frequency CI. To train a classification model, it is good practice to
 reduce the number of features or transform them with PCA algorithm and use
 only first $n$ principal components, to remove linearly dependent condition
-indicators.  According to section \ref{} Analysis of Variance (ANOVA),
+indicators.  According to section \ref{ch:teor_surv} Analysis of Variance (ANOVA),
 specifically in our case Kruskal – Wallis one-way ANOVA algorithm was used. 
 
 
@@ -235,6 +225,7 @@ behavior by calculated condition indicators.
 There are many classification models, but it is best to try different
 variants and be satisfied with the best result from a practical point of
 view.  The Classification Learner App from the Machine Learning Toolbox
+\cite{ml}
 tool can be used for experiments and iterative tuning of different
 condition indicators and classification models. It is possible to try
 several models, apply the PCA algorithm, interactively draw Scatter plot

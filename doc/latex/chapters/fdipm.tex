@@ -31,7 +31,7 @@ machinery from damage that causes loss of money due to non-working or
 destroyed equipment.  Predicting where the fault appears reduces the cost
 of diagnosis and replacement operations. The possibility of estimating the
 remaining useful life allows to optimize a maintenance process and reduce
-maintenance costs.
+maintenance costs \cite{lit_survey}.
 
 
 Smart manufacturing, the combination of sensors, the possibility of
@@ -40,11 +40,10 @@ decision algorithms based on this information, allows increasing production
 efficiency and significantly reducing maintenance operations.
 
 
-
 \paragraph{Types of Maintenance} There are three main types of maintenances
-\ref{fig:maintenance}. Each following type of maintenance requires
+(fig. \ref{fig:maintenance}). Each following type of maintenance requires
 increasing complexity of monitoring
-and decision algorithms:
+and decision algorithms \cite{matlab_intro}:
 
 \begin{itemize}
     \item Reactive maintenance, where maintenance coming after the life of
@@ -59,7 +58,8 @@ and decision algorithms:
 \begin{figure}[h!]
     \centering
     \includegraphics[width=1.1\textwidth]{maintenance.png}
-    \caption{Reactive, preventive and predictive types of maintenance}
+    \caption{Reactive, preventive and predictive types of maintenance
+    \cite{matlab_intro}}
     \label{fig:maintenance}
 \end{figure}
 
@@ -80,7 +80,8 @@ There may also be a malfunction after which the system returns to normal
 operation. 
 
 Faults can be classified by the location where they appear, by a fault
-form, or based on the form in which the fault is added to the system.
+form, or based on the form in which the fault is added to the system
+\cite{lit_survey}.
 
 
 % -----------------------------------------------------------------------------
@@ -91,7 +92,7 @@ form, or based on the form in which the fault is added to the system.
 
 Fault Detection and Analysis, FDA (Fault Detection and Isolation, FDI) is a
 subfield of control engineering focused on detecting the fault and
-identifying where this fault is located. 
+identifying where this fault is located \cite{fdi_cern2}. 
 The main goals of FDI are
 \begin{itemize}
     \item Fault detection, detect anomalies in real-time
@@ -128,7 +129,7 @@ suitable when it is difficult to gain useful information using only
 measured signals. If the system structure is known, it is possible to
 extract features such as state variables or some system parameters.
 Another option is to compare real system behavior with nominal healthy
-model and use residuals as inputs to decision algorithms.
+model and use residuals as inputs to decision algorithms \cite{matlab_full}.
 Typical model-based techniques include
 
 \begin{itemize}
@@ -157,14 +158,14 @@ processed using fault tolerance and predictive maintenance algorithms.
 
 \textbf{Fault Tolerance}: Provide the system with the hardware architecture
 and software mechanisms that will allow, if possible, to achieve a given
-objective in normal operation and given fault situations.
+objective in normal operation and given fault situations \cite{fdi_cern2}.
 
 % -----------------------------------------------------------------------------
 % 
 % -----------------------------------------------------------------------------
 
 
-\section{Predictive maintenance (PdM)}
+\section{Predictive Maintenance (PdM)}
 \textbf{Predictive maintenance (PdM)} is cost-effective maintenance strategy that
 predicts time to failure and warns of an anticipated location where this
 could occur.
@@ -174,7 +175,8 @@ There are two main goals of predictive maintenance,  remaining useful life
 (RUL) estimation and identification where the future failure can appear or
 what is the reason for decreasing RUL.  As a result of PdM is RUL
 representing the number of cycles, days or time before the fault occurred.
-And the probability of when or where this fault can appear. 
+And the probability of when or where this fault can appear
+\cite{matlab_full}. 
 
 \subsection{Overview of the PdM development workflow}
 
@@ -216,7 +218,7 @@ represent some system behavior and hide information about system operation
 conditions.  Generally, CI is represented by three main domains. There is a
 time domain, frequency domain, time-frequency domain. But in fact, CI can
 be any system parameter or value corresponding with the system's current
-condition.
+condition \cite{matlab_full}.
 
 The methods of extracting condition indicators from the signal are defined
 in the same way as in FDI \ref{sec:fda}. 
@@ -265,7 +267,7 @@ of their mean values. The result gives information about how much
 particular CI represents data. Using the first n CI, we reduce the number
 of CI and reduce the number of extracted features from measured signals.
 This fact means that using ANOVA reduced the time and complexity of
-calculations.
+calculations \cite{matlab_full}.
 
 \subsection{Fault Classification}
 Classification models are used to recognize faults from a set of CI. The
@@ -298,7 +300,7 @@ PdM.
 The problem of estimating the remaining useful life is connected with
 evaluating condition indicators associated with the system's degradation
 process. These condition indicators must satisfy the requirements for
-monotonicity, trendability, and prognosability.
+monotonicity, trendability, and prognosability \cite{matlab_full}.
 
 The models used to estimate the remaining useful life depend on the
 historical data which are available. There are three types of possible
@@ -321,8 +323,7 @@ systems, including failure, the similarity model can be used. The upcoming
 CI is compared with historical degradation paths obtained from the training
 dataset and the best similarity trend is evaluated as RUL value.
 
-\section{Digital twin}\label{sec:digital_twin}
-% https://explore.mathworks.com/digital-twins-for-predictive-maintenance
+\section{Digital Twin}\label{sec:digital_twin}
 A digital twin is a digital representation of the real-life system. It can
 be represented as a component, a system of components, or as a system of
 systems. 
@@ -336,7 +337,7 @@ in different conditions, designing control and simulating future behavior
 (RUL, "What-if"). The dataset extended by data from the simulation model
 represents synthetic dataset. This dataset type can contain different
 measured fault and healthy data of the system and hard to realizable in
-real-world fault situations. 
+real-world fault situations \cite{digit_twin}. 
 
 A mathematical model of the real-world system can be created using
 different approaches. 
@@ -375,8 +376,9 @@ but also to the possible prediction of a fault in the near future.
 
 The most significant interest in PdM is the manufacturing sector that
 requires efficiency maintenance strategies to increase productivity and
-reduce money-lost. The PdM is used in the field that is highly dependent on
-safety types of machinery such as aircraft or rail industry. Using the PdM
-condition monitoring, it is possible to prevent unexpected fails. The oil
-and gas industry supports the PdM field; due to the amount of data
-collected in these industries, the PdM techniques are beneficial.
+reduce money-lost \cite{state_of_art_pdm}. The PdM is used in the field
+that is highly dependent on safety types of machinery such as aircraft or
+rail industry. Using the PdM condition monitoring, it is possible to
+prevent unexpected fails. The oil and gas industry supports the PdM field;
+due to the amount of data collected in these industries, the PdM techniques
+are beneficial.

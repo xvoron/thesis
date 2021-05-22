@@ -49,7 +49,7 @@ algoritmus.
 
 Tato práce poskytuje krátký úvod do detekce poruch a predikce
 metodiky údržby a základní terminologie.
-Kapitola \ref{ch: teor_surv} popisuje hlavní cíl a problémy
+Kapitola \ref{ch:teor_surv} popisuje hlavní cíl a problémy
 v těchto oblastech, zaměřuje se na podobnosti a rozdíly mezi těmito 
 dvěma přístupy.
 
@@ -109,7 +109,7 @@ individuální přístup k předzpracování, extrahování features, hodnocení
 vlastnosti a vytváření klasifikačních modelů. Ale obecně lze doporučit
 minimální předběžné zpracování potřebné k uchování možných užitečných informací.
 
-Tabulka \ref{sensors_final} obsahuje srovnání senzorů ve dvou 
+Tabulka \ref{tab:sensors_final} obsahuje srovnání senzorů ve dvou 
 kategoriích, přesnost oveřená na testovacím datovém souboru a nákladéch.
 Graf \ref{fig:sensors_final_bar} vizualizuje tyto údaje.
 
@@ -193,7 +193,15 @@ indikátor stavu.
 Výsledkem je možnost odhadnuti zbývající životnosti
 na generovaném degradačním datovém souboru pomocí residual
 similarity,  pairwise similarity a linear degradation modelu.
-Předpovídané výsledky jsou uspokojivé.
+Předpovídané výsledky jsou uspokojivé (obr. \ref{fig:rul_deg_preforms}).
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{rul_final.png}
+    \caption{Linear degradation model performance}
+    \label{fig:rul_deg_preforms}
+\end{figure}
+
 
 \subsubsection*{Další vývoj}
 
@@ -210,5 +218,5 @@ Mohla by to být zajímavá případová studie k ověření možnosti odhadu RU
 pomocí mikrofonů. Pokud jsou signaly z dostupných senzorů nedostačujicí
 lze provádět měření tlaku v komoře. Tlak v
 komoře je přímo závislý na úniku vzduchu z komory, jako
-uvedené v rovnici \ref{}. Příklad změn tlaku způsobených únikem vzduchu ze
-simulačního modelu je znázorněn na obrázku \ref{}.
+uvedené v rovnici \ref{eq:p_B_rul}. Příklad změn tlaku způsobených únikem vzduchu ze
+simulačního modelu je znázorněn na obrázku \ref{fig:pressure_air_leak}.

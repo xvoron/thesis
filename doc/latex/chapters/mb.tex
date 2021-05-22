@@ -11,10 +11,8 @@
 
 \chapter{PdM using a Simulation Model}\label{ch:mb}
 This chapter deals with model-based methods and the possibilities of using
-a simulation model to design and develop a PdM algorithm.  Section
-\ref{sec:diffs_mb_dt} presents the difference between model-based PdM and
-PdM using the simulation model as a digital twin.  A demonstration of the
-possibility of generating sensor fault conditions is demonstrated in
+a simulation model to design and develop a PdM algorithm. A demonstration
+of the possibility of generating sensor fault conditions is presented in
 section \ref{sec:sensor_fault_generation}.  Using identified
 Hammerstein-Weiner model to extract condition indicators in the form of a
 dynamic system parameter shown in section \ref{sec:mb_hw_demo}.  In section
@@ -24,10 +22,6 @@ classification model.  The left sections \ref{sec:mb_rul} deal with the use
 of a simulation model to generate degradation data. And the use of a newly
 generated dataset to estimate the remaining useful life.
 
-
-\section{Differences between Model-Based PdM and PdM using Digital Twin}\label{sec:diffs_mb_dt}
-There is a difference between using Model-Based PdM and using Simulation
-Model as a Digital Twin.
 
 \section{Using Simulation Model to Generate Fault Data}\label{sec:sensor_fault_generation}
 In this section, the simulation model will play the role of a digital twin
@@ -61,12 +55,13 @@ model to develop robust PdM algorithms.
 \end{figure}
 
 
-The matrix of Scatter plots grouping by faults \ref{fig:mb_sensor_matrix} shows how condition
-indicators are distributed. The data are well separable, which means that
-these condition indicators are suitable for use in classification. The
-confusion matrix \ref{fig:mb_sensor_conf} provides 100 \% accuracy on test data. Which in this
-simplified situation is possible. In more complex cases, achieving 100 \% is
-practically impossible, but it is possible to get close.
+The matrix of Scatter plots grouping by faults \ref{fig:mb_sensor_matrix}
+shows how condition indicators are distributed. The data are well
+separable, which means that these condition indicators are suitable for use
+in classification. The confusion matrix \ref{fig:mb_sensor_conf} provides
+100 \% accuracy on test data. Which in this simplified situation is
+possible. In more complex cases, achieving 100 \% is practically
+impossible, but it is possible to get close.
 
 \begin{figure}
     \centering
@@ -93,7 +88,7 @@ practically impossible, but it is possible to get close.
 The model-Based approach is suitable when it's challenging to identify
 condition indicators using only signals. In some cases, it's useful to fit
 some models from data and extract condition indicators as some system
-parameter.
+parameter \cite{matlab_full}, \cite{fdi_cern2}.
 
 \paragraph{Static models}
 If the system behavior can be identified from the data as a static model,
@@ -111,7 +106,7 @@ coefficients from the identified model.
 Another possibility is to use the Kalman filter and other state observers
 to estimate all state variables from the measured signal. It is suitable if
 the system's condition is directly dependent on some state variable that is
-difficult to measure directly.
+difficult to measure directly \cite{matlab_full}, \cite{isermann_fdi}.
 
 \subsection{Using Hammerstein-Wiener Model}\label{sec:mb_hw_demo}
 In this demonstration, the Hammerstein-Wiener Model was used to identify
@@ -152,11 +147,12 @@ all possible faults. Residuals are very sensitive detectors of problems. In
 some cases where the system changes operation conditions but still operates
 in a healthy state and this change does not reflect the nominal simulation
 model, the decision algorithm may signalize a fault. This type of fault,
-also known as false positive, indicates problems that do not exist \cite{}.
+also known as false positive, indicates problems that do not exist
+\cite{fdi_site}.
 Generally, this approach requires a smaller amount of data for training the
 classification model. It is very suitable for system monitoring, where if
 the residual of two signals outreaches any given threshold, a fault state
-has occurred. 
+has occurred \cite{fdi_site}, \cite{matlab_full}, \cite{isermann_fdi}. 
 
 
 
@@ -219,12 +215,13 @@ Another option is to use a simulation model to simulate a system degradation
 process. We can evaluate CI from sensor signal by changing a system's
 mechanical properties as friction or mass flow leakage.  Another advantage
 is that we can design experiments on the model to evaluate what type of
-data we require from a real-world system to develop a robust algorithm.
+data we require from a real-world system to develop a robust algorithm
+\cite{matlab_full}.
 
 \subsection{Air Leak Modeling}
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.4\textwidth]{air_leak.pdf}
+    \includegraphics[width=0.5\textwidth]{air_leak.pdf}
     \caption{Schematic representation of the air leak process}
     \label{fig:air_leak_scheme}
 \end{figure}
@@ -237,7 +234,7 @@ leakage. This problem is schematically illustrated in Figure
 
 
 In this example, air leakage from the chamber was modeled the same as air
-expansion from the reservoir, described in section \ref{sec:}.  Due to the
+expansion from the reservoir, described in section \ref{sec:air_expansion}.  Due to the
 notation in Figure \ref{fig:air_leak_scheme}, the air leakage process
 describes equation \ref{eq:air_leak_flow}.
 
@@ -266,8 +263,9 @@ chamber without air leakage and with a very significant leakage value.
 \end{figure}
 
 This fault was modeled on a simulation model with different dynamics of
-coefficient C development in the range $C_{al} \in (10^{-10}, 10^{-6})$. The following sections describe how
-this data can be used to design RUL estimation.
+coefficient C development in the range $C_{al} \in (10^{-10}, 10^{-6})$.
+The following sections describe how this data can be used to design RUL
+estimation.
 
 
 \subsection{RUL}
@@ -303,9 +301,9 @@ similarity model, results of RUL estimation satisfying.  Pairwise
 similarity model finding degradation path that is the most correlated to
 test data. The residual similarity model fits an ARMA (Autoregressive
 Moving Average Model) model on the train data and then computes the
-residuals between predicted data from the ARMA model and the test data. The
-pairwise similarity model on the generated dataset shows similar results as
-the residual similarity model.
+residuals between predicted data from the ARMA model and the test data
+\cite{matlab_full}. The pairwise similarity model on the generated dataset
+shows similar results as the residual similarity model.
 
 
 
@@ -329,18 +327,19 @@ the residual similarity model.
 \end{figure}
 
 
-Due to figure \ref{fig:rul_ci}, we can determine a safe threshold that we do not want
-to exceed and then use the degradation model. In this case, a linear
-degradation model was used. This model creates a linear degradation profile
-to evaluate the RUL. The results of the linear degradation model are pretty
-good \ref{fig:rul_deg_performs}. Predicted RUL shows a deviation from the true RUL of about 10 \%, which
-is more than sufficient in this case.
+Due to figure \ref{fig:rul_ci}, we can determine a safe threshold that we
+do not want to exceed and then use the degradation model. In this case, a
+linear degradation model was used. This model creates a linear degradation
+profile to evaluate the RUL \cite{matlab_full}. The results of the linear
+degradation model are pretty good \ref{fig:rul_deg_performs}. Predicted RUL
+shows a deviation from the true RUL of about 10 \%, which is more than
+sufficient in this case.
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=1\textwidth]{rul_final.png}
     \caption{Linear degradation model performance}
-    \label{fig:rul_deg_preforms}
+    \label{fig:rul_deg_performs}
 \end{figure}
 
 
@@ -350,4 +349,5 @@ algorithm. The possibility of generating unavailable or difficult to
 collect data gives an advantage for implementing robust and efficient
 algorithms. Since the signal-based method has shown perfect results on the
 pneumatic pistol application, using model-based methods such as a residual
-estimation seems unnecessary.
+estimation seems unnecessary. All results are available in
+\textit{mb/mb\_.mlx, mb/rul.mlx}

@@ -14,13 +14,13 @@ inspection, today's factories move to automated systems consisting of
 sensors and computing units to evaluate the faults. Sometimes it is
 critical to monitor processing equipment in real-time to prevent damage
 caused by fault or anomaly. Every single fault can cause a slowing down of
-the production process and thus reducing the profit.
+the production process and thus reducing the profit \cite{state_of_art_pdm}.
 
 Device real-time monitoring algorithms have formed the Fault Detection and
 Analysis (FDA) field.  FDA methods, in most cases, do not require machine
 learning techniques and can detect failures, using fundamental algorithms
 from Fourier analysis and trend checking algorithms to more complex
-techniques such as Gaussian Mixture Models.
+techniques such as Gaussian Mixture Models \cite{isermann_fdi}.
 
 Due to the amount of data collected in recent years and the expansion of
 data storage technology as cloud services and computation efficiency, it
@@ -35,7 +35,7 @@ extracted from measured signals. It is possible to use current system
 conditions to estimate remaining useful life in time or distance
 measurements such as days, kilometers, or cycles. Estimated residual
 lifetime gives an option to plan maintenance concerning actual system
-conditions.
+conditions \cite{pdm_dyn_systems}.
 
 These remaining useful life estimation algorithms, the fault detection
 methods and system modeling and identification techniques form a new
@@ -54,16 +54,18 @@ two approaches.
 
 Developing the simulation model of the double-acting pneumatic actuator and
 comparing it with the real-life equipment using different approaches is
-described in chapter 3, 4, and 5. 
+described in chapter \ref{ch:overview}, \ref{ch:fpm}, \ref{ch:alt_model}
+and \ref{ch:compare}. 
 
-The following chapter 6 illustrates signal-based predictive maintenance
-methods using different sensors available in a demonstration device.
-Appling preprocessing, feature extraction, and classification model,
-sensors were evaluated in terms of functionality, accuracy, and price. 
+The following chapter \ref{ch:sb} illustrates signal-based predictive
+maintenance methods using different sensors available in a demonstration
+device.  Appling preprocessing, feature extraction, and classification
+model, sensors were evaluated in terms of functionality, accuracy, and
+price. 
 
 The model-based predictive maintenance techniques and simulation model
-exploitation are demonstrated in chapter 7. The simulation model is used to
-determine the residual signals between the measured data and the simulation
-model's output. Also, using a simulation model, degradation data are
-generated and used in the remaining useful life estimation.
+exploitation are demonstrated in chapter \ref{ch:mb}. The simulation model
+is used to determine the residual signals between the measured data and the
+simulation model's output. Also, using a simulation model, degradation data
+are generated and used in the remaining useful life estimation.
 

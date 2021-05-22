@@ -10,7 +10,7 @@
 % -------------------------------------------------------
 % Section
 % -------------------------------------------------------
-\chapter{First Principle Modeling}
+\chapter{First Principle Modeling}\label{ch:fpm}
 First-principle modeling is a common engineering modeling approach. Models
 developed using physical laws such as energy and mass balance, heat
 transfer, and so on. First-principle modeling requires knowledge of the
@@ -26,10 +26,6 @@ This chapter introduces the design of a double-acting pneumatic piston
 assembly model, including sensors using a first-principle modeling
 approach. 
 
-% TODO Isermann Fault Detection str 72
-%Measurements, Identification.
-
-% Nonlinear dynamic modeling  Isermann FDS str. 84
 
 % -------------------------------------------------------
 %  __ _  ___ _ __   ___ _ __ __ _| |
@@ -39,6 +35,38 @@ approach.
 % |___/                             
 % -------------------------------------------------------
 \section{General physical principles}
+%\begin{table}[h!]
+%\begin{tabular}{ |c|c|c| }
+%    \hline
+%    $p$                     &  $\rm Pa$             & pressure \\
+%    $V$                     &  $\rm m^3$            & volume \\
+%    $m$                     &  $\rm kg$             & mass \\
+%    $n$                     &  $\rm mol$            & amount of substance \\
+%    $R$                     &  $\rm Jkg^{-1}K^{-1}$ & ideal gas constant \\
+%    $r$                     &  $\rm Jkg^{-1}K^{-1}$ & mass-specific gas constant \\
+%    $T$                     &  $\rm K$              & temperature \\
+%    $S$                     &  $\rm m$              & area \\
+%    $z$                     &  $\rm m$              & height \\
+%    $w$                     &  $\rm ms^{-1}$        & flow speed \\
+%    $H$                     &  $\rm J$              & enthalpy \\
+%    $\nu$                   &  $\rm m^3kg^{-1}$     & specific volume \\
+%    $Q$                     &  $\rm J$              & heat shared with
+%                                \rm                     environment \\
+%    $W_T$                   &  $\rm J$              & work \\
+%    $c_p$                   &  $\rm Jkg^{-1}K^{-1}$ & is the specific heat
+%                                \rm                     at constant pressure \\
+%    $c_v$                   &  $\rm Jkg^{-1}K^{-1}$ & is the specific heat at constant volume\\
+%    $g=9.81$                &  $\rm ms^{-2}$        & gravity acceleration \\
+%    $\kappa=1.4\text{(air)}$&  $\rm -$              & heat capacity ratio
+%                                                    (isentropic expansion factor)\\
+%    \hline
+%\end{tabular}
+%    \caption{List of Symbols}
+%    \label{tab:}
+%\end{table}
+
+
+
 \paragraph{Assumptions}\label{assumptions}
 
 \begin{enumerate}
@@ -55,9 +83,10 @@ solenoid valve.
 
 
 \paragraph{Equation of state}
-Equation of state for an ideal gas \ref{eq:equation_of_state}, describe the relationships between
-temperature, mass, pressure and volume of the gas, where $R=287.1 \rm [Jkg^{-1}K^{-1}]$ is an ideal gas
-constant.
+Equation of state for an ideal gas \ref{eq:equation_of_state}, describe the
+relationships between temperature $T$, mass $m$, pressure $p$ and $V$
+volume  of the gas, where $R=287.1 \rm [Jkg^{-1}K^{-1}]$ is an ideal gas
+constant \cite{fluid}.
 
 \begin{align}
     pV = mRT
@@ -67,7 +96,7 @@ constant.
 \paragraph{Adiabatic process}
 All processes take place without heat exchange with the environment by
 given equation \ref{eq:adiabatic_process}, where $\kappa = c_p/c_v$ is a
-heat capacity ratio.
+heat capacity ratio \cite{fluid}.
 
 \begin{align}
      p_1V_1^{\kappa} =  p_2V_2^{\kappa} = const
@@ -75,7 +104,8 @@ heat capacity ratio.
 \end{align}
 
 Relation between heat capacities and an ideal gas constant is given
-by Mayer's equation as $c_p = c_v + R$.
+by Mayer's equation as $c_p = c_v + R$. Where $c_p, c_v$ are heat
+capacities at constant pressure, volume.
 
 
 
@@ -96,18 +126,40 @@ Transition to specific values:
     \label{eq:etalpi_sub}
 \end{align}
 
+where 
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        $z$    &$\rm m$              & height \\
+    $w$        &$\rm ms^{-1}$        & flow speed \\
+    $H$        &$\rm J$              & enthalpy \\
+    $\nu$      &$\rm m^3kg^{-1}$     & specific volume \\
+    $Q$        &$\rm J$              & heat shared with
+                                        environment \\
+    $W_T$      &$\rm J$              & work shared with environment \\
+        \hline
+    \end{tabular}
+    \caption{List of Symbols}
+    \label{tab:}
+\end{table}
+
+
 \paragraph{Continuity equation}
 Continuity equation \ref{eq:continuity_equation} describes a mass flow
-through a control volume.
+through a control volume. Where $S$ is cross-section and $\rho$ air
+density.
 
 \begin{align}
     \dot{m} = S_1 w_1 \rho_1 = S_2 w_2 \rho_2 = const
     \label{eq:continuity_equation}
 \end{align}
 
+
 \section{Air Expansion}\label{sec:air_expansion}
 Air expansion from the reservoir, one of the fundamental sets of equations
-used in pneumatic elements. 
+used in pneumatic elements \cite{isermann_mech}. 
 
 \begin{figure}[h!]
     \centering
@@ -161,7 +213,7 @@ Using continuity equation \ref{eq:continuity_equation} and
 \ref{eq:w2_final} describe mass flow as \ref{eq:dot_m}:
 
 \begin{align}
-    \dot{m} = A p_1 \sqrt{\frac{2}{RT_1}}
+    \dot{m} = S p_1 \sqrt{\frac{2}{RT_1}}
     \sqrt{\frac{\kappa}{\kappa-1} \frac{p_1}{\rho_1} 
     \left[(1-\left(\frac{p_2}{p_1}\right)^\frac{\kappa-1}{\kappa}\right]}
     \label{eq:dot_m}
@@ -189,7 +241,7 @@ The outflow function depends on the pressure ratio $p_2/p_1$. This function
 has a maximum value when the critical pressure is reached; the mass flow
 becomes chocked. Critical pressure is presented by \ref{eq:beta_k}. For the
 overcritical pressure ratio, the mass flow depends only on $p_1$ and $T_1$
-\cite{isermann}.
+\cite{isermann_mech}.
 
 \begin{align}
     &\left(\frac{p_2}{p_1}\right)_{crit} =
@@ -223,34 +275,9 @@ function \ref{eq:psi_final}.
 \end{align}
 
 A detailed derivation of the equation \ref{eq:psi_final} can be found in
-\cite{isermann},\cite{}.
+\cite{isermann_mech},\cite{fluid}.
 
 
-%\begin{tabular}{ |c|c|c| }
-%    \hline
-%    $p$                     & $Pa$              & pressure \\
-%    $V$                     & $m^3$             & volume \\
-%    $m$                     & $kg$              & mass \\
-%    $n$                     & $mol$             & amount of substance \\
-%    $R$                     & $Jkg^{-1}K^{-1}$  & ideal gas constant \\
-%    $r$                     & $Jkg^{-1}K^{-1}$  & mass-specific gas constant \\
-%    $T$                     & $K$               & temperature \\
-%    $S$                     & $m$               & area \\
-%    $z$                     & $m$               & height \\
-%    $w$                     & $ms^{-1}$         & flow speed \\
-%    $H$                     & $J$               & enthalpy \\
-%    $\nu$                   & $m^3kg^{-1}$      & specific volume \\
-%    $Q$                     & $J$               & heat shared with
-%                                                    environment \\
-%    $W_T$                   & $J$               & work \\
-%    $c_p$                   & $Jkg^{-1}K^{-1}$  & is the specific heat
-%                                                    at constant pressure \\
-%    $c_v$                   & $Jkg^{-1}K^{-1}$  & is the specific heat at constant volume\\
-%    $g=9.81$                & $ms^{-2}$         & gravity acceleration \\
-%    $\kappa=1.4\text{(air)}$& $-$               & heat capacity ratio
-%                                                    (isentropic expansion factor)\\
-%    \hline
-%\end{tabular}
 
 
 %\begin{tabular}{ |c|c|c| }
@@ -302,7 +329,7 @@ supply pressure, there is no longer any mass flow coming inside.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.6\textwidth]{pressure_chamber.pdf}
+    \includegraphics[width=0.5\textwidth]{pressure_chamber.pdf}
     \caption{Piston chamber}
     \label{fig:pist_chamb}
 \end{figure}
@@ -352,7 +379,7 @@ Volumes of the chambers can be represented concerning figure
 The pneumatic piston with chambers A, B is described by the system of
 differential equations \ref{eq:p_A}, \ref{eq:p_B}. These equations describe a pneumatic
 cylinder entirely. Furthermore, all the parameters can be directly measured
-or found in the datasheet \cite{}.
+or found in the datasheet \cite{piston_datasheet}.
 
 \begin{align}
     \dot{p_A} = \frac{\kappa}{S_A x + V_{0A}} \left(- p_A S_A\dot{x} +
@@ -370,12 +397,13 @@ or found in the datasheet \cite{}.
 \section{Control Valve Model}
 The pneumatic control valve manipulates air mass flow to connect piston
 chambers with supply and ambient pressure lines. There are different
-approaches to model pneumatic control valve describes \cite{}, \cite{}.
+approaches to model pneumatic control valve describes \cite{isermann_mech},
+\cite{valves_chambers}.
 Demonstration device includes 5/2 bistable solenoid valve
 \ref{fig:device_scheme}. The movable part, valve spool driven by a magnetic
 field, can be in the two positions, where one of the chambers connects to
 the supply pressure line, another to ambient. A digital input signal
-switches between these two positions \ref{}.  Equation \ref{eq:input_u},
+switches between up and down positions. Equation \ref{eq:input_u},
 describe the input signal $u \in \langle-1,1\rangle$, which regulates the
 spool movement to acquire one of
 the states. 
@@ -390,9 +418,10 @@ the states.
 \end{align} 
 
 Spool dynamic and pressure lines transport delay can be modeled as a 1dof
-system with the time constant $T$ and delay $\tau$ \ref{eq:spool_dynamic}. For
-more precise control and modeling of the valve system, valve dead zones can
-be considered \ref{eq:deadzone}.
+system with the time constant $T$ and delay $\tau$ (eq.
+\ref{eq:spool_dynamic}) \cite{isermann_mech}. For more precise control and
+modeling of the valve system, valve dead zones can be considered
+\ref{eq:deadzone}.
 
 \begin{equation}
     G(s) = \frac{1}{T s + 1}e^{-\tau s}
@@ -416,7 +445,9 @@ To parametrize the pneumatic valve discharge coefficient (coefficient of
 contraction) can be used. This parameter must be determined experimentally.
 The discharge coefficient \ref{eq:coefficient_of_contraction} is the ratio
 between the equivalent area of the opened flow path and the maximum area of
-this path. The equivalent area limits the maximum mass flow value. 
+this path. The equivalent area limits the maximum mass flow value
+\cite{valves_chambers}. But commonly, this parameter estimates from
+measurements and also known as valve coefficient \cite{fluid}.
 
 \begin{align}
     C_d = \frac{S_{eq}}{S_{max}}
@@ -433,7 +464,10 @@ valve equation is given \ref{eq:flow}.
     \label{eq:flow}
 \end{align}
 
-
+But commonly, all parameters approximate to one coefficient
+estimated from measurements and also known as valve coefficient
+$C = S_{max} C_d$
+\cite{fluid}.
 
 Using the notation introduced on the schemes \ref{fig:device_scheme},
 \ref{fig:pist_chamb} we compile a complete set of equations for the
@@ -460,9 +494,9 @@ T_0$ ambient temperature.
 \begin{align}
     \dot{m}_A =
     \begin{cases}
-        u S_v C_d p_s \sqrt{\frac{2}{RT_s}}
+        u(t) C_{A,in} p_s \sqrt{\frac{2}{RT_s}}
         \cdot \psi\left(\frac{p_A}{p_s}\right)  &,   u \in (0, 1 \rangle \\
-        u S_v C_d p_A \sqrt{\frac{2}{RT_A}}
+        u(t) C_{A,out} p_A \sqrt{\frac{2}{RT_A}}
         \cdot \psi\left(\frac{p_0}{p_A}\right)  &,   u \in \langle -1, 0) \\
     \end{cases}
     \label{eq:m_A_final}
@@ -471,9 +505,9 @@ T_0$ ambient temperature.
 \begin{align}
     \dot{m}_B =
     \begin{cases}
-        u S_v C_d p_s \sqrt{\frac{2}{RT_s}}
+        u(t) C_{B,in} p_s \sqrt{\frac{2}{RT_s}}
         \cdot \psi\left(\frac{p_B}{p_s}\right)  &,   u \in (0, 1 \rangle \\
-        u S_v C_d p_A \sqrt{\frac{2}{RT_B}}
+        u(t) C_{B,out} p_B \sqrt{\frac{2}{RT_B}}
         \cdot \psi\left(\frac{p_0}{p_B}\right)  &,   u \in \langle -1, 0) \\
     \end{cases}
     \label{eq:m_B_final}
@@ -486,7 +520,9 @@ T_0$ ambient temperature.
 %    $S_{eq}$                & $m^2$         & Equivalent cross section \\
 %    $S_{max}$               & $m^2$         & Maximum cross section \\
 %    $Cd$                    & $-$           & Coefficient of contraction \\
-%    $u$                     & $-$           & Regulation variable \\
+%    $C_{i,in/out}$          & $-$           & Valve coefficient \\
+%    $u$                     & $-$           & Input signal \\
+%    $u(t)$                  & $-$           & Input with spool dynamic \\
 %    \hline
 %\end{tabular}
 
@@ -509,7 +545,7 @@ general 1dof dynamical equation \ref{eq:1dof}.
 \end{equation}
 
 In the case of the pneumatic piston, equation \ref{eq:1dof}
-transforms into and equation \ref{eq:mechanical}.
+transforms into and equation \ref{eq:mechanical} \cite{isermann_mech}.
 
 \begin{equation}
     (M + M_L) \ddot{x} + F_{d} + F_g + F_{hs} + F_f  = F_p
@@ -537,7 +573,7 @@ friction\ref{eq:friction_force}.
 \end{equation}
 
 
-\subsection{Hard stop}
+\subsection{Hard Stop}
 The endpoint's material resistance can be represented as springs and
 dampers acting as one-way bound \ref{eq:hard_stop}
 The parameters $K$, $D$  have a significant impact on the numerical stability
@@ -547,12 +583,16 @@ performances.
 \begin{align}
     F_{hs} =
     \begin{cases}
-        K_p(x-g_p) + D_pv & \text{for } x \ge g_p \\
+        K_p(x-g_p) + D_p\dot{x} \cdot ge(\dot{x}, 0) & \text{for } x \ge g_p \\
         0 & \text{for } g_n < x < g_p \\
-        K_n(x-g_n) + D_nv & \text{for } x \le g_n \\
+        K_n(x-g_n) + D_n\dot{x} \cdot le(\dot{x}, 0) & \text{for } x \le g_n \\
     \end{cases}
     \label{eq:hard_stop}
 \end{align}
+
+where $ge(), le()$ greater or equal and less or equal functions.
+
+
 
 
 \subsection{Endpoint dampers}
@@ -579,7 +619,8 @@ $D$.
 Modeling sensors include converting the measured physical signals to an
 analog or digital signal, adding noise and offset parameters to have an
 option to model faults conditions, and after converting back to the
-sensor's measured units \ref{fig:sig_mod_diag}. 
+sensor's measured units (fig. \ref{fig:sig_mod_diag}). All sensors
+parameters are available in attachment \textit{models/sensors.pdf }
 
 \paragraph{Flow sensors}
 Flow sensors are a typical representative of a comfortable sensor to
@@ -661,8 +702,8 @@ particular pneumatic piston. The values of the damping and spring were
 estimated to perform their functions and at the same time maintain
 numerical stability.
 
-Adjustment dampers were estimated from displacement measurement as $b_b$,
-$b_u$ parameters. The bounding range was directly measured from the
+Adjustment dampers were estimated from displacement measurement as $b_{bot}$,
+$b_{up}$ parameters. The bounding range was directly measured from the
 displacement measurements.
 
 \begin{table}[h]
@@ -672,9 +713,9 @@ displacement measurements.
         \textbf{parameter} & \textbf{description}  \\
         \hline
         $C_{A,in}$      & valve coefficient connected to input path to  A chamber \\
-        $C_{A,output}$  & valve coefficient connected to output path from A chamber \\
+        $C_{A,out}$  & valve coefficient connected to output path from A chamber \\
         $C_{B,in}$      & valve coefficient connected to input path to  B chamber \\
-        $C_{B,output}$  & valve coefficient connected to output path from B chamber \\
+        $C_{B,out}$  & valve coefficient connected to output path from B chamber \\
         $b_{up}$        & upper damper value  \\
         $b_{bot}$       & bottom damper value \\
         \hline
@@ -683,6 +724,7 @@ displacement measurements.
     \label{tab:est_params}
 \end{table}
 
+\newpage
 \section{Model performance}
 
 \begin{figure}[h!]
@@ -700,6 +742,12 @@ simulations and the process of parameter estimation. Figure
 \ref{fig:fpm_simulink} shows
 the central part of the model in the Simulink environment.
 
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=1\textwidth]{fpm_perfomance.png}
+    \caption{Comparison between measurement and model response}
+    \label{fig:fpm_perfomance}
+\end{figure}
 
 The resulting behavior of the system after parameter estimation on health
 conditions data is shown in Figure \ref{fig:fpm_perfomance}. However, it is
@@ -708,21 +756,17 @@ realize the behavior of the system closer to the fault state.
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=1\textwidth]{fpm_perfomance.png}
-    \caption{Comparison between measurement and model response}
-    \label{fig:fpm_perfomance}
+    \includegraphics[width=1\textwidth]{fpm_fault_example.png}
+    \caption{Simulation model performance in different fault conditions}
+    \label{fig:fpm_fault_example}
 \end{figure}
 
-
+\newpage
 Figure \ref{fig:fpm_fault_example} shows the simulation system
 response with different estimated parameters for the fault states caused by
 the Throttle valve 2. In the case of position, the measured and simulation
 signals practically overlap.
 
-\begin{figure}[!ht]
-    \centering
-    \includegraphics[width=1\textwidth]{fpm_fault_example.png}
-    \caption{Simulation model performance in different fault conditions}
-    \label{fig:fpm_fault_example}
-\end{figure}
+
+
 

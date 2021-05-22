@@ -1,4 +1,4 @@
-\chapter{Demonstration Device Overview}
+\chapter{Demonstration Device Overview}\label{ch:overview}
 
 \section{Double-Acting Pneumatic Actuator}
 \begin{figure}[h!]
@@ -45,7 +45,8 @@ installed to prevent possible destruction impact and simulate different
 material penetration resistance.
 
 The demonstration device can be used in stamping, drilling, moving
-applications.
+applications. All system parameters concerning datasheets and measurements
+are described in attachment \textit{models/params.m}.
 
 \section{Sensors}
 
@@ -86,16 +87,16 @@ measurements in different operating conditions. Each measurement includes a
 in the format of massive files with the ".mat" extension, which was divided
 into files contains only one measurement.  The divided dataset is easier to
 maintain, and Matlab recommends this type of datastores called Data
-Ensemble \ref{}.
+Ensemble \cite{data_ensemble}.
 
 The measured examples are shown in figures
 \ref{fig:over_examp_1}, \ref{fig:over_examp_3}, \ref{fig:over_examp_3},
-and \ref{fig:over_examp_8} .
+and \ref{fig:over_examp_4} .
 
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=1\textwidth]{overview_data_example_4.png}
-    \caption{Caption}
+    \caption{Example of measured signal}
     \label{fig:over_examp_1}
 \end{figure}
 
@@ -104,24 +105,23 @@ and \ref{fig:over_examp_8} .
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=1\textwidth]{overview_data_example_1.png}
-    \caption{Caption}
+    \caption{Example of measured signal}
     \label{fig:over_examp_2}
 \end{figure}
 
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=1\textwidth]{overview_data_example_2.png}
-    \caption{Caption}
+    \caption{Example of measured signal}
     \label{fig:over_examp_3}
 \end{figure}
 
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=1\textwidth]{overview_data_example_3.png}
-    \caption{Caption}
+    \caption{Example of measured signal}
     \label{fig:over_examp_4}
 \end{figure}
-
 
 \section{Fault Conditions}
 
@@ -156,7 +156,7 @@ optimally set. However, occasionally there is an undesirable change of the
 parameter, which can then cause a fault or inefficient functionality. These
 situations need to be corrected and the possible cause pointed out.
 
-
+\newpage
 The measured dataset observes almost 250 different condition situations
 where setting parameters were changed to simulate the fault behavior of the
 system. Each case has a unique fault code for orientation in the dataset.
